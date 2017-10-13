@@ -1,0 +1,4 @@
+node_modules
+
+# Emacs save files
+*~
