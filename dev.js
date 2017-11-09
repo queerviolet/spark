@@ -1,21 +1,28 @@
-// Run firebase serve, then run a webpack-dev-server that proxies to it.
+/**
+ * Run `firebase serve` and `webpack-dev-server` together, to get
+ * firebase routes and function emulation alongside webpack-dev-server's
+ * hot loading.
+ */
+
 const {spawn} = require('child_process')
     , thru = require('through2')
 
 let resolveFirebaseUrl, hasStartedListening = false
 const firebaseUrl = new Promise(r => resolveFirebaseUrl = r)
 
+// `firebase serve` prints a line that looks like this
+// when it starts listening:
 const serverListening = /^Server listening at: (.*)/
 
 // Run `firebase serve`
-const firebaseServe = spawn('firebase', ['serve'])
+const firebaseServe = spawn('npx', ['firebase', 'serve'])
 
 // Scan through its output...
 firebaseServe.stdout
   // We're looking for the line where firebase serve tells us
   // what URL it's accessible at (usually localhost:5000, but it
   // may have to pick another port). 
-  .pipe(thru(function(line, enc, cb) {   
+  .pipe(thru(function (line, enc, cb) {
     // To avoid confusion, we don't pass through stdout until 
     // after the "listening" line has passed.
     cb(null, hasStartedListening ? line : null)
