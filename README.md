@@ -1,1 +1,1 @@
-Let's start from scratch.
+Can't start a fire without a spark.
