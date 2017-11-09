@@ -15,16 +15,16 @@ firebaseServe.stdout
   // We're looking for the line where firebase serve tells us
   // what URL it's accessible at (usually localhost:5000, but it
   // may have to pick another port). 
-  .pipe(thru(function(chunk, enc, cb) {   
+  .pipe(thru(function(line, enc, cb) {   
     // To avoid confusion, we don't pass through stdout until 
     // after the "listening" line has passed.
-    cb(null, hasStartedListening ? chunk : null)
+    cb(null, hasStartedListening ? line : null)
 
     // Is this the `Server listening` line?
-    const match = chunk.toString().match(serverListening)
+    const match = line.toString().match(serverListening)
 
     // If so, resolve the firebase url promise with the url,
-    // and start passing through chunks.
+    // and start passing through lines.
     if (match) {
       resolveFirebaseUrl(match[1].trim())
       hasStartedListening = true
