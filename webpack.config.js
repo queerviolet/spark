@@ -51,7 +51,6 @@ const plugins = env => isHot(env) ? [
 function devServer(env) {
   if (isProd(env)) return
   const {FIREBASE_SERVE_URL} = env  
-  console.log('FIREBASE_SERVE_URL', FIREBASE_SERVE_URL)
   return {
     hot: true,
     proxy: FIREBASE_SERVE_URL && {
