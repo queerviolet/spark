@@ -9,6 +9,11 @@ const config = env => ({
   devtool: 'source-map',
   resolve: {
     extensions: [ '.jsx', '.js', '.json' ],
+    alias: {
+      // This lets us use '~' to mean 'the root of the app' in import
+      // statements.
+      '~': __dirname
+    }
   },
   devServer: devServer(env),
   module: {
