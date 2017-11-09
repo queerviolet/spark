@@ -2,3 +2,7 @@ node_modules
 
 # Emacs save files
 *~
+
+# The bundle
+public/bundle.js
+public/bundle.js.map
