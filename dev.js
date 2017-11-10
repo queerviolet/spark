@@ -4,15 +4,17 @@
  * hot loading.
  */
 
-const {spawn} = require('child_process')
+const debug = require('debug')('dev')
+    , {spawn} = require('child_process')
     , thru = require('through2')
+
 
 let resolveFirebaseUrl, hasStartedListening = false
 const firebaseUrl = new Promise(r => resolveFirebaseUrl = r)
 
 // `firebase serve` prints a line that looks like this
 // when it starts listening:
-const serverListening = /^Server listening at: (.*)/
+const localServerRe = /(?:Local server|Server listening): (.*)/
 
 // Run `firebase serve`
 const firebaseServe = spawn('npx', ['firebase', 'serve'])
@@ -25,10 +27,10 @@ firebaseServe.stdout
   .pipe(thru(function (line, enc, cb) {
     // To avoid confusion, we don't pass through stdout until 
     // after the "listening" line has passed.
-    cb(null, hasStartedListening ? line : null)
+    cb(null, hasStartedListening ? line : debug('%s', line))
 
-    // Is this the `Server listening` line?
-    const match = line.toString().match(serverListening)
+    // Is this the line telling us where the local server is?
+    const match = line.toString().match(localServerRe)
 
     // If so, resolve the firebase url promise with the url,
     // and start passing through lines.
