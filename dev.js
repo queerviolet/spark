@@ -17,7 +17,7 @@ const firebaseUrl = new Promise(r => resolveFirebaseUrl = r)
 const localServerRe = /(?:Local server|Server listening): (.*)/
 
 // Run `firebase serve`
-const firebaseServe = spawn('npx', ['firebase', 'serve'])
+const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'functions,hosting'])
 
 // Scan through its output...
 firebaseServe.stdout
