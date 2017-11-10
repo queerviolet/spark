@@ -4,6 +4,7 @@ functions/node_modules
 # Emacs save files
 *~
 
-# The bundle
+# Compilation artifacts
 public/bundle.js
 public/bundle.js.map
+functions/lib.js
