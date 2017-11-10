@@ -16,6 +16,9 @@ const firebaseUrl = new Promise(r => resolveFirebaseUrl = r)
 // when it starts listening:
 const localServerRe = /(?:Local server|Server listening): (.*)/
 
+// Build functions
+spawn('npm', ['run', 'watch-lib'], {stdio: 'inherit'})
+
 // Run `firebase serve`
 const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'functions,hosting'])
 
