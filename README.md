@@ -34,3 +34,8 @@ available to your Cloud Functions.
 
 It is a bridge between Cloud Function code and the rest of your
 project's code.
+
+# Hot loading
+
+Hot loading is enabled, and the react-hot-loader plugins are applied. Your React
+components will update in place after you save them, without losing their state.
