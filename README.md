@@ -37,5 +37,7 @@ project's code.
 
 # Hot loading
 
-Hot loading is enabled, and the react-hot-loader plugins are applied. Your React
-components will update in place after you save them, without losing their state.
+Hot module replacement is enabled, and the react-hot-loader plugins are applied.
+
+Your React components will update in place after you save them, without losing
+their state.
