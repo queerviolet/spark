@@ -26,7 +26,7 @@ You can require node modules from Cloud Functions normally. Be sure to `npm inst
 Sadly, you can't use `import` statements, and you can't `require` code that does.
 Don't despair, the library provides a workaround.
 
-# The library
+## The Library
 
 The library is defined in [`lib/index.js`](lib/index.js). In the library, you
 can `import` code from your project normally, and anything you `export` will be
