@@ -33,7 +33,7 @@ export default class Chat extends React.Component {
     handleSubmit(evt) {
         evt.preventDefault();
          db.collection(this.props.room.id).add({
-             time: Date.now(), // how do we add a valid time?
+             time: new Date(), // how do we add a valid time?
              text: this.state.newMessage,
              from: 'Unidentified User' // how do we get a user?
          });
