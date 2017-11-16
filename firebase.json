@@ -8,12 +8,19 @@
     ],
     "rewrites": [
       {
-        "source": "/api", "function": "helloWorld"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }
