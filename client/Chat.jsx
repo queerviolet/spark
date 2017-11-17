@@ -44,17 +44,14 @@ export default class Chat extends React.Component {
         evt.preventDefault();
         //db.collection('test-chat')
          db.collection(this.props.room.id).add({
-             time: new Date(), // how do we add a valid time?
+             time: new Date(),
              text: this.state.newMessage,
-             from: this.props.user.displayName // how do we get a user?
+             from: this.props.user.displayName
          });
         this.setState({newMessage: ''});
     }
 
-    render() { // HOW DO WE RENDER THESE BY TIMESTAMP OR GET THEM FROM THE FIRESTORE BY TIMESTAMP
-        console.log("this.props.ROOM:", this.props.room);
-        console.log('this.props.user: ', this.props.user)
-
+    render() {
         return (
             this.state.showChat
                 ? (
@@ -67,7 +64,7 @@ export default class Chat extends React.Component {
                         <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
                         <input type="submit" />
                         <button className='bot' onClick={this.handleBot} >Bot</button>
-                        <button className='toggleChat fa fa-commenting-o' onClick={this.handleClick} >Chat</button>
+                        <button className='toggleChat fa fa-commenting-o' onClick={this.handleClick} />
                     </form>
                     )
                 : (
@@ -76,5 +73,3 @@ export default class Chat extends React.Component {
         );
     }
 }
-
-
