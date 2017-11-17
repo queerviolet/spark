@@ -2,6 +2,9 @@ import React from 'react';
 import Message from './Message';
 import {db} from '../fire'
 
+//export default () => <Chat room={db.collection('test-chat')}/>
+//props: room
+
 export default class Chat extends React.Component {
     constructor(){
         super();
@@ -16,7 +19,7 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.room.onSnapshot((snapshot) => {
+        this.props.room.orderBy('time').onSnapshot((snapshot) => {
             this.setState({messages: snapshot.docs});
         });
     }
@@ -32,8 +35,9 @@ export default class Chat extends React.Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
+        //db.collection('test-chat')
          db.collection(this.props.room.id).add({
-             time: Date.now(), // how do we add a valid time?
+             time: new Date(), // how do we add a valid time?
              text: this.state.newMessage,
              from: 'Unidentified User' // how do we get a user?
          });
@@ -41,11 +45,13 @@ export default class Chat extends React.Component {
     }
 
     render() { // HOW DO WE RENDER THESE BY TIMESTAMP OR GET THEM FROM THE FIRESTORE BY TIMESTAMP
-        console.log(this.props.room.id);
+        console.log("this.props.ROOM:", this.props.room);
+       
         return (
             this.state.showChat
-                ? (<form className="chatForm" onSubmit={this.handleSubmit}>
-                        <div className="chatMessage">
+                ? (
+                    <form className="chatForm" onSubmit={this.handleSubmit}>
+                        <div className="chatMessage" scrolltop="scrollHeight">
                             <div>{this.state.messages.map((message, index) => {
                                 return <Message key={index} data={message.data()} {...message.data()} />;
                             })}</div>
@@ -53,10 +59,11 @@ export default class Chat extends React.Component {
                         <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
                         <input type="submit" />
                         <button className='toggleChat fa fa-commenting-o' onClick={this.handleClick} >Chat</button>
-                    </form>)
+                    </form>
+                    )
                 : (
                     <button className="toggleChat fa fa-commenting-o" onClick={this.handleClick} />
-            )
+                    )
         );
     }
 }
