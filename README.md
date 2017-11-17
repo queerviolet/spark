@@ -6,7 +6,6 @@ Can't start a fire without a spark.
 git clone git@github.com:queerviolet/spark.git
 cd spark
 npm install
-npx firebase init
 npm start
 ```
 
@@ -14,6 +13,26 @@ npm start
 
 The frontend starts in [`main.js`](./main.js). The root of the react app
 is in [`App.jsx`](./App.jsx).
+
+# a word about ~
+
+The webpack config aliases `~` to mean "the root of the app". For example,
+you can `import firebase from '~/fire'` anywhere in your app, without
+worrying about how many `..`s to have in your relative path.
+
+# Firebase
+
+Firebase is setup in [`fire/index.js`](./fire/index.js). Your config will
+get written to [`fire/setup.js`](./fire/setup.js) after you run `npm install`.
+
+You can import the various Firebase APIs from `~/fire`. For instance:
+
+```js
+  import firebase, {auth} from '~/fire'
+
+  const google = firebase.auth.GoogleAuthProvider
+  auth.signInWithPopup(google)
+```
 
 # Functions
 
