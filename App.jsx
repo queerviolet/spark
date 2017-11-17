@@ -1,13 +1,8 @@
-import firebase from '~/fire'
+import firebase, {db} from '~/fire'
 import Trip from './client/Trip'
 import {Switch, Route} from 'react-router'
 import {BrowserRouter as Router} from 'react-router-dom'
 import React, { Component } from 'react'
-
-// import createBrowserHistory from 'history/createBrowserHistory'
-// const history = createBrowserHistory()
-
-const db = firebase.firestore()
 
 export default class App extends Component{
   constructor(props){
@@ -32,6 +27,3 @@ export default class App extends Component{
     );
   }
 }
-
-
-//export default () => <Chat room={db.collection('test-chat')}/>

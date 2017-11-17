@@ -1,7 +1,7 @@
 .chatMessage {
     overflow-Y: scroll;
     overflow-Wrap: break-word;
-    height: 75vh
+    height: 75vh;
 }
 
 .chatForm {
@@ -23,3 +23,6 @@
     left: 95vw;
 }
 
+input[type=text] {
+    width: 60%
+}
