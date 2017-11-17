@@ -1,5 +1,3 @@
-Can't start a fire without a spark.
-
 # Get started:
 
 ```
