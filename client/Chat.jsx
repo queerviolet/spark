@@ -33,7 +33,7 @@ export default class Chat extends React.Component {
     handleBot(evt){
         evt.preventDefault();
         botReceiveMessage(this.state.newMessage);
-        this.setState({newMessage: ''});
+        this.handleSubmit(evt);
     }
 
     handleChange(evt) {
