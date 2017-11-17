@@ -49,7 +49,7 @@ export default class App extends Component{
         {isLoggedIn ?
           (<Switch>
             <Route exact path="/" render={() => <Dashboard logout={this.logout} />} /> {/* their acct dashboard */}
-            <Route path="/:tripId" component={Trip} /> {/* an individual trip  */}
+            <Route path="/:tripId" render={() => <Trip user={this.state.user} />} /> {/* an individual trip  */}
           </Switch>)
         : (<Switch>
             <Route exact path="/" render={() => <HomePage login={this.login} />} /> {/* HomePage incl. login */}

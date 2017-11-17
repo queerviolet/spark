@@ -46,13 +46,14 @@ export default class Chat extends React.Component {
          db.collection(this.props.room.id).add({
              time: new Date(), // how do we add a valid time?
              text: this.state.newMessage,
-             from: 'Unidentified User' // how do we get a user?
+             from: this.props.user.displayName // how do we get a user?
          });
         this.setState({newMessage: ''});
     }
 
     render() { // HOW DO WE RENDER THESE BY TIMESTAMP OR GET THEM FROM THE FIRESTORE BY TIMESTAMP
         console.log("this.props.ROOM:", this.props.room);
+        console.log('this.props.user: ', this.props.user)
 
         return (
             this.state.showChat
