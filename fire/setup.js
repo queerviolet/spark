@@ -1,0 +1,1 @@
+throw new Error('fire/setup.js does not contain a config. You need to run `npm prepare`')

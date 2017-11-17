@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "cd functions && npm install",
+    "prepare": "firebase use --add && echo 'export default firebase =>' > fire/setup.js && npx firebase setup:web >> fire/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dev",
     "build": "webpack -p",
