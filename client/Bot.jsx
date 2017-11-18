@@ -38,3 +38,27 @@ export function botReceiveMessage(msg, room){
 // function sendMessage(message){
 
 // }
+
+
+
+/*PLACE SEARCH
+allows you tu query for place info on categories like PROMINENT POINTS OF INTEREST, geo loc and more.
+can search by prox or TEXT STRING
+RETURNS LIST OF PLACES ALONG WITH SUMMARY INFO ABOUT EACH
+
+PLACE DETAILS
+for a specific place based on place_id or refernece, more details about a particular establishment
+
+PLACE SEARCH
+required parameters - key (API key), location (lat, long around hwichh to retrive info), radius (distance in meters),
+
+optional - keyword (term to be matched.. like restaurant or hotel?) (or keyword name? )
+rankby (prominence sorts based on their importance), type (look at supported types page)
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
