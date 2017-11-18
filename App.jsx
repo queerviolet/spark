@@ -1,4 +1,5 @@
 import Trip from './client/Trip'
+
 import {Switch, Route} from 'react-router'
 import {BrowserRouter as Router} from 'react-router-dom'
 import React, { Component } from 'react'
@@ -49,8 +50,13 @@ export default class App extends Component{
         {isLoggedIn ?
           (<Switch>
             <Route exact path="/" render={() => <Dashboard logout={this.logout} />} /> {/* their acct dashboard */}
+<<<<<<< HEAD
             <Route path="/:tripId" render={() => <Trip user={this.state.user} />} /> {/* an individual trip  */}
           </Switch>)
+=======
+            <Route path="/:tripId" component={Trip} /> {/* an individual trip  */}
+            </Switch>)
+>>>>>>> master
         : (<Switch>
             <Route exact path="/" render={() => <HomePage login={this.login} />} /> {/* HomePage incl. login */}
           </Switch>)
