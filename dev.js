@@ -20,7 +20,7 @@ const localServerRe = /(?:Local server|Server listening): (.*)/
 spawn('npm', ['run', 'watch-lib'], {stdio: 'inherit'})
 
 // Run `firebase serve`
-const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'functions,hosting'])
+const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'hosting'])
 
 // Scan through its output...
 firebaseServe.stdout
