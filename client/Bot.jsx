@@ -27,7 +27,7 @@ export function botReceiveMessage(msg, room){
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
 
-  db.collection(room).add({
+  room.add({
     time: new Date(),
     text: rsp,
     from: 'Your buddy Bot'

@@ -33,7 +33,7 @@ export default class Chat extends React.Component {
     handleBot(evt){
         evt.preventDefault();
         this.handleSubmit(evt);
-        botReceiveMessage(this.state.newMessage, this.props.room.id);
+        botReceiveMessage(this.state.newMessage, this.props.room);
     }
 
     handleChange(evt) {
@@ -42,14 +42,12 @@ export default class Chat extends React.Component {
 
     handleSubmit(evt) {
         evt.preventDefault();
-        //db.collection('test-chat')
         this.setState({ newMessage: '' });
-        db.collection(this.props.room.id).add({
+        this.props.room.add({
              time: new Date(),
              text: this.state.newMessage,
              from: this.props.user.displayName
          });
-
     }
 
     render() {
