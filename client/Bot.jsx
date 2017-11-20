@@ -1,5 +1,5 @@
 import { db } from '../fire'
-import {getCoords} from './GetGeo'
+import {getCoords, getActivityTypes} from './GetGeo'
 
 export function botReceiveMessage(msg, room){
   console.log('bot received: ', msg);
@@ -8,12 +8,17 @@ export function botReceiveMessage(msg, room){
 
   if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
-    rsp = 'Bot will set location to: ' + city;
+    //rsp = 'Bot will set location to: ' + city;
     getCoords(city);
+    rsp = 'Here are the top places in '+ city + ":";
+    // getCoords(city);
+
   }
 
   else if (cmd.startsWith('search for ')){
-    rsp = 'Bot will search for: ' + msg.substring(11);
+    var type = msg.substring(11)
+    rsp = 'Bot will search for: ' + type;
+    //getActivityTypes(type);
   }
 
   else if (cmd.startsWith('pin ')){
