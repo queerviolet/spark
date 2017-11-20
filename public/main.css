@@ -16,6 +16,19 @@
     border: 2px solid red;
 }
 
+.flex-row-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100vw;
+}
+
+
+.flex-row-wrap > * {
+    flex-basis: 400px;
+}
+
 .toggleChat {
     z-index: 2;
     position: fixed;
@@ -25,4 +38,16 @@
 
 input[type=text] {
     width: 60%
+}
+
+.event {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 5px 8px;
+    width: 375px;
+}
+
+.itinerary-box {
+    border: 3px solid goldenrod;
+    border-radius: 5px;
 }

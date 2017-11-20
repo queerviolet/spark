@@ -24,10 +24,11 @@ export default class Pinned extends React.Component {
         console.log('rendering inside of pinned', this.state.events);
         return (
             <div>
-            <h3>HI FROM PINNED</h3>
-            <div>{this.state.events.map((event, index) => {
-                return <Event key={index} data={event.data()} {...event.data() } />;
-            })}</div>
+                <h3>HI FROM PINNED</h3>
+                <div>{this.state.events.map((event, index) => {
+                    const pinned = !event.data().itineraryStatus;
+                    return pinned && <Event key={index} {...event.data() } />;
+                })}</div>
             </div>
         )
     }
