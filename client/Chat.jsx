@@ -43,12 +43,13 @@ export default class Chat extends React.Component {
     handleSubmit(evt) {
         evt.preventDefault();
         //db.collection('test-chat')
-         db.collection(this.props.room.id).add({
+        this.setState({ newMessage: '' });
+        db.collection(this.props.room.id).add({
              time: new Date(),
              text: this.state.newMessage,
              from: this.props.user.displayName
          });
-        this.setState({newMessage: ''});
+
     }
 
     render() {
