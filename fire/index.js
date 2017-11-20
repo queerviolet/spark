@@ -19,6 +19,8 @@ import 'firebase/firestore'
 
 firebase.initializeApp(config)
 
+// const map = new firebase.google.maps.Map();
+
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
 
