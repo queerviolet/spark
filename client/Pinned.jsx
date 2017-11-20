@@ -21,9 +21,7 @@ export default class Pinned extends React.Component {
 
 
     render() {
-        console.log("THIS.PROPS: ",this.props.room)
-        console.log("FROM DB: ", db.collection('test-event'))
-
+        console.log('rendering inside of pinned', this.state.events);
         return (
             <div>
             <h3>HI FROM PINNED</h3>
