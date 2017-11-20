@@ -9,8 +9,7 @@ export default class Trip extends Component {
             return (
             <div>
                 <Chat room={db.collection('trips').doc(this.props.match.params.tripId).collection('chat')} user={this.props.user}/>
-                <Pinned room={db.collection('test-event')} />
-                <p>{this.props.match.params.tripId}</p>
+                <Pinned room={db.collection('trips').doc(this.props.match.params.tripId).collection('event')} user={this.props.user}/>
             </div>
             )
         }
