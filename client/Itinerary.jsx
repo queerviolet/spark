@@ -16,35 +16,33 @@ export default class Itinerary extends React.Component {
   componentDidMount() {
     console.log('STATE DATES ======>', this.state.dates);
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
-      var query = snapshot.where('time', '==', 'Thu Nov 23 2017')
-      snapshot.docs.forEach(event => {
-        const stateDates = this.state.dates;
-        const date = event.data().time.toDateString() //date of the event
-        if (dateOnState){ //if that date exists in the state dates object
-          // updates the dates object that will need to update state
-          let newDates = Object.assign({}, this.state.dates, {[date]: [...dateOnState, event]})
-          this.setState({dates: newDates});
-        }
-      })
+      this.setState({events: snapshot.docs})
     });
   }
 
 
   render() {
     console.log('inside of itin render with state: ', this.state);
-    console.log('keys of state dates', Object.keys(this.state.dates))
     return (
       <div className="itinerary-box">
         <h3>HI FROM ITINERARY</h3>
-          <div>{this.state.events.map((event, index) => {
-            const {itineraryStatus, time} = event.data();
-            const date = time.toDateString && time.toDateString();
-            return itineraryStatus && (
-              <div key={index}>
-                <Event {...event.data() } />
+        <div>{
+          this.state.dates.map((date, index) =>(
+            <div key={index}>
+              <p>{date}</p>
+              <div>
+                {this.state.events.map((event, idx) => {
+                  const { itineraryStatus, time } = event.data();
+                  const eventDate = time.toDateString && time.toDateString();
+                  return itineraryStatus && (eventDate === date ) && (
+                    <div key={idx}>
+                      <Event {...event.data() } />
+                    </div>
+              )})}
               </div>
-            );
-          })}</div>
+            </div>
+          ))
+        }</div>
       </div>
     )
   }
@@ -61,3 +59,17 @@ function tripDates(startDate, days) {
   }
   return final;
 }
+
+
+/*
+
+<div>{this.state.events.map((event, index) => {
+            const {itineraryStatus, time} = event.data();
+            const date = time.toDateString && time.toDateString();
+            return itineraryStatus && (
+              <div key={index}>
+                <Event {...event.data() } />
+              </div>
+            );
+          })}</div>
+*/
