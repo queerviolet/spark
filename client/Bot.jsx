@@ -1,7 +1,5 @@
 import { db } from '../fire'
 import {getCoords} from './GetGeo'
-//import {geocoder} from 'geocoder';
-//var NodeGeocoder = require('node-geocoder');
 
 export function botReceiveMessage(msg, room){
   console.log('bot received: ', msg);
@@ -9,7 +7,9 @@ export function botReceiveMessage(msg, room){
   let rsp;
 
   if (cmd.startsWith('set location to ')){
-    rsp = 'Bot will set location to: ' + msg.substring(16);
+    var city = msg.substring(16)
+    rsp = 'Bot will set location to: ' + city;
+    getCoords(city);
   }
 
   else if (cmd.startsWith('search for ')){
@@ -36,17 +36,9 @@ export function botReceiveMessage(msg, room){
     from: 'Your buddy Bot'
   });
 
-  getCoords('New York, NY');
-
+  // getCoords('New York, NY');
 
 }
-
-// Geocoding 
-// geocoder.geocode("Atlanta, GA", function (err, data) {
-//   // do something with data 
-//   console.log("DATA: ",data);
-//   console.log("err: ",err);
-// });
 
 
 // function sendMessage(message){
