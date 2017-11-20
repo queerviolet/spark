@@ -14,10 +14,12 @@ export default class Itinerary extends React.Component {
   //this.handleSubmit = this.handleSubmit.bind(this);
 
   componentDidMount() {
+    console.log('STATE DATES ======>', this.state.dates);
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
+      var query = snapshot.where('time', '==', 'Thu Nov 23 2017')
       snapshot.docs.forEach(event => {
+        const stateDates = this.state.dates;
         const date = event.data().time.toDateString() //date of the event
-        const dateOnState = this.state.dates[date] //previous events for that date
         if (dateOnState){ //if that date exists in the state dates object
           // updates the dates object that will need to update state
           let newDates = Object.assign({}, this.state.dates, {[date]: [...dateOnState, event]})
@@ -49,12 +51,12 @@ export default class Itinerary extends React.Component {
 }
 
 function tripDates(startDate, days) {
-  var final = {};
+  var final = [];
   while (days !== 0) {
     var result = new Date(startDate);
     var counter = 0;
     result.setDate(result.getDate() + days);
-    final[result.toDateString()] = [];
+    final.unshift(result.toDateString());
     days--;
   }
   return final;
