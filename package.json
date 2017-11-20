@@ -36,11 +36,16 @@
     "chokidar": "^1.7.0",
     "firebase": "^4.6.0",
     "firebaseui": "^2.4.1",
+    "geocoder": "^0.2.3",
     "minimist": "^1.2.0",
+    "npm-install-missing": "^0.1.4",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "webpack-css-loaders": "^1.0.0"
+    "request": "^2.83.0",
+    "underscore": "^1.8.3",
+    "webpack-css-loaders": "^1.0.0",
+    "xml2js": "^0.4.19"
   }
 }

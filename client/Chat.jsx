@@ -34,6 +34,7 @@ export default class Chat extends React.Component {
         evt.preventDefault();
         this.handleSubmit(evt);
         botReceiveMessage(this.state.newMessage, this.props.room.id);
+        
     }
 
     handleChange(evt) {

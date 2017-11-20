@@ -1,4 +1,7 @@
 import { db } from '../fire'
+import {getCoords} from './GetGeo'
+//import {geocoder} from 'geocoder';
+//var NodeGeocoder = require('node-geocoder');
 
 export function botReceiveMessage(msg, room){
   console.log('bot received: ', msg);
@@ -33,7 +36,18 @@ export function botReceiveMessage(msg, room){
     from: 'Your buddy Bot'
   });
 
+  getCoords('New York, NY');
+
+
 }
+
+// Geocoding 
+// geocoder.geocode("Atlanta, GA", function (err, data) {
+//   // do something with data 
+//   console.log("DATA: ",data);
+//   console.log("err: ",err);
+// });
+
 
 // function sendMessage(message){
 
