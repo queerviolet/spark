@@ -21,15 +21,13 @@ export default class Pinned extends React.Component {
 
 
     render() {
-        console.log("THIS.PROPS: ",this.props.room)
-        console.log("FROM DB: ", db.collection('test-event'))
-
         return (
-            <div>
-            <h3>HI FROM PINNED</h3>
-            <div>{this.state.events.map((event, index) => {
-                return <Event key={index} data={event.data()} {...event.data() } />;
-            })}</div>
+            <div className="event-box">
+                <h3>HI FROM PINNED</h3>
+                <div>{this.state.events.map((event, index) => {
+                    const pinned = !event.data().itineraryStatus;
+                    return pinned && <Event room={this.props.room} key={index} {...event.data() } eventId={event.id} userId={this.props.user.uid} />;
+                })}</div>
             </div>
         )
     }
