@@ -20,15 +20,15 @@ const localServerRe = /(?:Local server|Server listening): (.*)/
 spawn('npm', ['run', 'watch-lib'], {stdio: 'inherit'})
 
 // Run `firebase serve`
-const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'hosting'])
+const firebaseServe = spawn('npx', ['firebase', 'serve', '--only', 'hosting,functions'])
 
 // Scan through its output...
 firebaseServe.stdout
   // We're looking for the line where firebase serve tells us
   // what URL it's accessible at (usually localhost:5000, but it
-  // may have to pick another port). 
+  // may have to pick another port).
   .pipe(thru(function (line, enc, cb) {
-    // To avoid confusion, we don't pass through stdout until 
+    // To avoid confusion, we don't pass through stdout until
     // after the "listening" line has passed.
     cb(null, hasStartedListening ? line : debug('%s', line))
 
