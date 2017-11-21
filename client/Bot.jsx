@@ -1,4 +1,5 @@
 import { db } from '../fire'
+import {getCoords, getActivityTypes} from './GetGeo'
 
 export function botReceiveMessage(msg, room){
   console.log('bot received: ', msg);
@@ -6,11 +7,20 @@ export function botReceiveMessage(msg, room){
   let rsp;
 
   if (cmd.startsWith('set location to ')){
-    rsp = 'Bot will set location to: ' + msg.substring(16);
+    var city = msg.substring(16)
+    //rsp = 'Bot will set location to: ' + city;
+    getCoords(city)
+    //console.log("COORDS inside bot: ", coords)
+
+    rsp = 'Here are the top places in '+ city + ":";
+    // getCoords(city);
+    //map through the results
   }
 
   else if (cmd.startsWith('search for ')){
-    rsp = 'Bot will search for: ' + msg.substring(11);
+    var type = msg.substring(11)
+    rsp = 'Bot will search for: ' + type;
+    //getActivityTypes(type);
   }
 
   else if (cmd.startsWith('pin ')){
@@ -33,7 +43,10 @@ export function botReceiveMessage(msg, room){
     from: 'Your buddy Bot'
   });
 
+  // getCoords('New York, NY');
+
 }
+
 
 // function sendMessage(message){
 

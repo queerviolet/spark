@@ -6,4 +6,4 @@ export {default as Trip} from './Trip'
 export {default as Pinned} from './Pinned'
 export {default as Itinerary} from './Itinerary'
 export * from './Bot'
-
+export * from './GetGeo'
