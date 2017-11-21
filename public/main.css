@@ -13,7 +13,8 @@
     height: 80vh;
     width: 30vw;
     border-radius: 4px;
-    border: 2px solid red;
+    background-color: rgb(176, 174, 174);
+    border: 2px solid black;
 }
 
 .toggleChat {
@@ -25,4 +26,9 @@
 
 input[type=text] {
     width: 60%
+}
+
+.sender-field {
+    font-size: 20;
+    color: gray;
 }
