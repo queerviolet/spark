@@ -15,6 +15,10 @@ let minutes = ['00', '15', '30', '45'];
 
 
 /*  START COMPONENT  */
+/* UNHANDLED ISSUES  -->
+    days should be options for valid days that month...
+    there ain't no February 31st
+*/
 
 export default class AddEvent extends Component{
   constructor(){
@@ -37,6 +41,7 @@ export default class AddEvent extends Component{
     const {month, day, year, hour, minute, ampm, name} = this.state;
     const time = new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
     this.props.room.add({name, time, itineraryStatus: true});
+    this.props.closeForm();
     /*  does not include default empty values for other fields of event */
   }
 
