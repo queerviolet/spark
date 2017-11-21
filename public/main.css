@@ -13,7 +13,8 @@
     height: 80vh;
     width: 30vw;
     border-radius: 4px;
-    border: 2px solid red;
+    background-color: rgb(176, 174, 174);
+    border: 2px solid black;
 }
 
 .flex-row-wrap {
@@ -71,5 +72,11 @@ input[type=text] {
 .date-text {
     font-size: 20;
     font-weight: bold;
+}
+
+
+.sender-field {
+    font-size: 20;
+    color: gray;
 }
 
