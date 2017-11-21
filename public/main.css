@@ -17,6 +17,19 @@
     border: 2px solid black;
 }
 
+.flex-row-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100vw;
+}
+
+
+.flex-row-wrap > * {
+    flex-basis: 400px;
+}
+
 .toggleChat {
     z-index: 2;
     position: fixed;
@@ -28,7 +41,42 @@ input[type=text] {
     width: 60%
 }
 
+.event {
+    /* border: 2px solid black;
+    border-radius: 5px; */
+    margin: 5px 8px;
+    width: 375px;
+}
+
+.event-box {
+    border: 3px solid grey;
+    border-radius: 5px;
+}
+
+.date-box {
+    border: 3px solid orangered;
+    background-color: rgb(255, 175, 146);
+    border-radius: 5px;
+    margin: 5px 8px;
+    width: 375px;
+}
+
+.pin-event {
+    border: 3px solid green;
+    background-color: rgb(170, 255, 170);
+    border-radius: 5px;
+    margin: 5px 8px;
+    width: 375px;
+}
+
+.date-text {
+    font-size: 20;
+    font-weight: bold;
+}
+
+
 .sender-field {
     font-size: 20;
     color: gray;
 }
+
