@@ -23,7 +23,7 @@ export default class Trip extends Component {
                 // console.log('this state is: ', this.state)
                 // console.log("Document data:", doc.data().users[this.props.user.uid]);
             } else {
-                // console.log("No such document!");
+                console.log("No such document!");
             }
         }).catch(error => {
             console.log("Error getting document: ", error);

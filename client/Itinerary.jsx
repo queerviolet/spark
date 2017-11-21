@@ -24,20 +24,18 @@ export default class Itinerary extends React.Component {
   render() {
     console.log('inside of itin render with state: ', this.state);
     return (
-      <div className="itinerary-box">
-        <h3>HI FROM ITINERARY</h3>
+      <div className="event-box">
+        <h3>ITINERARY</h3>
         <div>{
           this.state.dates.map((date, index) =>(
-            <div key={index}>
-              <p>{date}</p>
+            <div className="date-box" key={index}>
+              <p className="date-text">{date}</p>
               <div>
                 {this.state.events.map((event, idx) => {
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
-                    <div key={idx}>
-                      <Event {...event.data() } />
-                    </div>
+                      <Event key={idx} {...event.data() } />
               )})}
               </div>
             </div>

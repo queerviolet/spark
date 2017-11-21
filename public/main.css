@@ -41,13 +41,35 @@ input[type=text] {
 }
 
 .event {
-    border: 2px solid black;
+    /* border: 2px solid black;
+    border-radius: 5px; */
+    margin: 5px 8px;
+    width: 375px;
+}
+
+.event-box {
+    border: 3px solid grey;
+    border-radius: 5px;
+}
+
+.date-box {
+    border: 3px solid orangered;
+    background-color: rgb(255, 175, 146);
     border-radius: 5px;
     margin: 5px 8px;
     width: 375px;
 }
 
-.itinerary-box {
-    border: 3px solid goldenrod;
+.pin-event {
+    border: 3px solid green;
+    background-color: rgb(170, 255, 170);
     border-radius: 5px;
+    margin: 5px 8px;
+    width: 375px;
 }
+
+.date-text {
+    font-size: 20;
+    font-weight: bold;
+}
+
