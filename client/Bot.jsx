@@ -9,10 +9,12 @@ export function botReceiveMessage(msg, room){
   if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
     //rsp = 'Bot will set location to: ' + city;
-    getCoords(city);
+    getCoords(city)
+    //console.log("COORDS inside bot: ", coords)
+
     rsp = 'Here are the top places in '+ city + ":";
     // getCoords(city);
-
+    //map through the results
   }
 
   else if (cmd.startsWith('search for ')){
