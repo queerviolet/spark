@@ -34,10 +34,10 @@ export default class AddEvent extends Component{
 
   handleSubmit(evt){
     evt.preventDefault();
-    const {month, day, year, hour, minute, ampm} = this.state;
-    console.log(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
-    console.log(new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm));
-    //this.props.room.add()
+    const {month, day, year, hour, minute, ampm, name} = this.state;
+    const time = new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
+    this.props.room.add({name, time, itineraryStatus: true});
+    /*  does not include default empty values for other fields of event */
   }
 
   handleChange(evt){
