@@ -1,5 +1,5 @@
 import React from 'react';
-import Event from './Event';
+import {Event, AddEvent} from './index';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
@@ -18,8 +18,9 @@ export default class Itinerary extends React.Component {
     this.state = {
       events: [],
       dates: tripDates(props.startDate, props.endDate),
-      objectVersion: {}
+      showAdd: false
     };
+    this.handleAddButton = this.handleAddButton.bind(this);
   }
 
   componentDidMount() {
@@ -28,12 +29,18 @@ export default class Itinerary extends React.Component {
     });
   }
 
+  handleAddButton(){
+    //evt.preventDefault();
+    console.log('this is...', this);
+    this.setState({showAdd: !this.state.showAdd});
+  }
+
   render() {
-    console.log('WHAT IS THIS: ', this.props.endDate);
-    console.log('MOMENT: ', moment(this.props.startDate).format());
     return (
       <div className="event-box">
         <h3>ITINERARY</h3>
+        <button onClick={this.handleAddButton}>+</button>
+        {this.state.showAdd && <AddEvent />}
         <div>{
           this.state.dates.map((date, index) => (
             <div className="date-box" key={index}>
