@@ -40,7 +40,7 @@ export default class Itinerary extends React.Component {
       <div className="event-box">
         <h3>ITINERARY</h3>
         <button onClick={this.handleAddButton}>+</button>
-        {this.state.showAdd && <AddEvent />}
+        {this.state.showAdd && <AddEvent room={this.props.room} />}
         <div>{
           this.state.dates.map((date, index) => (
             <div className="date-box" key={index}>
