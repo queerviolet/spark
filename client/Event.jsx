@@ -6,18 +6,33 @@ export default class Event extends Component {
         this.handleLike = this.handleLike.bind(this);
     }
 
-    handleLike(evt){
+    handleLike (evt){
         evt.preventDefault();
         const eventRef = this.props.room.doc(this.props.eventId);
-        const likes = this.props.room.doc(this.props.eventId).likes || {counter: 0} ;
-        const userBefore = likes[this.props.userId] || false
-        console.log('handling like', likes, userBefore)
-        if (!userBefore){
-            console.log('attempting to set')
-            eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter++ }) }, { merge: true });
-        } else {
-            eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter-- }) }, { merge: true });
-        }
+
+        let likes;
+        eventRef.get().then(function (event) {
+            if (event.exists) {
+                console.log("Likes data:", event.data().likes);
+                likes = event.data().likes;
+            } else {
+                likes = {counter: 0};
+                console.log("No such document!", event.data());
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        })
+        .then( () => {
+            const userBefore = likes[this.props.userId] || false;
+
+            if (!userBefore) {
+                console.log('attempting to set')
+                eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter + 1 }) }, { merge: true });
+            } else {
+                eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter - 1 }) }, { merge: true });
+            }
+
+        })
 
     }
 
