@@ -1,19 +1,19 @@
 import { db } from '../fire'
-import {getCoords, getActivityTypes} from './GetGeo'
+import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
 
-export function botReceiveMessage(msg, room){
-  console.log('bot received: ', msg);
+export function botReceiveMessage(msg, chat){
+  console.log('bot received: FROM BOT', msg);
   let cmd = msg.toLowerCase();
   let rsp;
 
-  if (cmd.startsWith('set location to ')){
+  console.log("COMMAND IN BOT.js", cmd)
+  if(cmd.startsWith('hi')){
+    console.log('hi')
+    rsp = "hi"
+  }
+  else if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
-    //rsp = 'Bot will set location to: ' + city;
-    getCoords(city)
-    //console.log("COORDS inside bot: ", coords)
-
-    rsp = 'Here are the top places in '+ city + ":";
-    // getCoords(city);
+    rsp = 'Bot will set location to: ' + city;    
     //map through the results
   }
 
@@ -37,7 +37,7 @@ export function botReceiveMessage(msg, room){
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
 
-  room.add({
+  return chat.add({
     time: new Date(),
     text: rsp,
     from: 'Your buddy Bot'
