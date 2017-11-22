@@ -1,33 +1,51 @@
 import React from 'react';
-import { db } from '../fire';
-import Event from './Event';
+import {Event, AddEvent} from './index';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+const moment = extendMoment(Moment);
+function tripDates(startDate, endDate){
+  let range = moment.range(startDate, endDate);
+  range = Array.from(range.by('day')).map(day => {
+    return day.toDate().toDateString();
+  });
+  return range;
+}
 
 export default class Itinerary extends React.Component {
   constructor(props) { //props is the events we tell the bot to pin?
     super(props);
     this.state = {
       events: [],
-      dates: tripDates(props.startDate, props.length),
-      objectVersion: {}
-    }
+      dates: tripDates(props.startDate, props.endDate),
+      showAdd: false
+    };
+    this.handleAddButton = this.handleAddButton.bind(this);
   }
-  //this.handleSubmit = this.handleSubmit.bind(this);
 
   componentDidMount() {
-    console.log('STATE DATES ======>', this.state.dates);
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
-      this.setState({events: snapshot.docs})
+      this.setState({events: snapshot.docs});
     });
   }
 
+  handleAddButton(){
+    //evt.preventDefault();
+    console.log('this is...', this);
+    this.setState({showAdd: !this.state.showAdd});
+  }
 
   render() {
-    console.log('inside of itin render with state: ', this.state);
     return (
       <div className="event-box">
         <h3>ITINERARY</h3>
+        <button onClick={this.handleAddButton}>+</button>
+        {this.state.showAdd &&
+          <AddEvent
+            room={this.props.room}
+            closeForm={this.handleAddButton} />}
         <div>{
-          this.state.dates.map((date, index) =>(
+          this.state.dates.map((date, index) => (
             <div className="date-box" key={index}>
               <p className="date-text">{date}</p>
               <div>
@@ -36,38 +54,13 @@ export default class Itinerary extends React.Component {
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
                       <Event key={idx} {...event.data() } />
-              )})}
+                  );}
+                )}
               </div>
             </div>
           ))
         }</div>
       </div>
-    )
+    );
   }
 }
-
-function tripDates(startDate, days) {
-  var final = [];
-  while (days !== 0) {
-    var result = new Date(startDate);
-    var counter = 0;
-    result.setDate(result.getDate() + days);
-    final.unshift(result.toDateString());
-    days--;
-  }
-  return final;
-}
-
-
-/*
-
-<div>{this.state.events.map((event, index) => {
-            const {itineraryStatus, time} = event.data();
-            const date = time.toDateString && time.toDateString();
-            return itineraryStatus && (
-              <div key={index}>
-                <Event {...event.data() } />
-              </div>
-            );
-          })}</div>
-*/

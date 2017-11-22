@@ -41,6 +41,8 @@
     "firebaseui": "^2.4.1",
     "geocoder": "^0.2.3",
     "minimist": "^1.2.0",
+    "moment": "^2.19.2",
+    "moment-range": "^3.0.3",
     "npm-install-missing": "^0.1.4",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",

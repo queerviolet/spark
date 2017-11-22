@@ -9,7 +9,7 @@ export default class Trip extends Component {
         this.state = {
             isPartOfTrip: false,
             startDate: {},
-            length: null
+            endDate: {}
         }
     }
 
@@ -18,8 +18,8 @@ export default class Trip extends Component {
 
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
-                const { startDate, length } = doc.data();
-                this.setState( {isPartOfTrip: true, startDate, length } );
+                const { startDate, endDate } = doc.data();
+                this.setState( {isPartOfTrip: true, startDate, endDate } );
                 // console.log('this state is: ', this.state)
                 // console.log("Document data:", doc.data().users[this.props.user.uid]);
             } else {
@@ -43,7 +43,7 @@ export default class Trip extends Component {
                     room={tripRef.collection('event')}
                     user={this.props.user}
                     startDate={this.state.startDate}
-                    length = {this.state.length} />
+                    endDate = {this.state.endDate} />
                 <Pinned room={tripRef.collection('event')} user={this.props.user} />
             </div>
             :

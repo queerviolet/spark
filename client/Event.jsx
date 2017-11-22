@@ -13,11 +13,9 @@ export default class Event extends Component {
         let likes;
         eventRef.get().then(function (event) {
             if (event.exists) {
-                console.log("Likes data:", event.data().likes);
                 likes = event.data().likes;
             } else {
                 likes = {counter: 0};
-                console.log("No such document!", event.data());
             }
         }).catch(function (error) {
             console.log("Error getting document:", error);
@@ -26,7 +24,6 @@ export default class Event extends Component {
             const userBefore = likes[this.props.userId] || false;
 
             if (!userBefore) {
-                console.log('attempting to set')
                 eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter + 1 }) }, { merge: true });
             } else {
                 eventRef.set({ likes: Object.assign({}, likes, { [this.props.userId]: !userBefore, counter: likes.counter - 1 }) }, { merge: true });
@@ -38,7 +35,6 @@ export default class Event extends Component {
 
     render() {
         const isItin = this.props.itineraryStatus;
-        console.log('this.props is: ', this.props)
         return (
             isItin
             ?
