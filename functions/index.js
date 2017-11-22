@@ -6,7 +6,7 @@ exports.helloWorld = functions.https.onRequest((request, response) =>
 
 exports.bot = functions.firestore
     .document('trips/{tripId}/chat/{messageId}')
-    .onCreate(lib.runBotFromMessageEvent())
+    .onCreate((event) => lib.runBotFromMessageEvent(event)) //pass in tripId
 
 /*
 ➜  $ firebase experimental:functions:shell

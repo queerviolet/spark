@@ -5,6 +5,7 @@ import { extendMoment } from 'moment-range';
 
 const moment = extendMoment(Moment);
 function tripDates(startDate, endDate){
+  console.log("IN TRIP DATES, START DATE: ", startDate, "END DATE: ", endDate)
   let range = moment.range(startDate, endDate);
   range = Array.from(range.by('day')).map(day => {
     return day.toDate().toDateString();
@@ -21,12 +22,14 @@ export default class Itinerary extends React.Component {
       showAdd: false
     };
     this.handleAddButton = this.handleAddButton.bind(this);
+    console.log("INSIDE ITINERARY CONSTRUCTOR, PROPS: ", this.props)
   }
 
   componentDidMount() {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
+    console.log("THIS.PROPS: ", this.props)
   }
 
   handleAddButton(){

@@ -1,6 +1,8 @@
+const debug = require('debug')('bot')
+
 import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
 
-export const runBotFromMessageEvent = (always=false) => async event => {
+export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
   const chat = event.data.ref.parent
   const trip = chat.parent
@@ -8,22 +10,29 @@ export const runBotFromMessageEvent = (always=false) => async event => {
     if ((await trip.get()).suppressBot) return
   }
 
-  if (msg.text.startsWith('/')) {
-      const cmd = msg.text.slice(1)
-      return botReceiveMessage(cmd, chat)
+  if (msg.text && msg.text.startsWith('/')) {
+    const cmd = msg.text.slice(1)
+    return botReceiveMessage(cmd, chat, trip)
   }
 }
 
-export async function botReceiveMessage(msg, chat){
+export async function botReceiveMessage(msg, chat, trip){
   console.log('bot received: FROM BOT', msg);
   let cmd = msg.toLowerCase();
   let rsp;
+  
+  console.log('cmd=', cmd)
+
+  const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
 
   if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
     rsp = 'Bot will set location to: ' + city;    
-    var gotten = await getCoords(city);
-    console.log("getting coords from getCoords:", gotten)
+    const {lat, lng} = await getCoords(city);
+    console.log('coords:', lat, lng)
+    trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
+    trip.set({ city }, { merge: true })
+
   }
 
   else if (cmd.startsWith('search for ')){

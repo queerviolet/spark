@@ -37,6 +37,7 @@
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "chokidar": "^1.7.0",
+    "debug": "^3.1.0",
     "firebase": "^4.6.0",
     "firebaseui": "^2.4.1",
     "geocoder": "^0.2.3",
