@@ -5,7 +5,7 @@ import { extendMoment } from 'moment-range';
 
 const moment = extendMoment(Moment);
 function tripDates(startDate, endDate){
-  console.log("IN TRIP DATES, START DATE: ", startDate, "END DATE: ", endDate)
+  console.log('inside of trip dates: ', startDate, endDate)
   let range = moment.range(startDate, endDate);
   range = Array.from(range.by('day')).map(day => {
     return day.toDate().toDateString();
@@ -16,29 +16,32 @@ function tripDates(startDate, endDate){
 export default class Itinerary extends React.Component {
   constructor(props) { //props is the events we tell the bot to pin?
     super(props);
+    console.log('props inside of itinerary', props);
     this.state = {
       events: [],
       dates: tripDates(props.startDate, props.endDate),
       showAdd: false
     };
     this.handleAddButton = this.handleAddButton.bind(this);
-    console.log("INSIDE ITINERARY CONSTRUCTOR, PROPS: ", this.props)
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({dates: tripDates(nextProps.startDate, nextProps.endDate)});
   }
 
   componentDidMount() {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
-    console.log("THIS.PROPS: ", this.props)
   }
 
   handleAddButton(){
     //evt.preventDefault();
-    console.log('this is...', this);
     this.setState({showAdd: !this.state.showAdd});
   }
 
   render() {
+    console.log('itinerary rendered')
     return (
       <div className="event-box">
         <h3>ITINERARY</h3>

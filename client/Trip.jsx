@@ -17,15 +17,14 @@ export default class Trip extends Component {
         this.sendInvite = this.sendInvite.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount (){
         const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
 
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name } = doc.data();
-                this.setState( {isPartOfTrip: true, startDate, endDate, name } );
-                // console.log('this state is: ', this.state)
-                // console.log("Document data:", doc.data().users[this.props.user.uid]);
+                console.log('before set state in trip')
+                this.setState( {isPartOfTrip: true, startDate, endDate, name }, () => {console.log('after set state in trip')} );
             } else {
                 console.log("No such document!");
             }
@@ -51,7 +50,6 @@ export default class Trip extends Component {
     render(){
         const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
         let isPartOfTrip = this.state.isPartOfTrip;
-        console.log('on state start, end', this.state.startDate, this.state.endDate)
 
         return (
             isPartOfTrip ?
