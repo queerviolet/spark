@@ -1,26 +1,44 @@
-import { db } from '../fire'
-import {getCoords, getActivityTypes} from './GetGeo'
+const debug = require('debug')('bot')
 
-export function botReceiveMessage(msg, room){
-  console.log('bot received: ', msg);
+import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
+
+export const runBotFromMessageEvent = (always = false) => async event => {
+  const msg = event.data.data()
+  const chat = event.data.ref.parent
+  const trip = chat.parent
+  if (!always) {
+    if ((await trip.get()).suppressBot) return
+  }
+
+  if (msg.text && msg.text.startsWith('/')) {
+    const cmd = msg.text.slice(1)
+    return botReceiveMessage(cmd, chat, trip)
+  }
+}
+
+export async function botReceiveMessage(msg, chat, trip){
+  console.log('bot received: FROM BOT', msg);
   let cmd = msg.toLowerCase();
   let rsp;
+  
+  console.log('cmd=', cmd)
+
+  const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
 
   if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
-    //rsp = 'Bot will set location to: ' + city;
-    getCoords(city)
-    //console.log("COORDS inside bot: ", coords)
+    rsp = 'Bot will set location to: ' + city;    
+    const {lat, lng} = await getCoords(city);
+    console.log('coords:', lat, lng)
+    trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
+    trip.set({ city }, { merge: true })
 
-    rsp = 'Here are the top places in '+ city + ":";
-    // getCoords(city);
-    //map through the results
   }
 
   else if (cmd.startsWith('search for ')){
     var type = msg.substring(11)
     rsp = 'Bot will search for: ' + type;
-    //getActivityTypes(type);
+    getActivityTypes(type);
   }
 
   else if (cmd.startsWith('pin ')){
@@ -37,7 +55,7 @@ export function botReceiveMessage(msg, room){
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
 
-  room.add({
+  return chat.add({
     time: new Date(),
     text: rsp,
     from: 'Your buddy Bot'

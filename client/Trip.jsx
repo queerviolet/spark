@@ -7,7 +7,7 @@ export default class Trip extends Component {
     constructor(){
         super()
         this.state = {
-            isPartOfTrip: false,
+            isPartOfTrip: true,
             startDate: {},
             endDate: {}
         }
@@ -19,6 +19,7 @@ export default class Trip extends Component {
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate } = doc.data();
+                console.log("doc.data: ", doc.data())
                 this.setState( {isPartOfTrip: true, startDate, endDate } );
                 // console.log('this state is: ', this.state)
                 // console.log("Document data:", doc.data().users[this.props.user.uid]);
@@ -33,6 +34,7 @@ export default class Trip extends Component {
     render(){
         const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
         let isPartOfTrip = this.state.isPartOfTrip;
+        console.log("THIS.STATE: ", this.state)
 
 
         return (
