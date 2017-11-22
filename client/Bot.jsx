@@ -1,26 +1,35 @@
-import { db } from '../fire'
 import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
 
-export function botReceiveMessage(msg, chat){
+export const runBotFromMessageEvent = (always=false) => async event => {
+  const msg = event.data.data()
+  const chat = event.data.ref.parent
+  const trip = chat.parent
+  if (!always) {
+    if ((await trip.get()).suppressBot) return
+  }
+
+  if (msg.text.startsWith('/')) {
+      const cmd = msg.text.slice(1)
+      return botReceiveMessage(cmd, chat)
+  }
+}
+
+export async function botReceiveMessage(msg, chat){
   console.log('bot received: FROM BOT', msg);
   let cmd = msg.toLowerCase();
   let rsp;
 
-  console.log("COMMAND IN BOT.js", cmd)
-  if(cmd.startsWith('hi')){
-    console.log('hi')
-    rsp = "hi"
-  }
-  else if (cmd.startsWith('set location to ')){
+  if (cmd.startsWith('set location to ')){
     var city = msg.substring(16)
     rsp = 'Bot will set location to: ' + city;    
-    //map through the results
+    var gotten = await getCoords(city);
+    console.log("getting coords from getCoords:", gotten)
   }
 
   else if (cmd.startsWith('search for ')){
     var type = msg.substring(11)
     rsp = 'Bot will search for: ' + type;
-    //getActivityTypes(type);
+    getActivityTypes(type);
   }
 
   else if (cmd.startsWith('pin ')){
