@@ -1,6 +1,7 @@
 const debug = require('debug')('bot')
 
 import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
+import { locale } from 'moment';
 
 export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
@@ -27,12 +28,12 @@ export async function botReceiveMessage(msg, chat, trip){
   const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
 
   if (cmd.startsWith('set location to ')){
-    var city = msg.substring(16)
-    rsp = 'Bot will set location to: ' + city;
-    const {lat, lng} = await getCoords(city);
+    var location = msg.substring(16)
+    rsp = 'Bot will set location to: ' + location;
+    const {lat, lng} = await getCoords(location);
     console.log('coords:', lat, lng)
     trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
-    trip.set({ city }, { merge: true })
+    trip.set({ location }, { merge: true })
 
   }
 
