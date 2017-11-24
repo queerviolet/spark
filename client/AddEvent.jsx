@@ -9,7 +9,7 @@ let days = [];
   }
 })();
 let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-let hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+let hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 let minutes = ['00', '15', '30', '45'];
 /*  END HELPER  */
 
@@ -40,7 +40,18 @@ export default class AddEvent extends Component{
     evt.preventDefault();
     const {month, day, year, hour, minute, ampm, name} = this.state;
     const time = new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
+    const trip = this.props.room.parent
+
     this.props.room.add({name, time, itineraryStatus: true});
+    if (time < this.props.startDate){
+      console.log('time of event is before startDate', time, this.props.startDate)
+      trip.set({startDate: time}, {merge: true})
+    }
+    if (time > this.props.endDate){
+      console.log('time of event is after startDate', time, this.props.end)
+      trip.set({endDate: time}, {merge: true})
+    }
+
     this.props.closeForm();
     /*  does not include default empty values for other fields of event */
   }
@@ -85,8 +96,8 @@ export default class AddEvent extends Component{
                   ))}
                 </select>
                 <select className="browser-default" value={this.state.ampm} onChange={this.handleChange} name="ampm">
-                    <option value='AM'>AM</option>
-                    <option value='PM'>PM</option>
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
                 </select>
           </label>
           <input type="submit" value="Submit" />

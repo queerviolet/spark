@@ -42,6 +42,8 @@ export default class Itinerary extends React.Component {
         <button onClick={this.handleAddButton}>+</button>
         {this.state.showAdd &&
           <AddEvent
+            startDate = {this.props.startDate}
+            endDate = {this.props.endDate}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div>{
