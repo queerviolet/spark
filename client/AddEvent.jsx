@@ -42,7 +42,10 @@ export default class AddEvent extends Component{
     const time = new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
     const trip = this.props.room.parent
 
+    /*  ADD EVENT TO EVENTS COLLECTION  */
     this.props.room.add({name, time, itineraryStatus: true});
+
+    /*  RESET START OR END DATE IF THE EVENT TIME IS OUTSIDE THE RANGE  */
     if (time < this.props.startDate){
       console.log('time of event is before startDate', time, this.props.startDate)
       trip.set({startDate: time}, {merge: true})

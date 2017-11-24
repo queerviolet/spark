@@ -25,6 +25,7 @@ export default class Itinerary extends React.Component {
 
   componentDidMount() {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
+      console.log('does it have access to the parent here? ', this.props.room.parent)
       this.setState({events: snapshot.docs});
     });
   }
