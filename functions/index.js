@@ -4,13 +4,15 @@ const functions = require('firebase-functions')
 const sendmail = require('sendmail')();
 
 
-const sendInvite = (email) => {
+const sendInvite = (email, tripId) => {
+    console.log('inside of sendInvite', email, tripId)
     return sendmail({
         from: 'joinatrip@triphub.notasite',
         to: email,
-        subject: 'test sendmail',
-        html: 'Mail of test sendmail ',
+        subject: `You've been invited to join a trip!`,
+        html: `Start a new trip with your friends using TripHub. \n \n Please sign up or login at triphub.herokuapp.com. Then go to triphub.herokuapp.com/${tripId}`,
     }, function (err, reply) {
+        console.log('err and reply inside of sendInvite ---->', err, reply)
         console.log(err && err.stack);
         console.dir(reply);
     });
@@ -43,13 +45,16 @@ exports.bot = functions.firestore
 exports.sendInvite = functions.firestore
     .document('/users/{userId}')
     .onUpdate(event => {
-        const user = event.data.data();
-        const invitee = user.invitee;
+        console.log('got event and event.data and event.data.data()', event.data)
 
-        if (user.invitee === '') {
+        const {invitee, tripId} = event.data.data();
+        console.log('invitee is: ', invitee)
+
+        if (invitee === '') {
+            console.log('thinks invitee is blank: ')
             return;
         }
-        sendInvite(invitee);
-        return event.data.set({invitee: ''}, {merge: true});
+        return sendInvite(invitee, tripId)
+        // return event.data.set({invitee: '', tripId: ''}, {merge: true});
 
     })
