@@ -5,6 +5,8 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import React, { Component } from 'react'
 import { HomePage, Dashboard} from './client'
 import firebase, { auth, provider, db } from '~/fire'
+import Sidebar from './client/Sidebar';
+
 
 export default class App extends Component{
   constructor(props){
@@ -46,6 +48,9 @@ export default class App extends Component{
     const isLoggedIn = this.state.user;
     return (
       <Router>
+        <div className="col-xs-2">
+          <Sidebar />
+        </div>
         {isLoggedIn ?
           (<Switch>
             <Route exact path="/" render={() => <Dashboard logout={this.logout} />} /> {/* their acct dashboard */}
