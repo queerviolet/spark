@@ -37,7 +37,7 @@ export default class Trip extends Component {
 
         return (
             isPartOfTrip ?
-            <div className="flex-row-wrap around">
+            <div className="flex-row-wrap around trip-image">
                 <Chat room={tripRef.collection('chat')} user={this.props.user} />
                 <Itinerary
                     trip= {tripRef}

@@ -43,9 +43,12 @@
     "npm-install-missing": "^0.1.4",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "react-responsive-carousel": "^3.1.28",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scroll": "^1.6.4",
+    "react-slick": "^0.15.4",
+    "slick-carousel": "^1.8.1",
     "webpack-css-loaders": "^1.0.0"
   }
 }
