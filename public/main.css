@@ -72,10 +72,11 @@ input[type=text] {
 }
 
 .pin-event {
-    border: 3px solid green;
-    background-color: rgb(170, 255, 170);
-    border-radius: 5px;
+    background-color: #3BC9E6;
+    /* #3B4A4D */
+    color: #3B4A4D;
     margin: 5px 8px;
+    padding: 5px 10px;
     flex: 1;
     flex-basis: 200px;
 }
@@ -93,6 +94,8 @@ input[type=text] {
 
 h3 {
     text-align: center;
+    font-family: 'Exo',
+    sans-serif;
 }
 
 .center-self {
@@ -100,4 +103,8 @@ h3 {
 }
 .trip-header {
     align-content: center;
+}
+
+.badge {
+    background-color: #F7F8FA
 }
