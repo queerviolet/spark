@@ -10,4 +10,4 @@ public/bundle.js.map
 functions/lib.js
 
 #API Keys
-fire/config.js
+admin-key.json

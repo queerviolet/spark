@@ -98,3 +98,6 @@ h3 {
 .center-self {
     text-align: center;
 }
+.trip-header {
+    align-content: center;
+}
