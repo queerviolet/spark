@@ -25,14 +25,19 @@ export default class Itinerary extends React.Component {
 
   componentDidMount() {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
-      console.log('does it have access to the parent here? ', this.props.room.parent)
       this.setState({events: snapshot.docs});
     });
+    this.props.trip.onSnapshot(snapshot => {
+      const {startDate, endDate} = snapshot.data();
+      if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
+        this.setState({dates: tripDates(startDate, endDate)})
+      }
+    })
   }
+
 
   handleAddButton(){
     //evt.preventDefault();
-    console.log('this is...', this);
     this.setState({showAdd: !this.state.showAdd});
   }
 

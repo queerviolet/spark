@@ -46,14 +46,8 @@ export default class AddEvent extends Component{
     this.props.room.add({name, time, itineraryStatus: true});
 
     /*  RESET START OR END DATE IF THE EVENT TIME IS OUTSIDE THE RANGE  */
-    if (time < this.props.startDate){
-      console.log('time of event is before startDate', time, this.props.startDate)
-      trip.set({startDate: time}, {merge: true})
-    }
-    if (time > this.props.endDate){
-      console.log('time of event is after startDate', time, this.props.end)
-      trip.set({endDate: time}, {merge: true})
-    }
+    if (time < this.props.startDate){ trip.set({startDate: time}, {merge: true}) }
+    if (time > this.props.endDate){ trip.set({endDate: time}, {merge: true}) }
 
     this.props.closeForm();
     /*  does not include default empty values for other fields of event */
@@ -65,7 +59,6 @@ export default class AddEvent extends Component{
   }
 
   render() {
-    console.log('PROPS GIMME PROPS', this.props);
     return (
       <div className="add-form">
         <form onSubmit={this.handleSubmit}>
