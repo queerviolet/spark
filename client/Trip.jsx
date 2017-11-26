@@ -37,11 +37,11 @@ export default class Trip extends Component {
     sendInvite(evt){
         evt.preventDefault();
         //target email is evt.target.toEmail.value
-
-        console.log('invite target', evt.target.toEmail.value);
+        const [email, tripId] = [evt.target.toEmail.value, this.props.match.params.tripId]
+        console.log('invite target email and tripId', email, tripId);
         db.collection('users')
             .doc(this.props.user.uid)
-            .set({ invitee: evt.target.toEmail.value}, {merge: true});
+            .set({ invitee: [email, tripId ]}, {merge: true});
         evt.target.toEmail.value = '';
         this.setState({showInvite: false});
 
