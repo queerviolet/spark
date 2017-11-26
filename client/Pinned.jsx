@@ -22,9 +22,9 @@ export default class Pinned extends React.Component {
 
     render() {
         return (
-            <div className="event-box">
-                <h3>HI FROM PINNED</h3>
-                <div>{this.state.events.map((event, index) => {
+            <div className="col-md-6">
+                <h3>Pinned Events</h3>
+                <div className="pin-wrap">{this.state.events.map((event, index) => {
                     const pinned = !event.data().itineraryStatus;
                     return pinned && <Event room={this.props.room} key={index} {...event.data() } eventId={event.id} userId={this.props.user.uid} />;
                 })}</div>

@@ -43,8 +43,8 @@ export default class Itinerary extends React.Component {
 
   render() {
     return (
-      <div className="event-box">
-        <h3>ITINERARY</h3>
+      <div className="col-md-6">
+        <h3>Itinerary</h3>
         <button onClick={this.handleAddButton}>+</button>
         {this.state.showAdd &&
           <AddEvent

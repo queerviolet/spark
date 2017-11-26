@@ -45,7 +45,7 @@ export default class Event extends Component {
             :
             <div className="event pin-event">
                 <span className="yellow badge" onClick={this.handleLike}>{this.props.likes ? this.props.likes.counter : 0 } &hearts;</span>
-                <p>{this.props.name}</p>
+                <p><b>{this.props.name}</b></p>
                 <p>{this.props.description}</p>
 
             </div>

@@ -25,6 +25,16 @@
     width: 100vw;
 }
 
+.pin-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+h3 {
+    align-self: center;
+}
+
 
 .flex-row-wrap > * {
     flex-basis: 400px;
@@ -66,7 +76,8 @@ input[type=text] {
     background-color: rgb(170, 255, 170);
     border-radius: 5px;
     margin: 5px 8px;
-    width: 375px;
+    flex: 1;
+    flex-basis: 200px;
 }
 
 .date-text {
@@ -78,5 +89,9 @@ input[type=text] {
 .sender-field {
     font-size: 20;
     color: gray;
+}
+
+h3 {
+    text-align: center;
 }
 

@@ -38,13 +38,15 @@ export default class Trip extends Component {
         return (
             isPartOfTrip ?
             <div className="flex-row-wrap around">
-                <Chat room={tripRef.collection('chat')} user={this.props.user} />
-                <Itinerary
-                    trip= {tripRef}
-                    room={tripRef.collection('event')}
-                    user={this.props.user}
-                    startDate={this.state.startDate}
-                    endDate = {this.state.endDate} />
+                <div className="container">
+                    <Chat room={tripRef.collection('chat')} user={this.props.user} />
+                    <Itinerary
+                        trip= {tripRef}
+                        room={tripRef.collection('event')}
+                        user={this.props.user}
+                        startDate={this.state.startDate}
+                        endDate = {this.state.endDate} />
+                    </div>
                 <Pinned room={tripRef.collection('event')} user={this.props.user} />
             </div>
             :
