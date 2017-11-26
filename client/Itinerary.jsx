@@ -33,7 +33,14 @@ export default class Itinerary extends React.Component {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
+    this.props.trip.onSnapshot(snapshot => {
+      const {startDate, endDate} = snapshot.data();
+      if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
+        this.setState({dates: tripDates(startDate, endDate)})
+      }
+    })
   }
+
 
   handleAddButton(){
     //evt.preventDefault();
@@ -48,6 +55,8 @@ export default class Itinerary extends React.Component {
         <button onClick={this.handleAddButton}>+</button>
         {this.state.showAdd &&
           <AddEvent
+            startDate = {this.props.startDate}
+            endDate = {this.props.endDate}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div>{
