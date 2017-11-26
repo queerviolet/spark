@@ -80,3 +80,7 @@ input[type=text] {
     color: gray;
 }
 
+.trip-header {
+    align-content: center;
+    text-align: center;
+}

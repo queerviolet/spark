@@ -9,6 +9,7 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1"
   },
