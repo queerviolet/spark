@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-// import {ui, uiConfig} from '../fire'
-import Slider from 'react-slick';
+import React from 'react';
+import { Carousel } from 'react-materialize';
 
 export const HomePage = ({login}) => {
   return (
     <div>
-      <div>
-        <button onClick={login}>Log In</button>
-      </div>
 
-      <div className="container">
-        <Slider autoplay={true} dots={true} infinite={true} speed={100} slidesToShow={1} slidesToScroll={1}>
-          <div><img src="ny.jpg" /></div>
-          <div><img src="beach.jpg" /></div>
-          <div><img src="paris.jpg" /></div>
-        </Slider>
-      </div>
+      <Carousel
+        fixedItem={<button className="btn" onClick={login}>Log In</button>}
+        options={{ fullWidth: true }}
+        images={[
+          'paris.jpg',
+          'iceland.jpg',
+          'hiking.jpg'
+        ]}
+      />
+
     </div>
   );
 };
