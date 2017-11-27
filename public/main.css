@@ -95,7 +95,6 @@ input[type=text] {
 
 .btn {
     z-index: 2;
-    background-color: white;
     position: absolute;
     top: 65%;
     left: 50%;
