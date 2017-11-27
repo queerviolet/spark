@@ -2,20 +2,21 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import { db } from '../fire'
 import { SideNavItem, SideNav, Button, Icon } from 'react-materialize'
+import { withRouter } from 'react-router'
 // import { SideNavItem, Nav, NavIcon, NavText } from 'react-sidenav';
 
 
 //export default class Sidebar extends Component {
 
-export default class Sidebar extends Component {
-  
+export class Sidebar extends Component {
+
     constructor() {
         super()
         this.state = {
             trips: []
         }
     }
-   
+
     componentDidMount(){
         var tripsRef = db.collection("trips")
         var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true).get()
@@ -30,9 +31,10 @@ export default class Sidebar extends Component {
                 console.log('Error getting documents', err);
             });
     }
-    
+
     render(){
     var trips = this.state.trips;
+    console.log('sidebar has props...', this.props);
     return (
         <div className="Sidebar">
         <SideNav
@@ -40,7 +42,7 @@ export default class Sidebar extends Component {
             options={{ closeOnClick: true }}
         >
                 <SideNavItem href="/">My Account</SideNavItem>
-                <button onClick={this.props.logout}>Log Out</button>
+                <button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Log Out</button>
                 <SideNavItem divider />
                 <SideNavItem subheader>My Trips</SideNavItem>
                 {
@@ -59,3 +61,5 @@ export default class Sidebar extends Component {
         );
     }
 }
+
+export default withRouter(Sidebar);
