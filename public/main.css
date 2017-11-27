@@ -179,6 +179,12 @@ h3, h1 {
     transform: translate(-50%,-50%)!important;
 }
 
+#sidebarButton{
+    position: absolute;
+    top: 30px;
+    left: 80px;
+}
+
 .btn {
     z-index: 2;
     position: absolute;
@@ -218,7 +224,19 @@ h3, h1 {
     width: 600px;
 }
 
-
 body {
     font-family: 'Josefin Sans', sans-serif;
+}
+
+.user-photo {
+    height: 200px;
+    width: 200px;
+}
+
+.user-dashboard {
+
+}
+
+.user-dashboard content {
+
 }
