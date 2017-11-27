@@ -4,6 +4,11 @@
     height: 75vh;
 }
 
+.event-scroll {
+    overflow-Y: scroll;
+    max-height: 55vw;
+}
+
 .chatForm {
     z-index: 2;
     position: fixed;
@@ -17,7 +22,13 @@
     border: 2px solid black;
 }
 
-.flex-row-wrap {
+.trip-whole-page {
+    height: 100vh;
+    background-color: rgb(230, 230, 230);
+}
+
+
+.chat-itin-pin {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,8 +42,8 @@
     flex-wrap: wrap;
 }
 
-h3 {
-    align-self: center;
+.flex-row {
+    display: flex;
 }
 
 
@@ -51,12 +62,6 @@ input[type=text] {
     width: 60%
 }
 
-.event {
-    /* border: 2px solid black;
-    border-radius: 5px; */
-    margin: 5px 8px;
-    width: 375px;
-}
 
 .event-box {
     border: 3px solid grey;
@@ -64,11 +69,19 @@ input[type=text] {
 }
 
 .date-box {
-    border: 3px solid orangered;
-    background-color: rgb(255, 175, 146);
-    border-radius: 5px;
+    display: flex;
+    border: 1px solid #3B4A4D;
+    /*  use this blueish for when it is the date for highlighting? #3BC9E6 */
+    background-color: #F7F8FA;
+    border-radius: 2px;
     margin: 5px 8px;
-    width: 375px;
+    padding: 3px 8px;
+}
+
+.today {
+    background-color: #3BC9E6;
+    margin: 5px 8px;
+    padding: 3px 8px;
 }
 
 .pin-event {
@@ -79,11 +92,13 @@ input[type=text] {
     padding: 5px 10px;
     flex: 1;
     flex-basis: 200px;
+    box-shadow: 10px 10px 5px #888888;
 }
 
 .date-text {
     font-size: 20;
     font-weight: bold;
+    /* text-align: center; */
 }
 
 
@@ -92,15 +107,27 @@ input[type=text] {
     color: gray;
 }
 
-h3 {
+h3, h1 {
     text-align: center;
     font-family: 'Exo',
     sans-serif;
 }
 
+#invite-btn {
+    display: block;
+    margin: 0 auto;
+}
+
+.itin-event {
+    color: #3B4A4D;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
+
 .center-self {
     text-align: center;
 }
+
 .trip-header {
     align-content: center;
 }
@@ -108,3 +135,27 @@ h3 {
 .badge {
     background-color: #F7F8FA
 }
+
+.bottom-align {
+    margin-bottom: auto;
+}
+
+
+.itin-header {
+    display: flex;
+    justify-content: center ;
+}
+
+.itin-header > i {
+    margin-top: 20px;
+}
+
+
+.center-form {
+    text-align: center;
+}
+
+#email-input {
+    width: 600px;
+}
+

@@ -5,7 +5,6 @@ import { extendMoment } from 'moment-range';
 
 const moment = extendMoment(Moment);
 function tripDates(startDate, endDate){
-  console.log('inside of trip dates: ', startDate, endDate)
   let range = moment.range(startDate, endDate);
   range = Array.from(range.by('day')).map(day => {
     return day.toDate().toDateString();
@@ -48,20 +47,22 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    console.log('itinerary rendered')
+    const now = (new Date()).toDateString()
     return (
-      <div className="col-md-6">
-        <h3>Itinerary</h3>
-        <button onClick={this.handleAddButton}>+</button>
+      <div className="col-md-6 panel">
+        <div className="itin-header">
+          <h3>Itinerary</h3>
+          <i className="fa fa-plus-square" onClick={this.handleAddButton} />
+        </div>
         {this.state.showAdd &&
           <AddEvent
             startDate = {this.props.startDate}
             endDate = {this.props.endDate}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
-        <div>{
+        <div className="event-scroll">{
           this.state.dates.map((date, index) => (
-            <div className="date-box" key={index}>
+            <div className={`date-box ${date === now ? 'today' : ''}`} key={index}>
               <p className="date-text">{date}</p>
               <div>
                 {this.state.events.map((event, idx) => {

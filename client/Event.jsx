@@ -12,12 +12,6 @@ export default class Event extends Component {
         this.handleComment = this.handleComment.bind(this);
     }
 
-    componentDidMount(){
-        // const eventRef = this.props.room.doc(this.props.eventId) || 'none';
-        // console.log('event ref is: ', eventRef)
-        console.log('props are...', this.props)
-    }
-
     handleLike (evt){
         evt.preventDefault();
         const eventRef = this.props.room.doc(this.props.eventId);
@@ -51,20 +45,16 @@ export default class Event extends Component {
 
     render() {
         const isItin = this.props.itineraryStatus;
-        !isItin && console.log('state', this.state)
         return (
             isItin
             ?
-            <div className="event">
-                <li>{`${this.props.name} @ ${this.props.time.toLocaleTimeString()}`}</li>
-
-            </div>
+                <li className="itin-event">{`${this.props.name} @ ${this.props.time.toLocaleTimeString()}`}</li>
             :
-            <div className="event pin-event">
+            <div className="pin-event">
                 <span className=" badge" onClick={this.handleLike}>{this.props.likes ? this.props.likes.counter : 0 } &hearts;</span>
                 <p><b>{this.props.name}</b></p>
                 <p>{this.props.description}</p>
-                <div>
+                <div className="bottom-align">
                     <p
                     className="center-self"
                     onClick={() => this.setState({viewComments: !this.state.viewComments})}>Comments</p>

@@ -59,14 +59,14 @@ export default class AddEvent extends Component{
   }
 
   render() {
+    console.log('this.state: ', this.state);
     return (
       <div className="add-form">
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-                <input type="text" name="name" onChange={this.handleChange} />
-          </label>
-          <label>
+          <div className="input-field col s6">
+            <input placeholder="Event Name" type="text" name="name" onChange={this.handleChange} />
+          </div>
+          <label className="flex-row">
             Date:
                 <select className="browser-default" value={this.state.month} onChange={this.handleChange} name="month">
                   {months.map((month, idx) => (
@@ -79,7 +79,7 @@ export default class AddEvent extends Component{
                 </select>
                 <input type="text" name="year" value={this.state.year} onChange={this.handleChange} />
           </label>
-          <label>
+          <label className="flex-row">
             Time:
                 <select className="browser-default" value={this.state.hour} onChange={this.handleChange} name="hour">
                   {hours.map((hour, idx) => (
@@ -96,7 +96,7 @@ export default class AddEvent extends Component{
                     <option value="PM">PM</option>
                 </select>
           </label>
-          <input type="submit" value="Submit" />
+          <input className="btn waves-effect waves-light" type="submit" value="Submit" />
         </form>
       </div>
     );

@@ -24,7 +24,7 @@ export default class Pinned extends React.Component {
         return (
             <div className="col-md-6">
                 <h3>Pinned Events</h3>
-                <div className="pin-wrap">{this.state.events.map((event, index) => {
+                <div className="pin-wrap event-scroll">{this.state.events.map((event, index) => {
                     const pinned = !event.data().itineraryStatus;
                     return pinned && <Event room={this.props.room} key={event.id} {...event.data() } eventId={event.id} event={event} userId={this.props.user.uid} displayName={this.props.user.displayName} />;
                 })}</div>
