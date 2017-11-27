@@ -8,6 +8,7 @@ export default class Dashboard extends Component {
     super();
     this.state = {
         trips: []
+        // users: []
     };
   }
 
@@ -17,6 +18,7 @@ export default class Dashboard extends Component {
         .then(snapshot => {
             snapshot.forEach(doc => {
                 this.setState({trips: this.state.trips.concat({ [doc.data().name]: doc.id })});
+                // this.setState({users: this.state.users.concat( [Object.keys(doc.data().users)] )});
             });
         })
         .catch(err => {
@@ -27,10 +29,10 @@ export default class Dashboard extends Component {
   render(){
 
     var trips = this.state.trips;
-    console.log('TRIPS: ', trips);
-
+    // var userIds = this.state.users;
+    // console.log('USERIDS: ', userIds);
     return (
-      <div className="user-dashboard">
+      <div className="user-dashboard" align="center">
         <h1>User Dashboard</h1>
         <div className="user-dashboard content">
           <img className="user-photo" src={this.props.user.photoURL} />
@@ -41,7 +43,7 @@ export default class Dashboard extends Component {
             trips.map((trip, idx) => {
                 return (
                     <h5 key={idx} className="trip-item menu-item">
-                        <li>{Object.keys(trip)[0]}</li>
+                        <li><Link to={`/${Object.values(trip)[0]}`}>{Object.keys(trip)[0]}</Link></li>
                     </h5>
                 );
             })
