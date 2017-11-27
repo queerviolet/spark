@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { db } from '../fire'
 import { SideNavItem, SideNav, Button, Icon } from 'react-materialize'
 import { withRouter } from 'react-router'
+import AddTrip from './AddTrip'
 // import { SideNavItem, Nav, NavIcon, NavText } from 'react-sidenav';
 
 
@@ -36,9 +37,9 @@ export class Sidebar extends Component {
     var trips = this.state.trips;
     console.log('sidebar has props...', this.props);
     return (
-        <div className="Sidebar">
+        <div className="sidebar">
         <SideNav
-            trigger={<Button>Sidebar</Button>}
+                trigger={<Button id="sidebarButton"><i className="material-icons">menu</i></Button>}
             options={{ closeOnClick: true }}
         >
                 <SideNavItem href="/">My Account</SideNavItem>
@@ -56,6 +57,7 @@ export class Sidebar extends Component {
                 }
                 <SideNavItem divider />
                 <SideNavItem href="/newTrip">+ Add Trip</SideNavItem>
+                <AddTrip />
         </SideNav>
         </div>
         );

@@ -59,7 +59,7 @@ export default class AddEvent extends Component{
   }
 
   render() {
-    console.log('this.state: ', this.state);
+    console.log('this.state HERE: ', this.state);
     return (
       <div className="add-form">
         <form onSubmit={this.handleSubmit}>

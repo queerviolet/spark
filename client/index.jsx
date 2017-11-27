@@ -10,4 +10,4 @@ export {default as Event} from './Event'
 export * from './Bot'
 export * from './GetGeo'
 // export * from './Sidebar'
-
+export { default as AddTrip } from './AddTrip'
