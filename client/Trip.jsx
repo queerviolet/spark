@@ -55,7 +55,6 @@ export default class Trip extends Component {
         return (
             isPartOfTrip ?
             <div>
-            <Sidebar />
                 <div className="trip-header">
                     <h1>{this.state.name}</h1>
                     <button onClick={() => this.setState({showInvite: !this.state.showInvite})}>Invite!</button>

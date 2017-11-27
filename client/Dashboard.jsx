@@ -7,8 +7,6 @@ export const Dashboard = ({ logout }) => {
   return (
     <div>
       <div>
-      <Sidebar />
-        <button onClick={logout}>Log Out</button>
       </div>
       <h1>User Dashboard</h1>
     </div>
