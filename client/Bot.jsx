@@ -1,7 +1,6 @@
 const debug = require('debug')('bot')
 
 import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
-import { locale } from 'moment';
 
 export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
