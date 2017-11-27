@@ -66,7 +66,7 @@ export default class Trip extends Component {
                         </form>
                     }
                 </div>
-                <div className="chat-itin-pin">
+                <div className="chat-itin-pin container-fluid">
                     <Chat room={tripRef.collection('chat')} user={this.props.user} />
                     <Itinerary
                         trip= {tripRef}
