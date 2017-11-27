@@ -39,7 +39,7 @@ export class Sidebar extends Component {
     return (
         <div className="sidebar">
         <SideNav
-                trigger={<Button id="sidebarButton"><i class="material-icons">menu</i></Button>}
+                trigger={<Button id="sidebarButton"><i className="material-icons">menu</i></Button>}
             options={{ closeOnClick: true }}
         >
                 <SideNavItem href="/">My Account</SideNavItem>
