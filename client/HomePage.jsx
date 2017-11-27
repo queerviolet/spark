@@ -4,9 +4,9 @@ import { Carousel } from 'react-materialize';
 export const HomePage = ({login}) => {
   return (
     <div>
-
+      <h1 className="hp-header"><strong>tripHub</strong></h1>
+      <button className="btn" onClick={login}>Log In</button>
       <Carousel
-        fixedItem={<button className="btn" onClick={login}>Log In</button>}
         options={{ fullWidth: true }}
         images={[
           'paris.jpg',
@@ -14,7 +14,6 @@ export const HomePage = ({login}) => {
           'hiking.jpg'
         ]}
       />
-
     </div>
   );
 };

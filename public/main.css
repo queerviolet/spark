@@ -85,4 +85,19 @@ input[type=text] {
     background-size: 100%;
 }
 
+.hp-header {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}
 
+.btn {
+    z-index: 2;
+    background-color: white;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}

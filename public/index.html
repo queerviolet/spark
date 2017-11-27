@@ -20,6 +20,18 @@
     <div id="main">
     </div>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        $('.carousel.carousel-slider').carousel({full_width: true});
+      });
+
+      setInterval(function(){
+        $('.carousel').carousel('next');
+      }, 5000);
+
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script async defer src="/bundle.js"></script>
   </body>
