@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
 
     var trips = this.state.trips;
     console.log('TRIPS: ', trips);
-    console.log()
+
     return (
       <div className="user-dashboard">
         <h1>User Dashboard</h1>
@@ -38,10 +38,10 @@ export default class Dashboard extends Component {
           <h5><strong>Email:</strong> {this.props.user.email}</h5>
           <h5><ul><strong>My Trips:</strong> </ul></h5>
           {
-            trips.map((trip, idx) => {
+            trips.map(trip => {
                 return (
-                    <h5 key={idx} className="trip-item menu-item">
-                        <li>{Object.keys(trip)[0]}</li>
+                    <h5 key={Object.keys((trips[0]))} className="trip-item menu-item">
+                        <li>{Object.keys((trips[0]))}</li>
                     </h5>
                 );
             })

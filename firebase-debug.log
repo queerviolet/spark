@@ -1,0 +1,80 @@
+[debug] [2017-11-27T20:00:36.022Z] ----------------------------------------------------------------------
+[debug] [2017-11-27T20:00:36.025Z] Command:       /usr/local/bin/node /Users/annethorsen/Desktop/GH/senior-phase/capstone/node_modules/.bin/firebase serve --only hosting,functions
+[debug] [2017-11-27T20:00:36.025Z] CLI Version:   3.15.2
+[debug] [2017-11-27T20:00:36.025Z] Platform:      darwin
+[debug] [2017-11-27T20:00:36.025Z] Node Version:  v8.8.0
+[debug] [2017-11-27T20:00:36.026Z] Time:          Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:36.026Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-27T20:00:36.037Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-27T20:00:36.037Z] > authorizing via signed-in user
+[debug] [2017-11-27T20:00:36.039Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:36.522Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:36.523Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/capstone-98fe9/tokens  
+ Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.043Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/annethorsen/Desktop/GH/senior-phase/capstone'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-11-27T20:00:37.457Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/capstone-98fe9  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.458Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/capstone-98fe9/apiKeys  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.458Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.732Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:37.817Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:38.183Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:38.184Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/457370853523/clients/_:getWebAppConfig  
+ Mon Nov 27 2017 15:00:38 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:38.460Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[info] ✔  functions: helloWorld: http://localhost:5001/capstone-98fe9/us-central1/helloWorld
+[debug] [2017-11-27T20:39:58.584Z] ----------------------------------------------------------------------
+[debug] [2017-11-27T20:39:58.587Z] Command:       /usr/local/bin/node /Users/ella.pitassi/Desktop/SeniorPhase/capstone/node_modules/.bin/firebase serve --only hosting,functions
+[debug] [2017-11-27T20:39:58.587Z] CLI Version:   3.14.0
+[debug] [2017-11-27T20:39:58.587Z] Platform:      darwin
+[debug] [2017-11-27T20:39:58.587Z] Node Version:  v9.0.0
+[debug] [2017-11-27T20:39:58.588Z] Time:          Mon Nov 27 2017 15:39:58 GMT-0500 (EST)
+[debug] [2017-11-27T20:39:58.588Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-27T20:39:58.606Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-27T20:39:58.607Z] > authorizing via signed-in user
+[debug] [2017-11-27T20:39:58.609Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-11-27T20:39:58.610Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/onBqQ5MBjLqa4ZA43btucjvZYiS3AXChfo0N1gUkQZg',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Mon Nov 27 2017 15:39:58 GMT-0500 (EST)
+[debug] [2017-11-27T20:39:58.826Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:39:58.841Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:39:58 GMT-0500 (EST)
+[debug] [2017-11-27T20:39:59.147Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:39:59.148Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/capstone-98fe9/tokens  
+ Mon Nov 27 2017 15:39:59 GMT-0500 (EST)
+[debug] [2017-11-27T20:39:59.535Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/ella.pitassi/Desktop/SeniorPhase/capstone'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-11-27T20:40:00.585Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/capstone-98fe9  
+ Mon Nov 27 2017 15:40:00 GMT-0500 (EST)
+[debug] [2017-11-27T20:40:00.586Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/capstone-98fe9/apiKeys  
+ Mon Nov 27 2017 15:40:00 GMT-0500 (EST)
+[debug] [2017-11-27T20:40:00.587Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:40:00 GMT-0500 (EST)
+[debug] [2017-11-27T20:40:00.853Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:40:00.876Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:40:00.876Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/457370853523/clients/_:getWebAppConfig  
+ Mon Nov 27 2017 15:40:00 GMT-0500 (EST)
+[debug] [2017-11-27T20:40:00.949Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:40:01.284Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[warn] ⚠  functions: Error from emulator. [object Object]

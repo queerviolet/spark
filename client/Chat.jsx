@@ -16,8 +16,8 @@ export default class Chat extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleBot = this.handleBot.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
+        this.addPin = this.addPin.bind(this);
     }
 
     componentDidMount() {
@@ -40,12 +40,6 @@ export default class Chat extends React.Component {
         this.setState({showChat: !this.state.showChat});
     }
 
-    handleBot(evt){
-        evt.preventDefault();
-        this.handleSubmit(evt);
-        botReceiveMessage(this.state.newMessage, this.props.room);
-    }
-
     handleChange(evt) {
         this.setState({newMessage: evt.target.value});
     }
@@ -60,8 +54,11 @@ export default class Chat extends React.Component {
          });
     }
 
+    addPin(messageObj) {
+        this.props.events.add(messageObj)
+    }
+
     render() {
-        // console.log("this.sdkfnsfjkskjfs", this.props.numOfUsers)
         return (
             this.state.showChat
                 ? (
@@ -70,7 +67,7 @@ export default class Chat extends React.Component {
                     </div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
-                                return <Message key={index} data={message.data()} {...message.data()} />;
+                                return <Message key={index} data={message.data()} {...message.data()} addPin={this.addPin} />;
                             })}
                             <div ref={el => { this.el = el; }}>
                                 <input type="text" value={this.state.newMessage} onChange={this.handleChange} />

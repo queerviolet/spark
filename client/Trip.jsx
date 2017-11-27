@@ -69,7 +69,7 @@ export default class Trip extends Component {
                 <div className="chat-itin-pin container-fluid">
                     <Chat room={tripRef.collection('chat')} user={this.props.user} />
                 <div className="flex-row-wrap around chat-itin-pin container-fluid">
-                    <Chat room={tripRef.collection('chat')} user={this.props.user} numOfUsers={this.state.numOfUsers}  />
+                    <Chat room={tripRef.collection('chat')} user={this.props.user} numOfUsers={this.state.numOfUsers} events={tripRef.collection('event')} />
                     <Itinerary
                         trip= {tripRef}
                         room={tripRef.collection('event')}

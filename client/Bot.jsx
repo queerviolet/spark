@@ -7,7 +7,8 @@ export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
   const chat = event.data.ref.parent
   const trip = chat.parent
-  console.log('inside of runBotFromMessageEvent')
+  // console.log('trip is......... in runBot', trip)
+  // console.log('inside of runBotFromMessageEvent')
   if (!always) {
     if ((await trip.get()).suppressBot) return
   }
@@ -23,24 +24,42 @@ export async function botReceiveMessage(msg, chat, trip){
   let cmd = msg.toLowerCase();
   let rsp;
 
+  // console.log('trying to get info out of trip', ((await trip.get()).coords), 'pleaseeee')
   console.log('cmd=', cmd)
 
   const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
+  let LAT, LNG;
+
+  await trip.get().then(function (doc) {
+    if (doc.exists) {
+      const geoCoords = doc.data().coords
+      console.log("Document data:", geoCoords._latitude, geoCoords._longitude);
+      LAT = geoCoords._latitude;
+      LNG = geoCoords._longitude
+    } else {
+      console.log("No such document!");
+    }
+  }).catch(function (error) {
+    console.log("Error getting document:", error);
+  });
+
 
   if (cmd.startsWith('set location to ')){
     var location = msg.substring(16)
     rsp = 'Bot will set location to: ' + location;
     const {lat, lng} = await getCoords(location);
-    console.log('coords:', lat, lng)
     trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
     trip.set({ location }, { merge: true })
-
+    const topFive = await topPlaces({lat, lng})
+    console.log(topFive)
+    rsp = `The top five places in ${location} are: * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('search for ')){
     var type = msg.substring(11)
-    rsp = 'Bot will search for: ' + type;
-    getActivityTypes(type);
+    const coords = {lat: LAT, lng: LNG}
+    const topFive = await getActivityTypes(coords, type);
+    rsp = `Your selections are * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('pin ')){
@@ -52,10 +71,12 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else {
-    rsp = "Sorry I don't understand that command yet. \nHere are some commands you can use: \n    Set location to __\n    Search for __\n    Pin __\n    Add event __";
+    rsp = "Sorry I don't understand that command yet. *Here are some commands you can use: *    Set location to __*    Search for __*    Pin __*    Add event __";
   }
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
+
+  console.log('lat and lng are... ', LAT, LNG)
 
   return chat.add({
     time: new Date(),
