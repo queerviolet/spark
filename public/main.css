@@ -2,19 +2,45 @@
     overflow-Y: scroll;
     overflow-Wrap: break-word;
     height: 75vh;
+    color: rgb(126, 197, 156);
+    font-family: Impact;
 }
+
+.chatTitle {
+  background-color: rgba(8, 8, 8, 0.8);
+  font-family: Impact;
+  color: white;
+  border-color: black;
+}
+
+.navBarWrapper {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+  }
+  
+  .bar {
+    height: 8.02%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bar li {
+    display: inline-block;
+  }
 
 .chatForm {
     z-index: 2;
     position: fixed;
     top: 20vh;
     left: 70vw;
-    background-Color: white;
     height: 80vh;
     width: 30vw;
     border-radius: 4px;
-    background-color: rgb(176, 174, 174);
+    background: rgba(18, 16, 22, 0.6);
     border: 2px solid black;
+    border-color: transparent;
 }
 
 .flex-row-wrap {
@@ -25,7 +51,6 @@
     width: 100vw;
 }
 
-
 .flex-row-wrap > * {
     flex-basis: 400px;
 }
@@ -33,12 +58,24 @@
 .toggleChat {
     z-index: 2;
     position: fixed;
+    /* border-radius: 50%;
+    background-color: rgb(6, 41, 7) ;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    /* font-size: 16px; */
+    /* margin: 4px 2px; */
     top: 95vh;
     left: 95vw;
 }
 
 input[type=text] {
-    width: 60%
+    width: 80%;
+    font-family: Impact;
+    color: rgb(83, 240, 83);
 }
 
 .event {
@@ -73,7 +110,6 @@ input[type=text] {
     font-size: 20;
     font-weight: bold;
 }
-
 
 .sender-field {
     font-size: 20;
