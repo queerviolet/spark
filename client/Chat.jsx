@@ -61,26 +61,43 @@ export default class Chat extends React.Component {
     }
 
     render() {
+        // console.log("this.sdkfnsfjkskjfs", this.props.numOfUsers)
         return (
             this.state.showChat
                 ? (
                     <form className="chatForm" onSubmit={this.handleSubmit}>
+                    <div className="chatTitle">😀 {this.props.numOfUsers}
+                    </div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
                                 return <Message key={index} data={message.data()} {...message.data()} />;
                             })}
                             <div ref={el => { this.el = el; }}>
                                 <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
-                                <input type="submit" />
-                                <button className='bot' onClick={this.handleBot} >Bot</button>
-                                <button className='toggleChat fa fa-commenting-o' onClick={this.handleClick} />
+                                <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i className="material-icons right">send</i>
+                              </button>
+
+                                <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_button</i></a>
                             </div>
                         </div>
                     </form>
                     )
                 : (
-                    <button className="toggleChat fa fa-commenting-o" onClick={this.handleClick} />
+                    <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_bubble_outline</i></a>
                     )
         );
     }
 }
+
+
+// <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+// <i class="material-icons right">send</i>
+// </button>
+
+// <button className='bot' onClick={this.handleBot} >Bot</button> removing as we are not using a bot button
+
+//<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+//<input type="submit" />
+
+//<button className="toggleChat fa fa-commenting-o" onClick={this.handleClick} />
