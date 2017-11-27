@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { db } from '../fire'
 import {Chat, Pinned, Itinerary} from './index'
+import { Sidebar } from './Sidebar';
 
 
 export default class Trip extends Component {
