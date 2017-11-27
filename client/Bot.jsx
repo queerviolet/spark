@@ -7,7 +7,8 @@ export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
   const chat = event.data.ref.parent
   const trip = chat.parent
-  console.log('inside of runBotFromMessageEvent')
+  // console.log('trip is......... in runBot', trip)
+  // console.log('inside of runBotFromMessageEvent')
   if (!always) {
     if ((await trip.get()).suppressBot) return
   }
@@ -23,14 +24,32 @@ export async function botReceiveMessage(msg, chat, trip){
   let cmd = msg.toLowerCase();
   let rsp;
 
+  // console.log('trying to get info out of trip', ((await trip.get()).coords), 'pleaseeee')
   console.log('cmd=', cmd)
 
   const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
+  let LAT, LNG;
+
+  await trip.get().then(function (doc) {
+    if (doc.exists) {
+      const geoCoords = doc.data().coords
+      console.log("Document data:", geoCoords._latitude, geoCoords._longitude);
+      LAT = geoCoords._latitude;
+      LNG = geoCoords._longitude
+    } else {
+      console.log("No such document!");
+    }
+  }).catch(function (error) {
+    console.log("Error getting document:", error);
+  });
+
 
   if (cmd.startsWith('set location to ')){
     var location = msg.substring(16)
     rsp = 'Bot will set location to: ' + location;
     const {lat, lng} = await getCoords(location);
+    LAT = lat;
+    LNG = lng;
     console.log('coords:', lat, lng)
     trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
     trip.set({ location }, { merge: true })
@@ -39,8 +58,12 @@ export async function botReceiveMessage(msg, chat, trip){
 
   else if (cmd.startsWith('search for ')){
     var type = msg.substring(11)
+    console.log('in search for and LAT, LNG, type', LAT, LNG, type);
+    const coords = {lat: LAT, lng: LNG}
     rsp = 'Bot will search for: ' + type;
-    getActivityTypes(type);
+    const topFive = await getActivityTypes(coords, type);
+    console.log('searched for results ************************** ', topFive.length)
+    rsp = `Your selections are \n ${topFive[0].name} (${topFive[0].rating} stars)  \n ${topFive[1].name} (${topFive[1].rating} stars)  \n ${topFive[2].name} (${topFive[2].rating} stars)  \n ${topFive[3].name} (${topFive[3].rating} stars) \n ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('pin ')){
@@ -56,6 +79,8 @@ export async function botReceiveMessage(msg, chat, trip){
   }
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
+
+  console.log('lat and lng are... ', LAT, LNG)
 
   return chat.add({
     time: new Date(),

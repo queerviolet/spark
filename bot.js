@@ -10,7 +10,7 @@ admin.initializeApp({
 const db = admin.firestore()
 
 
-const TRIP_ID = '5TT8NzzvNVZAvd8SbEyQ'
+// const TRIP_ID = '5TT8NzzvNVZAvd8SbEyQ'
 
 let tripIds = [];
 
