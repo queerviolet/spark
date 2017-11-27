@@ -13,7 +13,8 @@ export default class Trip extends Component {
             startDate: {},
             endDate: {},
             name: '',
-            showInvite: false
+            showInvite: false,
+            numOfUsers: 0
         }
         this.sendInvite = this.sendInvite.bind(this);
     }
@@ -23,9 +24,9 @@ export default class Trip extends Component {
 
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
-                const { startDate, endDate, name } = doc.data();
-                console.log('before set state in trip')
-                this.setState( {isPartOfTrip: true, startDate, endDate, name }, () => {console.log('after set state in trip')} );
+                const { startDate, endDate, name, users } = doc.data();
+                console.log("USERSSSSS", users)
+                this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
             } else {
                 console.log("No such document!");
             }
@@ -51,7 +52,7 @@ export default class Trip extends Component {
     render(){
         const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
         let isPartOfTrip = this.state.isPartOfTrip;
-
+        console.log("NUMUSERS", this.state.numOfUsers)
         return (
             isPartOfTrip ?
             <div>
@@ -68,7 +69,7 @@ export default class Trip extends Component {
                     }
                 </div>
                 <div className="flex-row-wrap around">
-                    <Chat room={tripRef.collection('chat')} user={this.props.user} />
+                    <Chat room={tripRef.collection('chat')} user={this.props.user} numOfUsers={this.state.numOfUsers}  />
                     <Itinerary
                         trip= {tripRef}
                         room={tripRef.collection('event')}
@@ -86,3 +87,9 @@ export default class Trip extends Component {
     }
 }
 
+function getTrue(obj){
+    let truthy = 0;
+    for (var person in obj) {
+        if (obj[person]) truthy++}
+    return truthy;
+ }
