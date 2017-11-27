@@ -55,20 +55,22 @@ export default class Trip extends Component {
         console.log("NUMUSERS", this.state.numOfUsers)
         return (
             isPartOfTrip ?
-            <div>
+            <div className="trip-whole-page">
                 <div className="trip-header">
                     <h1>{this.state.name}</h1>
-                    <button onClick={() => this.setState({showInvite: !this.state.showInvite})}>Invite!</button>
+                        <button className="btn waves-effect waves-light" id="invite-btn" onClick={() => this.setState({showInvite: !this.state.showInvite})}>Invite!</button>
                     {this.state.showInvite &&
-                        <form onSubmit={this.sendInvite}>
-                            <label>
-                                <input type="text" name="toEmail" />
+                        <form className="center-form" onSubmit={this.sendInvite}>
+                            <label className="label">
+                                <input type="text" name="toEmail" id="email-input" />
                             </label>
-                            <input type="submit" value="Submit" />
+                            <input className="btn waves-effect waves-light center-self" type="submit" value="Submit" />
                         </form>
                     }
                 </div>
-                <div className="flex-row-wrap around">
+                <div className="chat-itin-pin container-fluid">
+                    <Chat room={tripRef.collection('chat')} user={this.props.user} />
+                <div className="flex-row-wrap around chat-itin-pin container-fluid">
                     <Chat room={tripRef.collection('chat')} user={this.props.user} numOfUsers={this.state.numOfUsers}  />
                     <Itinerary
                         trip= {tripRef}
@@ -78,6 +80,7 @@ export default class Trip extends Component {
                         endDate = {this.state.endDate} />
                     <Pinned room={tripRef.collection('event')} user={this.props.user} />
                 </div>
+            </div>
             </div>
             :
             <div>

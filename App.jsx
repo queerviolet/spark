@@ -38,6 +38,7 @@ export default class App extends Component{
   }
 
   logout() {
+    console.log('inside of app and it has props...', this.props)
     auth.signOut()
       .then(() => {
         this.setState({user: null})
@@ -49,7 +50,7 @@ export default class App extends Component{
     return (
       <Router>
         {isLoggedIn ?
-          (<div> 
+          (<div>
             <Sidebar logout={ this.logout } userId={this.state.user.uid} />
             <Switch>
             <Route exact path="/" render={() => <Dashboard />} /> {/* their acct dashboard */}
