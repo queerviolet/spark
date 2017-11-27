@@ -3,7 +3,8 @@
     overflow-Wrap: break-word;
     height: 75vh;
     color: rgb(126, 197, 156);
-    font-family: Impact;
+    font-family: 'Josefin Sans',
+    sans-serif;
 }
 
 
@@ -12,10 +13,10 @@
     max-height: 45vw;
 }
 
-
 .chatTitle {
   background-color: rgba(8, 8, 8, 0.8);
-  font-family: Impact;
+  font-family: 'Josefin Sans',
+  sans-serif;
   color: white;
   border-color: black;
 }
@@ -49,6 +50,8 @@
     background: rgba(18, 16, 22, 0.6);
     border: 2px solid black;
     border-color: transparent;
+    font-family: 'Josefin Sans',
+    sans-serif;
 }
 
 .trip-whole-page {
@@ -149,7 +152,7 @@ input[type=text] {
 
 h3, h1 {
     text-align: center;
-    font-family: 'Exo',
+    font-family: 'Josefin Sans',
     sans-serif;
 }
 
@@ -215,3 +218,7 @@ h3, h1 {
     width: 600px;
 }
 
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
