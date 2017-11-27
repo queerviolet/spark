@@ -218,7 +218,19 @@ h3, h1 {
     width: 600px;
 }
 
-
 body {
     font-family: 'Josefin Sans', sans-serif;
+}
+
+.user-photo {
+    height: 200px;
+    width: 200px;
+}
+
+.user-dashboard {
+
+}
+
+.user-dashboard content {
+
 }
