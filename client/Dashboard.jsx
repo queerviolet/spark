@@ -38,10 +38,10 @@ export default class Dashboard extends Component {
           <h5><strong>Email:</strong> {this.props.user.email}</h5>
           <h5><ul><strong>My Trips:</strong> </ul></h5>
           {
-            trips.map(trip => {
+            trips.map((trip, idx) => {
                 return (
-                    <h5 key={Object.keys((trips[0]))} className="trip-item menu-item">
-                        <li>{Object.keys((trips[0]))}</li>
+                    <h5 key={idx} className="trip-item menu-item">
+                        <li>{Object.keys(trip)[0]}</li>
                     </h5>
                 );
             })
