@@ -3,10 +3,10 @@ import Trip from './client/Trip'
 import {Switch, Route} from 'react-router'
 import {BrowserRouter as Router} from 'react-router-dom'
 import React, { Component } from 'react'
-import { HomePage, Dashboard} from './client'
+import { HomePage } from './client'
 import firebase, { auth, provider, db } from '~/fire'
 import Sidebar from './client/Sidebar';
-
+import Dashboard from './client/Dashboard';
 
 export default class App extends Component{
   constructor(props){
@@ -53,7 +53,7 @@ export default class App extends Component{
           (<div>
             <Sidebar logout={ this.logout } userId={this.state.user.uid} />
             <Switch>
-            <Route exact path="/" render={() => <Dashboard />} /> {/* their acct dashboard */}
+            <Route exact path="/" render={(props) => <Dashboard user={this.state.user} {...props} />} /> {/* their acct dashboard */}
             <Route path="/:tripId" render={(props) => <Trip user={this.state.user} {...props} />} /> {/* an individual trip  */}
           </Switch>
           </div>

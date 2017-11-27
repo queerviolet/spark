@@ -25,7 +25,7 @@ export default class Trip extends Component {
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name, users } = doc.data();
-                console.log("USERSSSSS", users)
+                // console.log("USERSSSSS", users)
                 this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
             } else {
                 console.log("No such document!");
@@ -46,13 +46,11 @@ export default class Trip extends Component {
             .set({ invitee: [email, tripId ]}, {merge: true});
         evt.target.toEmail.value = '';
         this.setState({showInvite: false});
-
     }
 
     render(){
         const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
         let isPartOfTrip = this.state.isPartOfTrip;
-        console.log("NUMUSERS", this.state.numOfUsers)
         return (
             isPartOfTrip ?
             <div className="trip-whole-page">

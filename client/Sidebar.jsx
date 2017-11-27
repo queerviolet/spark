@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import { db } from '../fire'
+import { db } from '../fire';
 import { SideNavItem, SideNav, Button, Icon } from 'react-materialize'
 import { withRouter } from 'react-router'
 import AddTrip from './AddTrip'
@@ -35,7 +35,7 @@ export class Sidebar extends Component {
 
     render(){
     var trips = this.state.trips;
-    console.log('sidebar has props...', this.props);
+    // console.log('sidebar has props...', this.props);
     return (
         <div className="sidebar">
         <SideNav
