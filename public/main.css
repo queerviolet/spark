@@ -18,14 +18,14 @@
     z-index: 1;
     width: 100%;
   }
-  
+
   .bar {
     height: 8.02%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .bar li {
     display: inline-block;
   }
@@ -114,6 +114,22 @@ input[type=text] {
 .sender-field {
     font-size: 20;
     color: gray;
+}
+
+.hp-header {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}
+
+.btn {
+    z-index: 2;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
 }
 
 .trip-header {

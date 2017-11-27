@@ -1,16 +1,25 @@
-import React, { Component } from 'react';
-// import {ui, uiConfig} from '../fire'
-
+import React from 'react';
+import { Carousel } from 'react-materialize';
 
 export const HomePage = ({login}) => {
   return (
-    <div>
-      <div>
-        <button onClick={login}>Log In</button>
-      </div>
-      <h1>Trip Planner</h1>
-    </div>
-  )
-}
 
-export default HomePage
+    <div>
+    <h1 className="hp-header"><strong>tripHub</strong></h1>
+    <button className="btn black" onClick={login}>Log In</button>
+    <Carousel
+      className="carousel"
+      options={{ fullWidth: true }}
+      images={[
+        'paris.jpg',
+        'iceland.jpg',
+        'hiking.jpg',
+        'nyc.jpg'
+      ]}
+    />
+    </div>
+
+  );
+};
+
+export default HomePage;
