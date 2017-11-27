@@ -1,0 +1,36 @@
+[debug] [2017-11-27T20:00:36.022Z] ----------------------------------------------------------------------
+[debug] [2017-11-27T20:00:36.025Z] Command:       /usr/local/bin/node /Users/annethorsen/Desktop/GH/senior-phase/capstone/node_modules/.bin/firebase serve --only hosting,functions
+[debug] [2017-11-27T20:00:36.025Z] CLI Version:   3.15.2
+[debug] [2017-11-27T20:00:36.025Z] Platform:      darwin
+[debug] [2017-11-27T20:00:36.025Z] Node Version:  v8.8.0
+[debug] [2017-11-27T20:00:36.026Z] Time:          Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:36.026Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-27T20:00:36.037Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-27T20:00:36.037Z] > authorizing via signed-in user
+[debug] [2017-11-27T20:00:36.039Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:36.522Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:36.523Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/capstone-98fe9/tokens  
+ Mon Nov 27 2017 15:00:36 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.043Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/annethorsen/Desktop/GH/senior-phase/capstone'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-11-27T20:00:37.457Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/capstone-98fe9  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.458Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/capstone-98fe9/apiKeys  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.458Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/capstone-98fe9  
+ Mon Nov 27 2017 15:00:37 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:37.732Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:37.817Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:38.183Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-27T20:00:38.184Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/457370853523/clients/_:getWebAppConfig  
+ Mon Nov 27 2017 15:00:38 GMT-0500 (EST)
+[debug] [2017-11-27T20:00:38.460Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[info] ✔  functions: helloWorld: http://localhost:5001/capstone-98fe9/us-central1/helloWorld

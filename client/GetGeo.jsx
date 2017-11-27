@@ -13,7 +13,7 @@ export function getActivityTypes(coords, type) {
         var lat = coords.lat
         var lng = coords.lng
 
-        return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=500&type=${type}&rankby=prominence&key=AIzaSyDfFiJgPk0kIAla_Csuz7wXh7M0cWtb1Yg`)
+        return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=500&keyword=${type}&rankby=prominence&key=AIzaSyDfFiJgPk0kIAla_Csuz7wXh7M0cWtb1Yg`)
         .then((res) => res.data.results)
         .then((res) => res.slice(0, 5))
         .catch(error => console.log(error))
@@ -23,10 +23,9 @@ export function topPlaces(coords) {
         var lat = coords.lat
         var lng = coords.lng
 
-        return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=500&rankby=prominence&key=AIzaSyDfFiJgPk0kIAla_Csuz7wXh7M0cWtb1Yg`)
-        .then((res) => res.json())
-        .then((res) => (res.results))
-        .then((res) => console.log(res[0]))
+        return axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=500&keyword=establishment,activity&rankby=prominence&key=AIzaSyDfFiJgPk0kIAla_Csuz7wXh7M0cWtb1Yg`)
+        .then((res) => (res.data.results))
+        .then((res) => res.slice(0 , 5))
         .catch(error => console.log(error))
 }
 

@@ -48,22 +48,18 @@ export async function botReceiveMessage(msg, chat, trip){
     var location = msg.substring(16)
     rsp = 'Bot will set location to: ' + location;
     const {lat, lng} = await getCoords(location);
-    LAT = lat;
-    LNG = lng;
-    console.log('coords:', lat, lng)
     trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
     trip.set({ location }, { merge: true })
-
+    const topFive = await topPlaces({lat, lng})
+    console.log(topFive)
+    rsp = `The top five places in ${location} are: * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('search for ')){
     var type = msg.substring(11)
-    console.log('in search for and LAT, LNG, type', LAT, LNG, type);
     const coords = {lat: LAT, lng: LNG}
-    rsp = 'Bot will search for: ' + type;
     const topFive = await getActivityTypes(coords, type);
-    console.log('searched for results ************************** ', topFive.length)
-    rsp = `Your selections are \n ${topFive[0].name} (${topFive[0].rating} stars)  \n ${topFive[1].name} (${topFive[1].rating} stars)  \n ${topFive[2].name} (${topFive[2].rating} stars)  \n ${topFive[3].name} (${topFive[3].rating} stars) \n ${topFive[4].name} (${topFive[4].rating} stars)`
+    rsp = `Your selections are * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('pin ')){
@@ -75,7 +71,7 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else {
-    rsp = "Sorry I don't understand that command yet. \nHere are some commands you can use: \n    Set location to __\n    Search for __\n    Pin __\n    Add event __";
+    rsp = "Sorry I don't understand that command yet. *Here are some commands you can use: *    Set location to __*    Search for __*    Pin __*    Add event __";
   }
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
