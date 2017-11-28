@@ -19,9 +19,7 @@ export default class Trip extends Component {
         this.sendInvite = this.sendInvite.bind(this);
     }
 
-    componentDidMount (){
-        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
-
+    fetch (tripRef){
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name, users } = doc.data();
@@ -34,6 +32,15 @@ export default class Trip extends Component {
             console.log("Error getting document: ", error);
         })
     }
+
+    componentDidMount(){
+        this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
+    }
+
 
     /* NOTES: it would be cool if it rendered "sent mail" for a second */
     sendInvite(evt){
