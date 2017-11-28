@@ -1,16 +1,11 @@
-const functions = require('firebase-functions');
-    lib = require('./lib');
+const functions = require('firebase-functions')
+    , admin = require('firebase-admin')
+    , lib = require('./lib')
+    , nodemailer = require('nodemailer')
+    , cookieParser = require('cookie-parser')()
+    , validateUser = require('./validate-user')(admin)
 
-const nodemailer = require('nodemailer');
-const {gmailPassword} = require('../fire/config.js')
-
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'jointriphub@gmail.com',
-        pass: gmailPassword
-    }
-});
+admin.initializeApp(functions.config().firebase)
 
 // const sendmail = require('sendmail')();
 
@@ -30,8 +25,16 @@ var transporter = nodemailer.createTransport({
 // };
 
 
-exports.helloWorld = functions.https.onRequest((request, response) =>
-   response.send(lib));
+exports.joinTripFromInvite = functions.https.onRequest(
+    require('express')()
+        .use(cookieParser)
+        .use(validateUser)
+        .use((req, res) => res.send({
+
+            // DO THE FIRESTORE THINGS AND RES.SEND THE TRIP ID
+            query: req.query,
+            user: req.user,
+        })))
 
 exports.bot = functions.firestore
     .document('trips/{tripId}/chat/{messageId}')
@@ -46,24 +49,28 @@ firebase > bot({from: 'annelise', text: '/search for HI'}, {params: {tripId: '5T
 exports.sendInvite = functions.firestore
     .document('/invites/{inviteId}')
     .onCreate(event => {
+        const user = functions.config().gmail.user
+            , pass = functions.config().gmail.password
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: { user, pass }
+        });
 
         var {email, tripName, displayName} = event.data.data();
         var inviteId = event.data.id;
 
-        console.log('getting information inside of sendInvite cloud function ', email, tripName, displayName, inviteId)
-
         const mailOptions = {
-            from: 'jointriphub@gmail.com', // sender address
+            from: user, // sender address
             to: email, // list of receivers
             subject: 'You\'ve been invited to join a trip!', // Subject line
             html: `<p>${displayName} invited you to join their trip: ${tripName}</p><p>Go to https://www.capstone-98fe9.firebaseapp.com/join/${inviteId} to start planning.</p><p>Have a great trip!</p>`// plain text body
         };
 
-        return transporter.sendMail(mailOptions, function (err, info) {
-            if (err) {console.log(err)}
-            else {console.log(info)}
-        });
-
+        return new Promise((resolve, reject) =>
+            transporter.sendMail(mailOptions, function (err, info) {
+                if (err) {return reject(err)}
+                resolve(info)
+            }));
     });
 
 

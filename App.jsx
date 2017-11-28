@@ -7,6 +7,7 @@ import { HomePage } from './client'
 import firebase, { auth, provider, db } from '~/fire'
 import Sidebar from './client/Sidebar';
 import Dashboard from './client/Dashboard';
+import JoinTrip from './client/JoinTrip'
 
 export default class App extends Component{
   constructor(props){
@@ -55,11 +56,17 @@ export default class App extends Component{
             <Switch>
             <Route exact path="/" render={(props) => <Dashboard user={this.state.user} {...props} />} /> {/* their acct dashboard */}
             <Route path="/:tripId" render={(props) => <Trip user={this.state.user} {...props} />} /> {/* an individual trip  */}
+            <Route exact path="/join/:inviteId" render={
+              ({match: {params: {inviteId} }}) => <JoinTrip inviteId={inviteId} />
+            } />
           </Switch>
           </div>
         )
         : (<Switch>
             <Route exact path="/" render={() => <HomePage login={this.login} />} /> {/* HomePage incl. login */}
+            <Route exact path="/join/:inviteId" render={
+              ({ match: { params: { inviteId } } }) => <JoinTrip inviteId={inviteId} login={this.login} />
+            } />
           </Switch>)
         }
       </Router>
