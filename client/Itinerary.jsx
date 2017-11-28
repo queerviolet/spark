@@ -69,7 +69,7 @@ export default class Itinerary extends React.Component {
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
-                    <Event key={idx} room={this.props.room} {...event.data() } eventId={event.id} />
+                    <Event key={idx} room={this.props.room} {...event.data() } eventId={event.id} userId={this.props.user.uid} />
                   );}
                 )}
               </div>

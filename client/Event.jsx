@@ -47,16 +47,14 @@ export default class Event extends Component {
     render() {
         const isItin = this.props.itineraryStatus;
         const {event, eventRef} = this.state;
-        console.log('event and eventRef', event, eventRef)
-        // console.log('event inside of render is....', event)
-        // console.log('state is.......', this.state)
+        console.log('this.props.userId', this.props.userId, event ? event.likes : 'no event')
         return (
             event ? (isItin
             ?
                 <li className="itin-event">{`${event.name} @ ${event.time.toLocaleTimeString()}`}</li>
             :
             <div className="pin-event">
-                <span className=" badge" onClick={this.handleLike}>{count(event.likes)} &hearts;</span>
+                <span className={`badge ${event.likes[this.props.userId] ? 'red' : ''}`} onClick={this.handleLike}>{count(event.likes)} &hearts;</span>
                 <p><b>{event.name }</b></p>
                 <p>{event.description}</p>
             </div> )
