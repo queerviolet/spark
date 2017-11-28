@@ -20,21 +20,21 @@ export class Sidebar extends Component {
 
     componentDidMount(){
         var tripsRef = db.collection("trips")
-        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true).get()
-            .then(snapshot => {
-
-                snapshot.forEach(doc => {
-                    this.setState({trips: this.state.trips.concat({ [doc.data().name]: doc.id })})
-                    // console.log("HERE: ", doc.id, '=>', doc.data());
+        const sidebarComp = this;
+        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true)
+            .onSnapshot(function (querySnapshot) {
+                var trips = [];
+                querySnapshot.forEach(function (doc) {
+                    trips.push({[doc.data().name]: doc.id});
                 });
-            })
-            .catch(err => {
-                console.log('Error getting documents', err);
+                console.log('trips inside the snapshot are...', trips);
+                sidebarComp.setState({trips})
             });
     }
 
     render(){
     var trips = this.state.trips;
+    console.log('inside sidebar render with state: ', this.state);
     // console.log('sidebar has props...', this.props);
     return (
         <div className="sidebar">
