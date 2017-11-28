@@ -29,7 +29,7 @@ export default class HomePage extends Component {
         <section id="carousel">
           <div id="carousel-text">
             <h1 className="hp-header"><strong>tripHub</strong></h1>
-            <button className="btn black" onClick={this.props.login}>Log In</button>
+            <button className="btn login-btn black" onClick={this.props.login}>Log In</button>
           </div>
           <img className="carousel-image" src={this.state.image} />
         </section>

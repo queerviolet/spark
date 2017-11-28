@@ -14,12 +14,10 @@ export default class Event extends Component {
     }
 
     componentDidMount(){
-        // console.log('props when event mounts are...', this.props.room, this.props.eventId)
         const evtComp = this;
         evtComp.setState({eventRef: this.props.room.doc(this.props.eventId)})
         this.props.room.doc(this.props.eventId)
             .onSnapshot(function (doc) {
-                // console.log("Current data: ", doc && doc.data(), evtComp);
                 evtComp.setState({event: doc.exists && doc.data()})
             });
     }

@@ -27,15 +27,12 @@ export class Sidebar extends Component {
                 querySnapshot.forEach(function (doc) {
                     trips.push({[doc.data().name]: doc.id});
                 });
-                console.log('trips inside the snapshot are...', trips);
                 sidebarComp.setState({trips})
             });
     }
 
     render(){
     var trips = this.state.trips;
-    console.log('inside sidebar render with state: ', this.state);
-    // console.log('sidebar has props...', this.props);
     return (
         <div className="sidebar">
         <SideNav

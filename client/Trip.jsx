@@ -23,7 +23,6 @@ export default class Trip extends Component {
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name, users } = doc.data();
-                // console.log("USERSSSSS", users)
                 this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users), tripId: doc.id});
             } else {
                 console.log("No such document!");
