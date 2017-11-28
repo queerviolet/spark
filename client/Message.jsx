@@ -2,6 +2,9 @@ import React from 'react'
 
 export default (props) => {
   const splitText = props.data.text.split("*")
+  if (props.data.places) {
+    return <pre>{JSON.stringify(props.data.places, 0, 2)}</pre>
+  } // FROM ASHI... IF IT HAS PLACES (FROM GOOGLE PLACES)
   return (
     props.data.from === 'Your buddy Bot' && splitText.length > 1?
       (
