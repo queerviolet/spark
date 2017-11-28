@@ -1,13 +1,14 @@
 import React from 'react'
 import axios from 'axios'
+import {withRouter} from 'react-router'
 
 import {auth} from '~/fire'
 
-export default class JoinTrip extends React.Component {
+export class JoinTrip extends React.Component {
   componentDidMount() {
     this.unsubscribe = auth.onAuthStateChanged(user =>
       user
-        ? joinTrip(user, this.props.inviteId)
+        ? joinTrip(user, this.props.inviteId, this.props)
         : this.props.login()
     )
   }
@@ -21,9 +22,10 @@ export default class JoinTrip extends React.Component {
   }
 }
 
-function joinTrip(user, inviteId) {
+export default withRouter(JoinTrip)
+
+function joinTrip(user, inviteId, props) {
   const JOIN_API = `/api/join/${inviteId}`
-  console.log('join api is: ', JOIN_API)
   user.getToken().then(token =>
     axios.get(JOIN_API, {
       headers: {
@@ -31,7 +33,6 @@ function joinTrip(user, inviteId) {
       }
     }))
     .then((info) => {
-      // redirect to the trip id which should be returned in info
-      console.log('inside of joinTrip comopnent and got info back from axios ############', info)
+      return props.history.push(`/${info.data.tripId}`)
     }, console.error)
 }

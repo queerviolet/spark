@@ -7,6 +7,8 @@ const functions = require('firebase-functions')
 
 admin.initializeApp(functions.config().firebase)
 
+const db = admin.firestore()
+
 // const sendmail = require('sendmail')();
 
 
@@ -34,15 +36,32 @@ exports.joinTripFromInvite = functions.https.onRequest(
         })
         .use(cookieParser)
         .use(validateUser)
-        .use((req, res) => {
+        .use(async (req, res) => {
             const { uid } = req.user;
             console.log('uid -----> ', uid, ' <---- inviteId ----> ', req.inviteId)
-            res.send({
-            // DO THE FIRESTORE THINGS AND RES.SEND THE TRIP ID
-            query: req.query,
-            inviteId: req.inviteId,
-            user: req.user,
-            })
+            await db.collection('invites').doc(req.inviteId).get()
+                .then(function (doc) {
+                    if (doc.exists) {
+                        const {tripId} = doc.data();
+                        db.collection('trips').doc(tripId).update({[`users.${uid}`]: true})
+                            .then(() => doc._ref.delete() )
+                            .then(() => res.send({ user: req.user, tripId: tripId }))
+                    } else {
+                        console.error("No such document!");
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+            // go to invites -> use inviteId to get the tripId
+            // add user to the trip using tripId
+            // delete that invite thing
+            // then send back tripId
+            // res.send({
+            // // DO THE FIRESTORE THINGS AND RES.SEND THE TRIP ID
+            // query: req.query,
+            // inviteId: req.inviteId,
+            // user: req.user,
+            // })
         }))
 
 exports.bot = functions.firestore
