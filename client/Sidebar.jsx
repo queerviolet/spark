@@ -39,10 +39,10 @@ export class Sidebar extends Component {
     return (
         <div className="sidebar">
         <SideNav
-                trigger={<Button id="sidebarButton"><i className="material-icons">menu</i></Button>}
-            options={{ closeOnClick: true }}
-        >
-                <SideNavItem href="/">My Account</SideNavItem>
+            trigger={<Button id="sidebarButton"><i className="material-icons">menu</i></Button>}
+            options={{ closeOnClick: true }} >
+                {/* used onClick instead of nested Link because browser console complains about nested a tags */}
+                <SideNavItem onClick={() => {this.props.history.push('/')}} >My Account</SideNavItem>
                 <button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Log Out</button>
                 <SideNavItem divider />
                 <SideNavItem subheader>My Trips</SideNavItem>
