@@ -53,6 +53,7 @@ export async function botReceiveMessage(msg, chat, trip){
     console.log(topFive)
 
     return chat.add({
+      time: new Date(),
       from: 'Google Places',
       places: topFive,
       }) // change the formatting of the message in chat and then handle that in Message.jsx
@@ -65,40 +66,43 @@ export async function botReceiveMessage(msg, chat, trip){
     var type = msg.substring(11)
     const coords = {lat: LAT, lng: LNG}
     const topFive = await getActivityTypes(coords, type);
-    rsp = `Your selections are * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
+    
+    return chat.add({
+      time: new Date(),
+      from: 'Google Places',
+      places: topFive,
+      })
   }
 
   else if (cmd.startsWith('pin ')){
     rsp = 'Bot will add ' + msg.substring(4) + ' pin to board';
+    return chat.add({
+      time: new Date(),
+      text: rsp,
+      from: 'Your buddy Bot'
+    });
   }
 
   else if (cmd.startsWith('add event ')) {
     rsp = 'Bot will add ' + msg.substring(10) + ' event to itinerary';
+    return chat.add({
+      time: new Date(),
+      text: rsp,
+      from: 'Your buddy Bot'
+    });
   }
 
   else {
-    rsp = "Sorry I don't understand that command yet. *Here are some commands you can use: *    Set location to __*    Search for __*    Pin __*    Add event __";
+    rsp = "Sorry I don't understand that command yet. Here are some commands you can use:     Set location to __    Search for __    Pin __    Add event __";
+    return chat.add({
+      time: new Date(),
+      text: rsp,
+      from: 'Your buddy Bot'
+    });
   }
   //add a response for replying to users saying 'I dont know' when the bot
   //asks them a question
-
-  console.log('lat and lng are... ', LAT, LNG)
-
-  return chat.add({
-    time: new Date(),
-    text: rsp,
-    from: 'Your buddy Bot'
-  });
-
-  // getCoords('New York, NY');
-
 }
-
-
-// function sendMessage(message){
-
-// }
-
 
 
 /*PLACE SEARCH

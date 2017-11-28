@@ -17,7 +17,7 @@ export default class Chat extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
-        this.addPin = this.addPin.bind(this);
+        // this.addPin = this.addPin.bind(this);
         this.unsubscribe = null;
     }
 
@@ -64,9 +64,9 @@ export default class Chat extends React.Component {
          });
     }
 
-    addPin(messageObj) {
-        this.props.events.add(messageObj)
-    }
+    // addPin(messageObj) {
+    //     this.props.events.add(messageObj)
+    // }
 
     render() {
         return (
@@ -77,7 +77,7 @@ export default class Chat extends React.Component {
                     </div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
-                                return <Message key={index} data={message.data()} {...message.data()} addPin={this.addPin} />;
+                                return <Message key={index} {...message.data()} eventref={this.props.events} />;
                             })}
                             <div ref={el => { this.el = el; }}>
                                 <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
