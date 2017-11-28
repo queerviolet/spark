@@ -145,10 +145,10 @@ input[type=text] {
     /* text-align: center; */
 }
 
-.sender-field {
+/* .sender-field {
     font-size: 20;
     color: gray;
-}
+} */
 
 h3, h1 {
     text-align: center;
@@ -231,4 +231,25 @@ body {
 .user-photo {
     height: 200px;
     width: 200px;
+}
+
+.speech-bubble {
+	position: relative;
+	background: #caf0fe;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 27px solid transparent;
+	border-top-color: #caf0fe;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -13.5px;
+	margin-bottom: -27px;
 }
