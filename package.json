@@ -45,6 +45,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.19.2",
     "moment-range": "^3.0.3",
+    "nodemailer": "^4.4.0",
     "npm-install-missing": "^0.1.4",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",

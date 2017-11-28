@@ -46,10 +46,18 @@ export default class Trip extends Component {
     sendInvite(evt){
         evt.preventDefault();
         //target email is evt.target.toEmail.value
-        const [email, tripId] = [evt.target.toEmail.value, this.props.match.params.tripId]
-        db.collection('users')
-            .doc(this.props.user.uid)
-            .set({ invitee: [email, tripId ]}, {merge: true});
+        console.log('inside of sendInvite')
+        const [email, tripId, tripName, displayName] = [evt.target.toEmail.value, this.props.match.params.tripId, this.state.name, this.props.user.displayName]
+        console.log('email and tripId', email, tripId, tripName, displayName);
+        db.collection('invites')
+            .add({
+                email,
+                displayName,
+                tripId,
+                tripName
+            })
+
+        /* reset the input field blank and hide invite form */
         evt.target.toEmail.value = '';
         this.setState({showInvite: false});
     }
@@ -68,7 +76,7 @@ export default class Trip extends Component {
                             <label className="label">
                                 <input type="text" name="toEmail" id="email-input" />
                             </label>
-                            <input className="btn waves-effect waves-light center-self" type="submit" value="Submit" />
+                            <input className="btn center-self" type="submit" value="Submit" />
                         </form>
                     }
                 </div>
