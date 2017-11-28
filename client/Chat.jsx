@@ -68,27 +68,28 @@ export default class Chat extends React.Component {
     //     this.props.events.add(messageObj)
     // }
 
-    render() {
+    render() { //pins work but formatting off
         return (
             this.state.showChat
                 ? (
-                    <form className="chatForm" onSubmit={this.handleSubmit}>
-                    <div className="chatTitle">😀 {this.props.numOfUsers}
-                    </div>
+                    <div className="chatForm">
+                    <div className="chatTitle">😀 {this.props.numOfUsers}</div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
                                 return <Message key={index} {...message.data()} eventref={this.props.events} />;
                             })}
+                            <form onSubmit={this.handleSubmit}>
                             <div ref={el => { this.el = el; }}>
                                 <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
                                 <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                                 <i className="material-icons right">send</i>
-                              </button>
+                                </button>
 
                                 <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_button</i></a>
                             </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                     )
                 : (
                     <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_bubble_outline</i></a>
@@ -98,13 +99,4 @@ export default class Chat extends React.Component {
 }
 
 
-// <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-// <i class="material-icons right">send</i>
-// </button>
 
-// <button className='bot' onClick={this.handleBot} >Bot</button> removing as we are not using a bot button
-
-//<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-//<input type="submit" />
-
-//<button className="toggleChat fa fa-commenting-o" onClick={this.handleClick} />
