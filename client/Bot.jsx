@@ -99,27 +99,33 @@ export async function botReceiveMessage(msg, chat, trip){
 
   else if (cmd.startsWith('add event ')) {
     // 'add event ____ @ _____
-    const [event, dateTime] = msg.substring(10).split('@');
+    const [event, dateTime] = msg.substring(10).split( ' @ ');
     rsp = 'Bot added ' + event + ' to itinerary';
     // const event = msg.substring(10);
+    // console.log('event issss =======>>>>>', event, 'lalala');
 
     return chat.parent.collection('event')
       .where('name', '==', event)
       .get()
       .then(function (querySnapshot) {
+        // console.log('for querySnapshot with size', querySnapshot.docs.length)
         if(querySnapshot.size) {
           querySnapshot.forEach(doc => {
-            doc.set({itineraryStatus: true, time: new Date(dateTime)}, {merge: true})
+            // console.log('got doc and hopefully an id', doc.id);
+            // console.log('is this a reference?', chat.parent.collection('event').doc(doc.id))
+            chat.parent.collection('event').doc(doc.id).set({itineraryStatus: true, time: new Date(dateTime)}, {merge: true})
           })
         }
-        chat.parent.collection('event').add({
+        else {
+          // console.log('querysnapshot size shouldve been zero so now were adding a new one')
+          chat.parent.collection('event').add({
           name: event,
           likes: {},
           type: 'event',
           comment: [],
           itineraryStatus: true,
           time: new Date(dateTime)
-        })
+        })}
         // querySnapshot.forEach(function (doc) {
         //   console.log(doc.id, " => ", doc.data());
         // });
@@ -128,6 +134,7 @@ export async function botReceiveMessage(msg, chat, trip){
         console.log("Error getting documents: ", error);
       })
       .then(() => {
+        // console.log('inside the last then when we create a new message from the bot', rsp);
         return chat.add({
           time: new Date(),
           text: rsp,
@@ -160,7 +167,7 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else {
-    rsp = "Sorry I don't understand that command yet. Here are some commands you can use:     Set location to __    Search for __    Pin __    Add event __";
+    rsp = "Sorry I don't understand that command yet. Here are some commands you can use with examples:     Set location to New York     Search for restaurants    Pin Central Park    Add event Central Park @ 11/12/13 1:23 PM";
     return chat.add({
       time: new Date(),
       text: rsp,
