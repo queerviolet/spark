@@ -15,7 +15,6 @@ function tripDates(startDate, endDate){
 export default class Itinerary extends React.Component {
   constructor(props) { //props is the events we tell the bot to pin?
     super(props);
-    console.log('props inside of itinerary', props);
     this.state = {
       events: [],
       dates: tripDates(props.startDate, props.endDate),
@@ -35,10 +34,8 @@ export default class Itinerary extends React.Component {
       this.setState({events: snapshot.docs});
     });
     this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
-      console.log('inside of trip snapshot')
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
-        console.log('updating state dates', startDate, endDate)
         this.setState({dates: tripDates(startDate, endDate)})
       }
     })
@@ -52,10 +49,8 @@ export default class Itinerary extends React.Component {
       this.setState({ events: snapshot.docs });
     });
     this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
-      console.log('inside of trip snapshot')
       const { startDate, endDate } = snapshot.data();
       if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
-        console.log('updating state dates', startDate, endDate)
         this.setState({ dates: tripDates(startDate, endDate) })
       }
     })
