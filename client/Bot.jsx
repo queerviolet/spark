@@ -66,7 +66,7 @@ export async function botReceiveMessage(msg, chat, trip){
     var type = msg.substring(11)
     const coords = {lat: LAT, lng: LNG}
     const topFive = await getActivityTypes(coords, type);
-    
+
     return chat.add({
       time: new Date(),
       from: 'Google Places',
@@ -75,21 +75,88 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else if (cmd.startsWith('pin ')){
-    rsp = 'Bot will add ' + msg.substring(4) + ' pin to board';
-    return chat.add({
-      time: new Date(),
-      text: rsp,
-      from: 'Your buddy Bot'
-    });
+    rsp = 'Bot added ' + msg.substring(4) + ' to pins board';
+
+
+    return chat.parent.collection('event')
+      .add({
+        name: msg.substring(4),
+        comment: [],
+        likes: {},
+        itineraryStatus: false,
+        description: '',
+        type: 'event'
+      })
+      .then(() => {
+        return chat.add({
+          time: new Date(),
+          text: rsp,
+          from: 'Your buddy Bot'
+        });
+      })
+
   }
 
   else if (cmd.startsWith('add event ')) {
-    rsp = 'Bot will add ' + msg.substring(10) + ' event to itinerary';
-    return chat.add({
-      time: new Date(),
-      text: rsp,
-      from: 'Your buddy Bot'
-    });
+    // 'add event ____ @ _____
+    const [event, dateTime] = msg.substring(10).split('@');
+    rsp = 'Bot added ' + event + ' to itinerary';
+    // const event = msg.substring(10);
+
+    return chat.parent.collection('event')
+      .where('name', '==', event)
+      .get()
+      .then(function (querySnapshot) {
+        if(querySnapshot.size) {
+          querySnapshot.forEach(doc => {
+            doc.set({itineraryStatus: true, time: new Date(dateTime)}, {merge: true})
+          })
+        }
+        chat.parent.collection('event').add({
+          name: event,
+          likes: {},
+          type: 'event',
+          comment: [],
+          itineraryStatus: true,
+          time: new Date(dateTime)
+        })
+        // querySnapshot.forEach(function (doc) {
+        //   console.log(doc.id, " => ", doc.data());
+        // });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      })
+      .then(() => {
+        return chat.add({
+          time: new Date(),
+          text: rsp,
+          from: 'Your buddy Bot'
+        });
+      })
+
+    // return chat.parent.collection('event')
+    //   .add({
+    //     name: msg.substring(4),
+    //     comment: [],
+    //     likes: {},
+    //     itineraryStatus: true,
+    //     description: '',
+    //     type: 'event'
+    //   })
+    //   .then(() => {
+    //     return chat.add({
+    //       time: new Date(),
+    //       text: rsp,
+    //       from: 'Your buddy Bot'
+    //     });
+    //   })
+
+    // return chat.add({
+    //   time: new Date(),
+    //   text: rsp,
+    //   from: 'Your buddy Bot'
+    // });
   }
 
   else {
