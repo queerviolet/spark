@@ -20,7 +20,7 @@ export default class Event extends Component {
         this.props.room.doc(this.props.eventId)
             .onSnapshot(function (doc) {
                 // console.log("Current data: ", doc && doc.data(), evtComp);
-                evtComp.setState({event: doc.data()})
+                evtComp.setState({event: doc.exists && doc.data()})
             });
     }
 

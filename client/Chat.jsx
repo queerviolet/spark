@@ -18,14 +18,24 @@ export default class Chat extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.scrollToBottom = this.scrollToBottom.bind(this);
         this.addPin = this.addPin.bind(this);
+        this.unsubscribe = null;
     }
 
     componentDidMount() {
-        this.props.room.orderBy('time').onSnapshot((snapshot) => {
+        this.unsubscribe = this.props.room.orderBy('time').onSnapshot((snapshot) => {
             this.setState({messages: snapshot.docs});
         });
         this.el && this.scrollToBottom();
     }
+
+    componentWillReceiveProps(nextProps){
+        this.unsubscribe();
+        this.unsubscribe = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
+            this.setState({ messages: snapshot.docs });
+        });
+        this.el && this.scrollToBottom();
+    }
+
 
     componentDidUpdate() {
         this.el && this.scrollToBottom();

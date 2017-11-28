@@ -22,6 +22,8 @@ export default class Itinerary extends React.Component {
       showAdd: false
     };
     this.handleAddButton = this.handleAddButton.bind(this);
+    this.unsubscribeEvents = null;
+    this.unsubscribeTrip = null;
   }
 
   // componentWillReceiveProps(nextProps){
@@ -29,15 +31,32 @@ export default class Itinerary extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.room.orderBy('time').onSnapshot((snapshot) => {
+    this.unsubscribeEvents = this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
-    this.props.trip.onSnapshot(snapshot => {
+    this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
       console.log('inside of trip snapshot')
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
         console.log('updating state dates', startDate, endDate)
         this.setState({dates: tripDates(startDate, endDate)})
+      }
+    })
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.unsubscribeEvents();
+    this.unsubscribeTrip();
+
+    this.unsubscribeEvents = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
+      this.setState({ events: snapshot.docs });
+    });
+    this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
+      console.log('inside of trip snapshot')
+      const { startDate, endDate } = snapshot.data();
+      if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
+        console.log('updating state dates', startDate, endDate)
+        this.setState({ dates: tripDates(startDate, endDate) })
       }
     })
   }
