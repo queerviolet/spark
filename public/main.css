@@ -136,7 +136,7 @@ input[type=text] {
     padding: 5px 10px;
     flex: 1;
     flex-basis: 200px;
-    box-shadow: 10px 10px 5px #888888;
+    box-shadow: 10px 10px #888888;
 }
 
 .date-text {
