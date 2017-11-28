@@ -24,17 +24,19 @@ export default class Itinerary extends React.Component {
     this.handleAddButton = this.handleAddButton.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({dates: tripDates(nextProps.startDate, nextProps.endDate)});
-  }
+  // componentWillReceiveProps(nextProps){
+  //   this.setState({dates: tripDates(nextProps.startDate, nextProps.endDate)});
+  // }
 
   componentDidMount() {
     this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
     this.props.trip.onSnapshot(snapshot => {
+      console.log('inside of trip snapshot')
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
+        console.log('updating state dates', startDate, endDate)
         this.setState({dates: tripDates(startDate, endDate)})
       }
     })
