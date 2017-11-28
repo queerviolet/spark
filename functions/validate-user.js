@@ -4,6 +4,7 @@
 // when decoded successfully, the ID Token content will be added as `req.user`.
 const validateFirebaseIdToken = module.exports = admin => (req, res, next) => {
   console.log('Check if request is authorized with Firebase ID token');
+  console.log('do we have req.params?, ', req.params)
 
   if ((!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) &&
     !req.cookies.__session) {
@@ -18,6 +19,7 @@ const validateFirebaseIdToken = module.exports = admin => (req, res, next) => {
   let idToken;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
     console.log('Found "Authorization" header');
+    console.log('do we have req.params?, ', req.params)
     // Read the ID Token from the Authorization header.
     idToken = req.headers.authorization.split('Bearer ')[1];
   } else {

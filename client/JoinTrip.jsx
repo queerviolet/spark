@@ -3,13 +3,11 @@ import axios from 'axios'
 
 import {auth} from '~/fire'
 
-const JOIN_API = '/api/join'
-
 export default class JoinTrip extends React.Component {
   componentDidMount() {
     this.unsubscribe = auth.onAuthStateChanged(user =>
       user
-        ? joinTrip(user)
+        ? joinTrip(user, this.props.inviteId)
         : this.props.login()
     )
   }
@@ -23,7 +21,9 @@ export default class JoinTrip extends React.Component {
   }
 }
 
-function joinTrip(user) {
+function joinTrip(user, inviteId) {
+  const JOIN_API = `/api/join/${inviteId}`
+  console.log('join api is: ', JOIN_API)
   user.getToken().then(token =>
     axios.get(JOIN_API, {
       headers: {
@@ -32,6 +32,6 @@ function joinTrip(user) {
     }))
     .then((info) => {
       // redirect to the trip id which should be returned in info
-      console.log(info)
+      console.log('inside of joinTrip comopnent and got info back from axios ############', info)
     }, console.error)
 }

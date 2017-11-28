@@ -27,14 +27,23 @@ admin.initializeApp(functions.config().firebase)
 
 exports.joinTripFromInvite = functions.https.onRequest(
     require('express')()
+        .use('/api/join/:inviteId', (req, res, next) => {
+            console.log('tyring out this use thang',req.params);
+            req.inviteId = req.params.inviteId
+            next()
+        })
         .use(cookieParser)
         .use(validateUser)
-        .use((req, res) => res.send({
-
+        .use((req, res) => {
+            const { uid } = req.user;
+            console.log('uid -----> ', uid, ' <---- inviteId ----> ', req.inviteId)
+            res.send({
             // DO THE FIRESTORE THINGS AND RES.SEND THE TRIP ID
             query: req.query,
+            inviteId: req.inviteId,
             user: req.user,
-        })))
+            })
+        }))
 
 exports.bot = functions.firestore
     .document('trips/{tripId}/chat/{messageId}')

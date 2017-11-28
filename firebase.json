@@ -8,7 +8,7 @@
     ],
     "rewrites": [
       {
-        "source": "/api/join",
+        "source": "/api/join/**",
         "function": "joinTripFromInvite"
       },
       {
