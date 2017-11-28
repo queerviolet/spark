@@ -1,7 +1,6 @@
 const debug = require('debug')('bot')
 
 import {getCoords, getActivityTypes, topPlaces} from './GetGeo'
-import { locale } from 'moment';
 
 export const runBotFromMessageEvent = (always = false) => async event => {
   const msg = event.data.data()
@@ -10,7 +9,7 @@ export const runBotFromMessageEvent = (always = false) => async event => {
   // console.log('trip is......... in runBot', trip)
   // console.log('inside of runBotFromMessageEvent')
   if (!always) {
-    if ((await trip.get()).suppressBot) return
+    if ((await trip.get()).data().suppressBot) return //Ashi had us add .data() need to check that it works
   }
 
   if (msg.text && msg.text.startsWith('/')) {
@@ -52,7 +51,14 @@ export async function botReceiveMessage(msg, chat, trip){
     trip.set({ location }, { merge: true })
     const topFive = await topPlaces({lat, lng})
     console.log(topFive)
-    rsp = `The top five places in ${location} are: * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
+
+    return chat.add({
+      from: 'Google Places',
+      places: topFive,
+      }) // change the formatting of the message in chat and then handle that in Message.jsx
+
+
+    // rsp = `The top five places in ${location} are: * ${topFive[0].name} (${topFive[0].rating} stars)  * ${topFive[1].name} (${topFive[1].rating} stars)  * ${topFive[2].name} (${topFive[2].rating} stars)  * ${topFive[3].name} (${topFive[3].rating} stars) * ${topFive[4].name} (${topFive[4].rating} stars)`
   }
 
   else if (cmd.startsWith('search for ')){

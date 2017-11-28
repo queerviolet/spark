@@ -19,14 +19,12 @@ export default class Trip extends Component {
         this.sendInvite = this.sendInvite.bind(this);
     }
 
-    componentDidMount (){
-        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
-
+    fetch (tripRef){
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name, users } = doc.data();
                 // console.log("USERSSSSS", users)
-                this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
+                this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users), tripId: doc.id});
             } else {
                 console.log("No such document!");
             }
@@ -35,12 +33,20 @@ export default class Trip extends Component {
         })
     }
 
+    componentDidMount(){
+        this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
+    }
+
+
     /* NOTES: it would be cool if it rendered "sent mail" for a second */
     sendInvite(evt){
         evt.preventDefault();
         //target email is evt.target.toEmail.value
         const [email, tripId] = [evt.target.toEmail.value, this.props.match.params.tripId]
-        console.log('invite target email and tripId', email, tripId);
         db.collection('users')
             .doc(this.props.user.uid)
             .set({ invitee: [email, tripId ]}, {merge: true});
@@ -49,10 +55,10 @@ export default class Trip extends Component {
     }
 
     render(){
-        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);
+        const tripRef = this.state.tripId ? db.collection('trips').doc(this.state.tripId) : null;
         let isPartOfTrip = this.state.isPartOfTrip;
         return (
-            isPartOfTrip ?
+            tripRef && (isPartOfTrip ?
             <div className="trip-whole-page">
                 <div className="trip-header">
                     <h1>{this.state.name}</h1>
@@ -83,7 +89,7 @@ export default class Trip extends Component {
             :
             <div>
                 You need to be invited to this trip!
-            </div>
+            </div>)
         )
     }
 }
