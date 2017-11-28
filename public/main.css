@@ -185,13 +185,6 @@ h3, h1 {
     left: 80px;
 }
 
-.btn {
-    z-index: 2;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%,-50%)!important;
-}
 
 .trip-header {
     align-content: center;
@@ -232,3 +225,44 @@ body {
     height: 200px;
     width: 200px;
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#carousel {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    z-index: 2;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}
+
+/* #carousel #carousel-text {
+    position: absolute;
+    top: 45vh;
+    color: black;
+    text-shadow: 2px 2px #fff;
+    z-index: 1;
+} */
+
+#carousel .carousel-image {
+    position: absolute;
+    display: block;
+    margin: auto;
+    min-width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+  #carousel .carousel-image.hidden {
+    opacity: 0;
+  }
