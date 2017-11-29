@@ -41,10 +41,10 @@
 .chatForm {
     z-index: 2;
     position: fixed;
-    top: 20vh;
-    left: 70vw;
     height: 80vh;
-    width: 30vw;
+    bottom: 0px;
+    right: 0px;
+    width: 350px;
     border-radius: 4px;
     background: rgba(18, 16, 22, 0.6);
     border: 2px solid black;
@@ -93,20 +93,9 @@
 
 }
 
-
 .toggleChat {
     z-index: 2;
     position: fixed;
-    /* border-radius: 50%;
-    background-color: rgb(6, 41, 7) ;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    /* font-size: 16px; */
-    /* margin: 4px 2px; */
     bottom: 10px;
     right: 10px;
 }
@@ -118,6 +107,10 @@ input[type=text] {
     color: black;
 }
 
+#chat-input {
+    color: white;
+}
+
 .event-box {
     border: 3px solid grey;
     border-radius: 5px;
@@ -126,7 +119,6 @@ input[type=text] {
 .date-box {
     display: flex;
     border: 1px solid #229C8F;
-    /*  use this blueish for when it is the date for highlighting? #3BC9E6 */
     background-color: #F7F8FA;
     border-radius: 2px;
     margin: 5px 8px;
@@ -141,7 +133,6 @@ input[type=text] {
 
 .pin-event {
     background-color: #FBCEB1;
-    /* #3B4A4D */
     color: #3B4A4D;
     margin: 5px 8px;
     padding: 5px 10px;
@@ -154,13 +145,7 @@ input[type=text] {
 .date-text {
     font-size: 20;
     font-weight: bold;
-    /* text-align: center; */
 }
-
-/* .sender-field {
-    font-size: 20;
-    color: gray;
-} */
 
 h3, h1 {
     text-align: center;
@@ -232,7 +217,6 @@ body {
     width: 200px;
 }
 
-/* FOR THE HOMEPAGE */
 .login-btn {
     z-index: 2;
     position: absolute;
@@ -258,23 +242,41 @@ body {
     left: 50%;
     transform: translate(-50%,-50%)!important;
 }
-.speech-bubble {
-	position: relative;
-	background: #caf0fe;
-	border-radius: .4em;
+
+.talk-bubble {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    height: auto;
+    background-color: white;
+    padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 15px;
 }
 
-.speech-bubble:after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	width: 0;
-	height: 0;
-	border: 27px solid transparent;
-	border-top-color: #caf0fe;
-	border-bottom: 0;
-	border-left: 0;
-	margin-left: -13.5px;
-	margin-bottom: -27px;
+.bot-response {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    height: auto;
+    background-color: white;
+    padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 10px;
+}
+
+.bot-photo {
+    max-width: 100%;
+    border-radius: 10px;
+    padding-bottom: 5px;
+}
+
+.pin-button {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    z-index: 2;
+    border-radius: 2px;
 }

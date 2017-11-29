@@ -79,14 +79,14 @@ export default class Chat extends React.Component {
             this.state.showChat
                 ? (
                     <div className="chatForm">
-                        <div className="chatTitle">😀 {this.props.numOfUsers}</div>
+                    <div className="chatTitle" onClick={this.handleClick}>😀 {this.props.numOfUsers} </div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
                                 return <Message key={index} {...message.data()} eventref={this.props.events} />;
                             })}
                             <form onSubmit={this.handleSubmit}>
                             <div ref={el => { this.el = el; }}>
-                                <input type="text" value={this.state.newMessage} onChange={this.handleChange} />
+                                <input type="text" id="chat-input" value={this.state.newMessage} onChange={this.handleChange} />
                                 <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                                 <i className="material-icons right">send</i>
                                 </button>
