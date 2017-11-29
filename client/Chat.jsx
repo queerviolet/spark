@@ -28,7 +28,7 @@ export default class Chat extends React.Component {
         this.el && this.scrollToBottom();
     }
 
-    async componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.unsubscribe && this.unsubscribe();
         if(this.props !== nextProps) this.props = nextProps;
         this.unsubscribe = nextProps.room.orderBy('time')

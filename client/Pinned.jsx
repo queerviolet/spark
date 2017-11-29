@@ -9,14 +9,14 @@ export default class Pinned extends React.Component {
             events: [],
             itineraryStatus: false,
             time: null,
-            room: props.room,
+            // room: props.room,
             }
         }
         //this.handleSubmit = this.handleSubmit.bind(this);
 
 
     componentDidMount(){
-        this.unsubscribe = this.state.room.onSnapshot((snapshot) => {
+        this.unsubscribe = this.props.room.onSnapshot((snapshot) => {
             this.setState({ events: snapshot.docs });
         });
     }
@@ -25,10 +25,11 @@ export default class Pinned extends React.Component {
         this.unsubscribe && this.unsubscribe();
     }
 
-    async componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps){
         this.unsubscribe && this.unsubscribe();
-        await this.setState({room: nextProps.room})
-        this.unsubscribe = this.state.room
+        if(this.props !== nextProps) this.props = nextProps;
+        // await this.setState({room: nextProps.room})
+        this.unsubscribe = nextProps.room
             .onSnapshot((snapshot) => {
                 this.setState({ events: snapshot.docs });
             })

@@ -16,15 +16,15 @@ export default class Itinerary extends React.Component {
   constructor(props) { //props is the events we tell the bot to pin?
     super(props);
     this.state = {
-      room: props.room,
+      // room: props.room,
       events: [],
-      startDate: props.startDate,
-      endDate: props.endDate,
+      // startDate: props.startDate,
+      // endDate: props.endDate,
       // dates: props.startDate ?
       // tripDates(props.startDate, props.endDate):
       // [],
       showAdd: false,
-      room: this.props.room
+      // room: this.props.room
     };
     this.handleAddButton = this.handleAddButton.bind(this);
   }
@@ -45,7 +45,7 @@ export default class Itinerary extends React.Component {
     // });
   }
 
-  async componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps){
     this.unsubscribe && this.unsubscribe();
     if(this.props !== nextProps) {this.props = nextProps}
     // await this.setState({room: nextProps.room, startDate: nextProps.startDate, endDate: nextProps.endDate});
