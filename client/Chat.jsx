@@ -28,12 +28,14 @@ export default class Chat extends React.Component {
         this.el && this.scrollToBottom();
     }
 
-    componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps) {
         this.unsubscribe && this.unsubscribe();
-        this.setState({room: nextProps.room})
-        this.unsubscribe = this.state.room.orderBy('time').onSnapshot((snapshot) => {
-            this.setState({ messages: snapshot.docs });
-        });
+        await this.setState({room: nextProps.room})
+        this.unsubscribe = this.state.room.orderBy('time')
+            .onSnapshot((snapshot) => {
+                this.setState({ messages: snapshot.docs });
+            })
+
         this.el && this.scrollToBottom();
     }
 

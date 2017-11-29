@@ -3,21 +3,36 @@ import {db} from '../fire';
 import Event from './Event';
 
 export default class Pinned extends React.Component {
-    constructor(){ //props is the events we tell the bot to pin?
-        super();
+    constructor(props){ //props is the events we tell the bot to pin?
+        super(props);
         this.state = {
             events: [],
             itineraryStatus: false,
-            time: null
+            time: null,
+            room: props.room,
             }
         }
         //this.handleSubmit = this.handleSubmit.bind(this);
 
 
     componentDidMount(){
-        this.props.room.onSnapshot((snapshot) => {
+        this.unsubscribe = this.state.room.onSnapshot((snapshot) => {
             this.setState({ events: snapshot.docs });
         });
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe && this.unsubscribe();
+    }
+
+    async componentWillReceiveProps(nextProps){
+        this.unsubscribe && this.unsubscribe();
+        await this.setState({room: nextProps.room})
+        this.unsubscribe = this.state.room
+            .onSnapshot((snapshot) => {
+                this.setState({ events: snapshot.docs });
+            })
+
     }
 
 
