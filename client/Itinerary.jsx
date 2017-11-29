@@ -60,8 +60,10 @@ export default class Itinerary extends React.Component {
     const trip = this.props.room.parent
     this.setState({showAdd: !this.state.showAdd});
     this.props.room.add({ name, time, itineraryStatus: true });
-    if (!this.props.startDate || time < this.props.startDate) { trip.set({ startDate: time }, { merge: true }) }
-    if (!this.props.endDate || time > this.props.endDate) { trip.set({ endDate: time }, { merge: true }) }
+    if (!this.props.startDate || time < this.props.startDate) {
+      trip.set({ startDate: time }, { merge: true }) }
+    if (!this.props.endDate || time > this.props.endDate) {
+      trip.set({ endDate: time }, { merge: true }) }
   }
 
   render() {

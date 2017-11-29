@@ -84,7 +84,6 @@ export default class Trip extends Component {
 
     render(){
         const tripRef = db.collection('trips').doc(this.state.tripId); //UPDATED
-        console.log('inside of trip')
         let isPartOfTrip = this.state.isPartOfTrip;
         return (
             (isPartOfTrip ?
