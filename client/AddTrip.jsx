@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import firebase, { db } from '../fire'
 import { withRouter } from 'react-router'
+import { SideNavItem, SideNav, Button, Icon } from 'react-materialize'
+
 
 export class AddTrip extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            name: '',
         }
-        // const now = (new Date()).toDateString()
-        // console.log("NOW ", now, "NEW  ", new Date(new Date().setFullYear(new Date().getFullYear() + 1)))
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
 
     handleSubmit(evt) {
         evt.preventDefault();
@@ -30,11 +29,14 @@ export class AddTrip extends Component {
             coords: {}
         })
         .then(({id}) => this.props.history.push(`/${id}`))
+        this.setState({ name: '' });
     }
 
     handleChange(evt) {
         evt.preventDefault();
-        this.setState({ name: evt.target.value });
+        this.setState({ 
+            name: evt.target.value,
+        });
     }
 
     render() {
@@ -42,13 +44,17 @@ export class AddTrip extends Component {
         return (
             <div className="add trip form">
                 <form onSubmit={this.handleSubmit}>
-                <input placeholder="Trip Name" type="text" name="name" onChange={this.handleChange} />
+                    <input className="placeholder" placeholder="Trip Name" value={this.state.name} type="text" name="name" onChange={this.handleChange} />
+                <SideNavItem>
                 <input
                 className="btn waves-effect waves-light"
                 type="submit"
                 value="Create Trip"
                 />
+                
+                </SideNavItem>
                 </form>
+
             </div>
         )
     }
