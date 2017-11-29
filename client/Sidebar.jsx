@@ -20,17 +20,16 @@ export class Sidebar extends Component {
 
     componentDidMount(){
         var tripsRef = db.collection("trips")
-        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true).get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    this.setState({trips: this.state.trips.concat({[doc.data().name]: doc.id})})
+        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true)
+        .onSnapshot(async snapshot => {
+            let tripHolder = []
+            await snapshot.forEach(doc => {
+                tripHolder.push({ [doc.data().name]: doc.id })
                 })
-            })
-            .catch( err => {
-                console.log('Error getting documents', err);
-            })
+                this.setState({ trips: tripHolder })
+        })
     }
-//
+
     render(){
     var trips = this.state.trips;
     return (

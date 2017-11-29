@@ -56,7 +56,7 @@ export default class Trip extends Component {
         this.unsubscribe = db.collection('trips').doc(nextProps.match.params.tripId)
             .onSnapshot((doc) => {
                 this.setState({ ...doc.data(), numOfUsers: getTrue(doc.data().users), isPartOfTrip: true })
-                console.log('inside of snapshot thing in trip now......', doc.data())
+                //console.log('inside of snapshot thing in trip now......', doc.data())
             });
         // this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
     }
