@@ -44,7 +44,7 @@
     height: 80vh;
     bottom: 0px;
     right: 0px;
-    width: 300px;
+    width: 350px;
     border-radius: 4px;
     background: rgba(18, 16, 22, 0.6);
     border: 2px solid black;
@@ -253,7 +253,6 @@ body {
     margin: 10px;
     display: inline-block;
     position: relative;
-    max-width: 100%;
     height: auto;
     background-color: white;
     padding-top: 5px;
