@@ -7,7 +7,6 @@
     sans-serif;
 }
 
-
 .event-scroll {
     overflow-Y: scroll;
     max-height: 45vw;
@@ -27,17 +26,16 @@
     width: 100%;
   }
 
-  .bar {
+.bar {
     height: 8.02%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+}
 
-  .bar li {
+.bar li {
     display: inline-block;
-  }
-
+}
 
 .chatForm {
     z-index: 2;
@@ -59,7 +57,6 @@
     height: 100vh;
     background-color: rgb(230, 230, 230);
 }
-
 
 .chat-itin-pin {
     display: flex;
@@ -102,10 +99,10 @@
 
 input[type=text] {
     width: 80%;
-    font-family: Impact;
-    color: rgb(83, 240, 83);
+    font-family:  'Josefin Sans',
+    sans-serif;
+    color: black;
 }
-
 
 .event-box {
     border: 3px solid grey;
@@ -171,26 +168,10 @@ h3, h1 {
     text-align: center;
 }
 
-.hp-header {
-    z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%)!important;
-}
-
 #sidebarButton{
     position: absolute;
     top: 30px;
     left: 80px;
-}
-
-.btn {
-    z-index: 2;
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%,-50%)!important;
 }
 
 .trip-header {
@@ -205,7 +186,6 @@ h3, h1 {
     margin-bottom: auto;
 }
 
-
 .itin-header {
     display: flex;
     justify-content: center ;
@@ -214,7 +194,6 @@ h3, h1 {
 .itin-header > i {
     margin-top: 20px;
 }
-
 
 .center-form {
     text-align: center;
@@ -233,6 +212,32 @@ body {
     width: 200px;
 }
 
+/* FOR THE HOMEPAGE */
+.login-btn {
+    z-index: 2;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}
+
+.carousel-image {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+.hp-header {
+    z-index: 2;
+    font-size: 500%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)!important;
+}
 .speech-bubble {
 	position: relative;
 	background: #caf0fe;

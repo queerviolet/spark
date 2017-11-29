@@ -8,7 +8,6 @@ export default class Dashboard extends Component {
     super();
     this.state = {
         trips: []
-        // users: []
     };
   }
 
@@ -18,7 +17,6 @@ export default class Dashboard extends Component {
         .then(snapshot => {
             snapshot.forEach(doc => {
                 this.setState({trips: this.state.trips.concat({ [doc.data().name]: doc.id })});
-                // this.setState({users: this.state.users.concat( [Object.keys(doc.data().users)] )});
             });
         })
         .catch(err => {
@@ -29,8 +27,6 @@ export default class Dashboard extends Component {
   render(){
 
     var trips = this.state.trips;
-    // var userIds = this.state.users;
-    // console.log('USERIDS: ', userIds);
     return (
       <div className="user-dashboard" align="center">
         <h1>User Dashboard</h1>

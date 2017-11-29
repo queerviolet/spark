@@ -18,8 +18,6 @@ export default class AddTrip extends Component {
     handleChange(evt) {
         evt.preventDefault();
         this.setState({ name: evt.target.value });
-        console.log("THIS.PROPS: ", this.props)
-
     }
 
     render() {
