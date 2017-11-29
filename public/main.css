@@ -251,3 +251,30 @@ body {
     padding-left: 25px;
     border-radius: 15px;
 }
+
+.bot-response {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    background-color: white;
+    padding-top: 5px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-radius: 10px;
+}
+
+.bot-photo {
+    max-width: 100%;
+    border-radius: 10px;
+    padding-bottom: 5px;
+}
+
+.pin-button {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    z-index: 2;
+    border-radius: 2px;
+}

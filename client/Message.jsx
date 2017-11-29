@@ -7,18 +7,17 @@ export default (props) => {
     return (
       props.places.map(({name, rating, photos}) => {
         const photo = photos? photos[0].photo_reference : '';
-       return( <div>
-        <p>{name}</p>
-        <p>{rating || ''}</p>
-        <button onClick={() => {console.log(name);props.eventref.add({
+       return( <div className="bot-response">
+        <p>{name} {rating || ''}
+        <button className="pin-button" onClick={() => {console.log(name);props.eventref.add({
           name: name,
           comment: [],
           likes: {counter:0},
           itineraryStatus: false,
           description: '',
           type: 'event'
-        })}}>PIN</button>
-        {photo? <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${googleKey}`}/> : <img src= 'http://the-joyful-traveler.com/wp-content/uploads/2017/04/Jonufer_vlora_albania_2016-400x200.jpg' />}
+        })}}>PIN</button></p>
+        {photo? <img className="bot-photo" src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${googleKey}`}/> : <img className="bot-photo" src= 'http://the-joyful-traveler.com/wp-content/uploads/2017/04/Jonufer_vlora_albania_2016-400x200.jpg' />}
         </div>)
       })
     )
