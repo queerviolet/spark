@@ -24,8 +24,8 @@ export class AddTrip extends Component {
             users: {
                 [this.props.userid]: true
             },
-            startDate: new Date(), //(new Date("January 1, 2017 01:15:00")),
-            endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            // startDate: new Date(), //(new Date("January 1, 2017 01:15:00")),
+            // endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
             location: '',
             coords: {}
         })

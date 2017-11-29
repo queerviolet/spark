@@ -17,8 +17,11 @@ export default class Itinerary extends React.Component {
     super(props);
     this.state = {
       events: [],
-      dates: tripDates(props.startDate, props.endDate),
-      showAdd: false
+      dates: props.startDate ?
+      tripDates(props.startDate, props.endDate):
+      [],
+      showAdd: false,
+      room: this.props.room
     };
     this.handleAddButton = this.handleAddButton.bind(this);
     this.unsubscribeEvents = null;
@@ -30,18 +33,22 @@ export default class Itinerary extends React.Component {
   // }
 
   componentDidMount() {
+    this.setState({room: this.props.room})
     this.unsubscribeEvents = this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
     this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
+        console.log("SOMESTRING: ", startDate, endDate)
         this.setState({dates: tripDates(startDate, endDate)})
       }
     })
   }
 
   componentWillReceiveProps(nextProps){
+    this.setState({ room: nextProps.room })
+
     this.unsubscribeEvents();
     this.unsubscribeTrip();
 
@@ -51,29 +58,35 @@ export default class Itinerary extends React.Component {
     this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
       const { startDate, endDate } = snapshot.data();
       if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
+        console.log("SECOND CONSOLE: ", startDate, endDate)
         this.setState({ dates: tripDates(startDate, endDate) })
       }
     })
   }
 
 
-  handleAddButton(){
+  handleAddButton(evt, name, time){
     //evt.preventDefault();
+    const trip = this.state.room.parent
     this.setState({showAdd: !this.state.showAdd});
+    this.state.room.add({ name, time, itineraryStatus: true });
+    if (!this.state.dates[0] || time < this.state.dates[0]) { trip.set({ startDate: time }, { merge: true }) }
+    if (!this.state.dates[-1] || time > this.state.dates[-1]) { trip.set({ endDate: time }, { merge: true }) }
   }
 
   render() {
+    console.log("THIS.STATE.DATES: ", this.state.dates)
     const now = (new Date()).toDateString()
     return (
       <div className="col-md-6 panel">
         <div className="itin-header">
           <h3>Itinerary</h3>
-          <i className="fa fa-plus-square" onClick={this.handleAddButton} />
+          <i className="fa fa-plus-square" onClick={() => {this.setState({showAdd: !this.state.showAdd})}} />
         </div>
         {this.state.showAdd &&
           <AddEvent
-            startDate = {this.props.startDate}
-            endDate = {this.props.endDate}
+            startDate={this.state.dates[0]}
+            endDate={this.state.dates[-1]}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div className="event-scroll">{

@@ -1,0 +1,47 @@
+[debug] [2017-11-28T23:54:08.425Z] ----------------------------------------------------------------------
+[debug] [2017-11-28T23:54:08.427Z] Command:       /usr/local/bin/node /Users/ella.pitassi/Desktop/SeniorPhase/capstone/node_modules/.bin/firebase serve --only hosting,functions
+[debug] [2017-11-28T23:54:08.427Z] CLI Version:   3.14.0
+[debug] [2017-11-28T23:54:08.428Z] Platform:      darwin
+[debug] [2017-11-28T23:54:08.428Z] Node Version:  v9.0.0
+[debug] [2017-11-28T23:54:08.428Z] Time:          Tue Nov 28 2017 18:54:08 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:08.428Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-28T23:54:08.442Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-28T23:54:08.442Z] > authorizing via signed-in user
+[debug] [2017-11-28T23:54:08.444Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/capstone-98fe9  
+ Tue Nov 28 2017 18:54:08 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:09.293Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-28T23:54:09.294Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/capstone-98fe9/tokens  
+ Tue Nov 28 2017 18:54:09 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:11.007Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/ella.pitassi/Desktop/SeniorPhase/capstone'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-11-28T23:54:11.681Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/capstone-98fe9  
+ Tue Nov 28 2017 18:54:11 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:11.682Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/capstone-98fe9/apiKeys  
+ Tue Nov 28 2017 18:54:11 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:11.682Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/capstone-98fe9  
+ Tue Nov 28 2017 18:54:11 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:11.934Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-28T23:54:11.935Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/457370853523/clients/_:getWebAppConfig  
+ Tue Nov 28 2017 18:54:11 GMT-0500 (EST)
+[debug] [2017-11-28T23:54:11.958Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-28T23:54:12.006Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-28T23:54:12.232Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[warn] ⚠  functions: Error from emulator. [object Object]
+[info] Shutting down...
+[debug] [2017-11-29T00:48:39.431Z] Error: write EPIPE
+    at _errnoException (util.js:1031:13)
+    at WriteWrap.afterWrite [as oncomplete] (net.js:873:14)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2017-11-29T00:48:39.436Z] Error: write EPIPE
+    at _errnoException (util.js:1031:13)
+    at WriteWrap.afterWrite [as oncomplete] (net.js:873:14)
+[error] 
+[error] Error: An unexpected error has occurred.
