@@ -24,8 +24,6 @@ export default class Itinerary extends React.Component {
       room: this.props.room
     };
     this.handleAddButton = this.handleAddButton.bind(this);
-    this.unsubscribeEvents = null;
-    this.unsubscribeTrip = null;
   }
 
   // componentWillReceiveProps(nextProps){
@@ -33,35 +31,13 @@ export default class Itinerary extends React.Component {
   // }
 
   componentDidMount() {
-    this.setState({room: this.props.room})
-    this.unsubscribeEvents = this.props.room.orderBy('time').onSnapshot((snapshot) => {
-      console.log("SOMESTRING: ", snapshot.docs)
-
+    this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
-    this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
+    this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
         this.setState({dates: tripDates(startDate, endDate)})
-      }
-    })
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({ room: nextProps.room })
-
-    this.unsubscribeEvents();
-    this.unsubscribeTrip();
-
-    this.unsubscribeEvents = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
-      console.log("SECOND CONSOLE: ", snapshot.docs)
-
-      this.setState({ events: snapshot.docs });
-    });
-    this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
-      const { startDate, endDate } = snapshot.data();
-      if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
-        this.setState({ dates: tripDates(startDate, endDate) })
       }
     })
   }
@@ -101,7 +77,7 @@ export default class Itinerary extends React.Component {
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
-                    <Event key={idx} room={this.props.room} {...event.data() } eventId={event.id} userId={this.props.user.uid} />
+                    <Event key={idx} {...event.data() } />
                   );}
                 )}
               </div>

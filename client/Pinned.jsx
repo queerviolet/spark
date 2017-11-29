@@ -10,20 +10,12 @@ export default class Pinned extends React.Component {
             itineraryStatus: false,
             time: null
             }
-        this.unsubscribe = null;
         }
         //this.handleSubmit = this.handleSubmit.bind(this);
 
 
     componentDidMount(){
-        this.unsubscribe = this.props.room.onSnapshot((snapshot) => {
-            this.setState({ events: snapshot.docs });
-        });
-    }
-
-    componentWillReceiveProps(nextProps){
-        this.unsubscribe();
-        this.unsubscribe = nextProps.room.onSnapshot((snapshot) => {
+        this.props.room.onSnapshot((snapshot) => {
             this.setState({ events: snapshot.docs });
         });
     }

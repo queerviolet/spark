@@ -20,16 +20,15 @@ export class Sidebar extends Component {
 
     componentDidMount(){
         var tripsRef = db.collection("trips")
-        const sidebarComp = this;
-        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true)
-            .onSnapshot(function (querySnapshot) {
-                var trips = [];
-                querySnapshot.forEach(function (doc) {
-                    trips.push({[doc.data().name]: doc.id});
-                });
-                console.log('trips inside the snapshot are...', trips);
-                sidebarComp.setState({trips})
-            });
+        var usersRef = tripsRef.where(`users.${this.props.userId}`, '==', true).get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    this.setState({trips: this.state.trips.concat({[doc.data().name]: doc.id})})
+                })
+            })
+            .catch( err => {
+                console.log('Error getting documents', err);
+            })
     }
 //
     render(){

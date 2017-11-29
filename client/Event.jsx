@@ -3,35 +3,20 @@ import React, { Component } from 'react'
 export default class Event extends Component {
     constructor(props){
         super(props);
-        this.state = {};
-        // this.state = {
-        //     viewComments: false,
-        //     comments: props.comments,
-        //     newComment: '',
-        // }
+        // this.state = {};
+        this.state = {
+            // viewComments: false,
+            // comments: props.comments,
+            // newComment: '',
+        }
         this.handleLike = this.handleLike.bind(this);
         // this.handleComment = this.handleComment.bind(this);
     }
 
-    componentDidMount(){
-        // console.log('props when event mounts are...', this.props.room, this.props.eventId)
-        const evtComp = this;
-        evtComp.setState({eventRef: this.props.room.doc(this.props.eventId)})
-        this.unsubscribe = this.props.room.doc(this.props.eventId)
-            .onSnapshot(function (doc) {
-                // console.log("Current data: ", doc && doc.data(), evtComp);
-                evtComp.setState({event: doc.exists && doc.data()})
-            });
-    }
-
-    componentWillUnmount(){
-        this.unsubscribe && this.unsubscribe()
-    }
-
     handleLike (evt){
         evt.preventDefault();
-        const {likes={}} = this.state.event
-        const {eventRef} = this.state
+        const eventRef = this.props.room.doc(this.props.eventId)
+        const {likes={}} = this.props
         eventRef.update({
             [`likes.${this.props.userId}`]: !likes[this.props.userId]
         })
@@ -47,18 +32,17 @@ export default class Event extends Component {
 
     render() {
         const isItin = this.props.itineraryStatus;
-        const {event, eventRef} = this.state;
+        // const {event, eventRef} = this.state;
         return (
-            event ? (isItin
+            isItin
             ?
-                <li className="itin-event">{`${event.name} @ ${event.time.toLocaleTimeString()}`}</li>
+                <li className="itin-event">{`${this.props.name} @ ${this.props.time.toLocaleTimeString()}`}</li>
             :
             <div className="pin-event">
-                <span className={`badge ${event.likes[this.props.userId] && 'red'}`} onClick={this.handleLike}>{count(event.likes)} &hearts;</span>
-                <p><b>{event.name }</b></p>
-                <p>{event.description}</p>
-            </div> )
-            : <div />
+                <span className=" badge" onClick={this.handleLike}>{count(this.props.likes)} &hearts;</span>
+                <p><b>{this.props.name}</b></p>
+                <p>{this.props.description}</p>
+            </div>
         )
     }
 }
