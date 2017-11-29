@@ -6,9 +6,10 @@ import { Sidebar } from './Sidebar';
 
 export default class Trip extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            tripId: props.match.params.tripId, //ADDED
             isPartOfTrip: true,
             startDate: {},
             endDate: {},
@@ -19,6 +20,9 @@ export default class Trip extends Component {
         this.sendInvite = this.sendInvite.bind(this);
     }
 
+
+    // if we set the tripId on state as well and then render using that, we should be good.
+    // MIGHT STILL NEED A COMPONENTWILLRECEIVEPROPS / COMPONENTSHOULDUPDATE THO
     fetch (tripRef){
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
@@ -34,10 +38,12 @@ export default class Trip extends Component {
     }
 
     componentDidMount(){
+        this.setState({ tripId: this.props.match.params.tripId}) //ADDED
         this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
     }
 
     componentWillReceiveProps(nextProps){
+        this.setState({ tripId: nextProps.match.params.tripId }) //ADDED
         this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
     }
 
@@ -63,7 +69,8 @@ export default class Trip extends Component {
     }
 
     render(){
-        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);        console.log('inside of trip')
+        const tripRef = db.collection('trips').doc(this.state.tripId); //UPDATED
+        console.log('inside of trip')
         let isPartOfTrip = this.state.isPartOfTrip;
         return (
             (isPartOfTrip ?

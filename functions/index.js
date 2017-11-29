@@ -36,10 +36,10 @@ exports.joinTripFromInvite = functions.https.onRequest(
         })
         .use(cookieParser)
         .use(validateUser)
-        .use(async (req, res) => {
+        .use((req, res) => {
             const { uid } = req.user;
             console.log('uid -----> ', uid, ' <---- inviteId ----> ', req.inviteId)
-            await db.collection('invites').doc(req.inviteId).get()
+            db.collection('invites').doc(req.inviteId).get()
                 .then(function (doc) {
                     if (doc.exists) {
                         const {tripId} = doc.data();
