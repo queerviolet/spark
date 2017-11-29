@@ -59,6 +59,7 @@
     left: 0;
     height: auto;
     min-height: 100vh;
+    min-width: 100vw;
     background-color: rgb(230, 230, 230);
 }
 
@@ -117,7 +118,7 @@ input[type=text] {
 
 .date-box {
     display: flex;
-    border: 1px solid #3B4A4D;
+    border: 1px solid #229C8F;
     background-color: #F7F8FA;
     border-radius: 2px;
     margin: 5px 8px;
@@ -125,13 +126,13 @@ input[type=text] {
 }
 
 .today {
-    background-color: #3BC9E6;
+    background-color: #FBCEB1;
     margin: 5px 8px;
     padding: 3px 8px;
 }
 
 .pin-event {
-    background-color: #3BC9E6;
+    background-color: #FBCEB1;
     color: #3B4A4D;
     margin: 5px 8px;
     padding: 5px 10px;
@@ -139,6 +140,7 @@ input[type=text] {
     flex-basis: 200px;
     box-shadow: 10px 10px #888888;
 }
+
 
 .date-text {
     font-size: 20;
@@ -179,6 +181,10 @@ h3, h1 {
 
 .badge {
     background-color: #F7F8FA
+}
+
+.liked {
+    background-color: rgb(49, 214, 195)
 }
 
 .bottom-align {

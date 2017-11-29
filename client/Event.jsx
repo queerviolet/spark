@@ -39,7 +39,7 @@ export default class Event extends Component {
                 <li className="itin-event">{`${this.props.name} @ ${this.props.time.toLocaleTimeString()}`}</li>
             :
             <div className="pin-event">
-                <span className=" badge" onClick={this.handleLike}>{count(this.props.likes)} &hearts;</span>
+                <span className={`badge ${this.props.likes && this.props.likes[this.props.userId] && 'liked' }`} onClick={this.handleLike}>{count(this.props.likes)} &hearts;</span>
                 <p><b>{this.props.name}</b></p>
                 <p>{this.props.description}</p>
             </div>
