@@ -40,10 +40,10 @@
 .chatForm {
     z-index: 2;
     position: fixed;
-    top: 20vh;
-    left: 70vw;
     height: 80vh;
-    width: 30vw;
+    bottom: 0px;
+    right: 0px;
+    width: 300px;
     border-radius: 4px;
     background: rgba(18, 16, 22, 0.6);
     border: 2px solid black;
@@ -83,16 +83,6 @@
 .toggleChat {
     z-index: 2;
     position: fixed;
-    /* border-radius: 50%;
-    background-color: rgb(6, 41, 7) ;
-    border: none;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    /* font-size: 16px; */
-    /* margin: 4px 2px; */
     top: 95vh;
     left: 95vw;
 }
@@ -102,6 +92,10 @@ input[type=text] {
     font-family:  'Josefin Sans',
     sans-serif;
     color: black;
+}
+
+#chat-input {
+    color: white;
 }
 
 .event-box {
@@ -139,13 +133,7 @@ input[type=text] {
 .date-text {
     font-size: 20;
     font-weight: bold;
-    /* text-align: center; */
 }
-
-/* .sender-field {
-    font-size: 20;
-    color: gray;
-} */
 
 h3, h1 {
     text-align: center;
@@ -212,7 +200,6 @@ body {
     width: 200px;
 }
 
-/* FOR THE HOMEPAGE */
 .login-btn {
     z-index: 2;
     position: absolute;
@@ -243,7 +230,6 @@ body {
     margin: 10px;
     display: inline-block;
     position: relative;
-    /* width: auto; */
     height: auto;
     background-color: white;
     padding-top: 5px;

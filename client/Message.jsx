@@ -8,7 +8,7 @@ export default (props) => {
       props.places.map(({name, rating, photos}) => {
         const photo = photos? photos[0].photo_reference : '';
        return( <div className="bot-response">
-        <p>{name} {rating || ''}
+        <p><b>{name}</b> &nbsp;&nbsp;{rating || ''}{rating && '⭐'}
         <button className="pin-button" onClick={() => {console.log(name);props.eventref.add({
           name: name,
           comment: [],
