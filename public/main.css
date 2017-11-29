@@ -133,13 +133,13 @@ input[type=text] {
 }
 
 .today {
-    background-color: #3BC9E6;
+    background-color: #FF9649;
     margin: 5px 8px;
     padding: 3px 8px;
 }
 
 .pin-event {
-    background-color: #3BC9E6;
+    background-color: #FF9649;
     /* #3B4A4D */
     color: #3B4A4D;
     margin: 5px 8px;
