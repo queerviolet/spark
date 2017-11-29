@@ -137,10 +137,23 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else if (cmd.startsWith('remove pin ')) {
-    console.log("@@@@@@@@@@@@@@@@@@@@@", msg.substring(11))
+    const pinned = msg.substring(11)
+    console.log(pinned)
+    rsp = 'Bot removed ' + pinned + ' from pinned events';
 
-
-    rsp = 'Bot removed ' + msg.substring(11) + ' from pinned events';
+    return chat.parent.collection('event')
+    .where('name', '==', pinned)
+    .get().doc(doc.id).delete()
+    .catch(function (error) {
+      console.log("Error getting documents: ", error);
+    })
+    .then(() => {
+      return chat.add({
+        time: new Date(),
+        text: rsp,
+        from: 'Your buddy Bot'
+      });
+    })
   }
 
   else {
