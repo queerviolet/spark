@@ -37,9 +37,9 @@ export default class Itinerary extends React.Component {
     this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
-        this.setState({dates: tripDates(startDate, endDate)})
+        this.setState({dates: tripDates(startDate, endDate)});
       }
-    })
+    });
   }
 
 
@@ -53,8 +53,7 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    console.log("THIS.STATE.DATES: ", this.state.dates)
-    const now = (new Date()).toDateString()
+    const now = (new Date()).toDateString();
     return (
       <div className="col-md-6 panel">
         <div className="itin-header">

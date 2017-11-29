@@ -33,8 +33,6 @@ export class Sidebar extends Component {
 //
     render(){
     var trips = this.state.trips;
-    console.log('inside sidebar render with props: ', this.props);
-    // console.log('sidebar has props...', this.props);
     return (
         <div className="sidebar">
         <SideNav

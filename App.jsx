@@ -38,7 +38,6 @@ export default class App extends Component{
   }
 
   logout() {
-    console.log('inside of app and it has props...', this.props)
     auth.signOut()
       .then(() => {
         this.setState({user: null})
