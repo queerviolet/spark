@@ -35,12 +35,13 @@ export default class Itinerary extends React.Component {
   componentDidMount() {
     this.setState({room: this.props.room})
     this.unsubscribeEvents = this.props.room.orderBy('time').onSnapshot((snapshot) => {
+      console.log("SOMESTRING: ", snapshot.docs)
+
       this.setState({events: snapshot.docs});
     });
     this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
-        console.log("SOMESTRING: ", startDate, endDate)
         this.setState({dates: tripDates(startDate, endDate)})
       }
     })
@@ -53,12 +54,13 @@ export default class Itinerary extends React.Component {
     this.unsubscribeTrip();
 
     this.unsubscribeEvents = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
+      console.log("SECOND CONSOLE: ", snapshot.docs)
+
       this.setState({ events: snapshot.docs });
     });
     this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
       const { startDate, endDate } = snapshot.data();
       if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
-        console.log("SECOND CONSOLE: ", startDate, endDate)
         this.setState({ dates: tripDates(startDate, endDate) })
       }
     })
@@ -95,6 +97,7 @@ export default class Itinerary extends React.Component {
               <p className="date-text">{date}</p>
               <div>
                 {this.state.events.map((event, idx) => {
+                  console.log("EVENT.DATA ", event.data())
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
