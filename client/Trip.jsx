@@ -6,9 +6,10 @@ import { Sidebar } from './Sidebar';
 
 export default class Trip extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            tripId: props.match.params.tripId, //ADDED
             isPartOfTrip: true,
             startDate: {},
             endDate: {},
@@ -19,26 +20,45 @@ export default class Trip extends Component {
         this.sendInvite = this.sendInvite.bind(this);
     }
 
-    fetch (tripRef){
-        tripRef.get().then(doc => {
-            if (doc.exists && doc.data().users[this.props.user.uid]) {
-                const { startDate, endDate, name, users } = doc.data();
-                // console.log("USERSSSSS", users)
-                this.setState({ isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
-            } else {
-                console.log("No such document!");
-            }
-        }).catch(error => {
-            console.log("Error getting document: ", error);
-        })
-    }
+
+    // if we set the tripId on state as well and then render using that, we should be good.
+    // MIGHT STILL NEED A COMPONENTWILLRECEIVEPROPS / COMPONENTSHOULDUPDATE THO
+    // fetch (tripRef){
+    //     tripRef.get().then(doc => {
+    //         if (doc.exists && doc.data().users[this.props.user.uid]) {
+    //             const { startDate, endDate, name, users } = doc.data();
+    //             // console.log("USERSSSSS", users)
+    //             this.setState({ isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
+    //             console.log('got some new data incl dates: ', startDate, endDate)
+    //         } else {
+    //             console.log("No such document!");
+    //         }
+    //     }).catch(error => {
+    //         console.log("Error getting document: ", error);
+    //     })
+    // }
 
     componentDidMount(){
-        this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
+        this.setState({ tripId: this.props.match.params.tripId}) //ADDED
+        this.unsubscribe = db.collection('trips').doc(this.props.match.params.tripId)
+            .onSnapshot((doc) => {
+                this.setState({...doc.data(), numOfUsers: getTrue(doc.data().users), isPartOfTrip: true})
+                console.log('inside of snapshot thing in trip now......', doc.data())
+            });
+
+        // this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
     }
 
     componentWillReceiveProps(nextProps){
-        this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
+        this.setState({ tripId: nextProps.match.params.tripId }) //ADDED
+        if(this.props !== nextProps) this.props = nextProps;
+        this.unsubscribe && this.unsubscribe();
+        this.unsubscribe = db.collection('trips').doc(nextProps.match.params.tripId)
+            .onSnapshot((doc) => {
+                this.setState({ ...doc.data(), numOfUsers: getTrue(doc.data().users), isPartOfTrip: true })
+                console.log('inside of snapshot thing in trip now......', doc.data())
+            });
+        // this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
     }
 
 
@@ -46,16 +66,24 @@ export default class Trip extends Component {
     sendInvite(evt){
         evt.preventDefault();
         //target email is evt.target.toEmail.value
-        const [email, tripId] = [evt.target.toEmail.value, this.props.match.params.tripId]
-        db.collection('users')
-            .doc(this.props.user.uid)
-            .set({ invitee: [email, tripId ]}, {merge: true});
+        console.log('inside of sendInvite')
+        const [email, tripId, tripName, displayName] = [evt.target.toEmail.value, this.props.match.params.tripId, this.state.name, this.props.user.displayName]
+        console.log('email and tripId', email, tripId, tripName, displayName);
+        db.collection('invites')
+            .add({
+                email,
+                displayName,
+                tripId,
+                tripName
+            })
+
+        /* reset the input field blank and hide invite form */
         evt.target.toEmail.value = '';
         this.setState({showInvite: false});
     }
 
     render(){
-        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);        console.log('inside of trip')
+        const tripRef = db.collection('trips').doc(this.state.tripId); //UPDATED
         let isPartOfTrip = this.state.isPartOfTrip;
         return (
             (isPartOfTrip ?
@@ -68,7 +96,7 @@ export default class Trip extends Component {
                             <label className="label">
                                 <input type="text" name="toEmail" id="email-input" />
                             </label>
-                            <input className="btn waves-effect waves-light center-self" type="submit" value="Submit" />
+                            <input className="btn center-self" type="submit" value="Submit" />
                         </form>
                     }
                 </div>

@@ -6,12 +6,13 @@ import {db} from '../fire'
 //props: room
 
 export default class Chat extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             messages: [],
             showChat: false,
-            newMessage: ''
+            newMessage: '',
+           // room: props.room
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,10 +22,25 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.room.orderBy('time').onSnapshot((snapshot) => {
+        this.unsubscribe = this.props.room.orderBy('time').onSnapshot((snapshot) => {
             this.setState({messages: snapshot.docs});
         });
         this.el && this.scrollToBottom();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.unsubscribe && this.unsubscribe();
+        if(this.props !== nextProps) this.props = nextProps;
+        this.unsubscribe = nextProps.room.orderBy('time')
+            .onSnapshot((snapshot) => {
+                this.setState({ messages: snapshot.docs });
+            })
+
+        this.el && this.scrollToBottom();
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe && this.unsubscribe();
     }
 
     componentDidUpdate() {
@@ -63,7 +79,7 @@ export default class Chat extends React.Component {
             this.state.showChat
                 ? (
                     <div className="chatForm">
-                    <div className="chatTitle">😀 {this.props.numOfUsers}</div>
+                        <div className="chatTitle">😀 {this.props.numOfUsers}</div>
                         <div className="chatMessage" >
                             {this.state.messages.map((message, index) => {
                                 return <Message key={index} {...message.data()} eventref={this.props.events} />;

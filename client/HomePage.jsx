@@ -14,6 +14,7 @@ export default class HomePage extends Component {
     const images = ['paris.jpg', 'iceland.jpg', 'hiking.jpg', 'nyc.jpg'];
     let counter = 0;
 
+    // can you set this to something to stop the interval on componentWillUnmount??
     setInterval(() => {
       counter = (counter + 1) % (images.length);
       theHP.setState({
