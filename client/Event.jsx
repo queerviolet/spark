@@ -13,6 +13,7 @@ export default class Event extends Component {
         // this.handleComment = this.handleComment.bind(this);
     }
 
+    // LINE 21 - EVENT/ITIN ISSUE
     componentDidMount(){
         const evtComp = this;
         evtComp.setState({eventRef: this.props.room.doc(this.props.eventId)})

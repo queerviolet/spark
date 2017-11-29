@@ -36,9 +36,9 @@ export default class Itinerary extends React.Component {
     this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
-        this.setState({dates: tripDates(startDate, endDate)})
+        this.setState({dates: tripDates(startDate, endDate)});
       }
-    })
+    });
   }
 
   componentWillReceiveProps(nextProps){
@@ -51,11 +51,10 @@ export default class Itinerary extends React.Component {
     this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
       const { startDate, endDate } = snapshot.data();
       if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
-        this.setState({ dates: tripDates(startDate, endDate) })
+        this.setState({ dates: tripDates(startDate, endDate) });
       }
-    })
+    });
   }
-
 
   handleAddButton(){
     //evt.preventDefault();
@@ -63,7 +62,7 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const now = (new Date()).toDateString()
+    const now = (new Date()).toDateString();
     return (
       <div className="col-md-6 panel">
         <div className="itin-header">

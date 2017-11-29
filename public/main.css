@@ -224,9 +224,10 @@ body {
 .carousel-image {
     background-repeat: no-repeat;
     background-position: center center;
-    background-attachment: fixed;
     background-size: cover;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
 
 .hp-header {
