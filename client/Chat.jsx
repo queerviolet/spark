@@ -91,7 +91,7 @@ export default class Chat extends React.Component {
                                 <i className="material-icons right">send</i>
                                 </button>
 
-                                <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_button</i></a>
+                                <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat</i></a>
                             </div>
                             </form>
                         </div>

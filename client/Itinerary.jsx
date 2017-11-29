@@ -70,7 +70,7 @@ export default class Itinerary extends React.Component {
     const now = (new Date()).toDateString();
     const dates = tripDates(this.props.startDate, this.props.endDate);
     return (
-      <div className="col-md-6 panel">
+      <div className="col-md-6">
         <div className="itin-header">
           <h3>Itinerary</h3>
           <i className="fa fa-plus-square" onClick={() => {this.setState({showAdd: !this.state.showAdd})}} />

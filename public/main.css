@@ -9,7 +9,8 @@
 
 .event-scroll {
     overflow-Y: scroll;
-    max-height: 45vw;
+    max-height: 70vh;
+    padding-bottom: 20px;
 }
 
 .chatTitle {
@@ -53,8 +54,11 @@
 }
 
 .trip-whole-page {
-    overflow: hidden;
-    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: 100vh;
     background-color: rgb(230, 230, 230);
 }
 
@@ -80,6 +84,15 @@
     flex-basis: 400px;
 }
 
+.toggleChat > * {
+    z-index: 2;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+}
+
+
 .toggleChat {
     z-index: 2;
     position: fixed;
@@ -93,8 +106,8 @@
     /* display: inline-block; */
     /* font-size: 16px; */
     /* margin: 4px 2px; */
-    top: 95vh;
-    left: 95vw;
+    bottom: 10px;
+    right: 10px;
 }
 
 input[type=text] {
@@ -169,7 +182,8 @@ h3, h1 {
 }
 
 #sidebarButton{
-    position: absolute;
+    position: fixed;
+    z-index: 3;
     top: 30px;
     left: 80px;
 }
