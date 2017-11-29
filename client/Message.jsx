@@ -26,8 +26,8 @@ export default (props) => {
 
     return (
       (
-      <div>
-        <p className="speech-bubble:after"><strong>{props.from}</strong> {props.time.toDateString && props.time.toDateString()} {props.time.toLocaleTimeString && props.time.toLocaleTimeString()}</p>
+      <div className="talk-bubble">
+        <p><strong>{props.from}</strong> {props.time.toDateString && props.time.toDateString()} {props.time.toLocaleTimeString && props.time.toLocaleTimeString()}</p>
         <p>{props.text}</p>
       </div>
       )
