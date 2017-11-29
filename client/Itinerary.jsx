@@ -72,7 +72,6 @@ export default class Itinerary extends React.Component {
               <p className="date-text">{date}</p>
               <div>
                 {this.state.events.map((event, idx) => {
-                  console.log("EVENT.DATA ", event.data())
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
