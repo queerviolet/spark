@@ -45,6 +45,7 @@ export default class App extends Component{
   }
 
   render(){
+
     const isLoggedIn = this.state.user;
     return (
       <Router>

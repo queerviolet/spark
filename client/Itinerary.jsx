@@ -17,8 +17,11 @@ export default class Itinerary extends React.Component {
     super(props);
     this.state = {
       events: [],
-      dates: tripDates(props.startDate, props.endDate),
-      showAdd: false
+      dates: props.startDate ?
+      tripDates(props.startDate, props.endDate):
+      [],
+      showAdd: false,
+      room: this.props.room
     };
     this.handleAddButton = this.handleAddButton.bind(this);
   }
@@ -40,9 +43,13 @@ export default class Itinerary extends React.Component {
   }
 
 
-  handleAddButton(){
+  handleAddButton(evt, name, time){
     //evt.preventDefault();
+    const trip = this.state.room.parent
     this.setState({showAdd: !this.state.showAdd});
+    this.state.room.add({ name, time, itineraryStatus: true });
+    if (!this.state.dates[0] || time < this.state.dates[0]) { trip.set({ startDate: time }, { merge: true }) }
+    if (!this.state.dates[-1] || time > this.state.dates[-1]) { trip.set({ endDate: time }, { merge: true }) }
   }
 
   render() {
@@ -51,12 +58,12 @@ export default class Itinerary extends React.Component {
       <div className="col-md-6 panel">
         <div className="itin-header">
           <h3>Itinerary</h3>
-          <i className="fa fa-plus-square" onClick={this.handleAddButton} />
+          <i className="fa fa-plus-square" onClick={() => {this.setState({showAdd: !this.state.showAdd})}} />
         </div>
         {this.state.showAdd &&
           <AddEvent
-            startDate = {this.props.startDate}
-            endDate = {this.props.endDate}
+            startDate={this.state.dates[0]}
+            endDate={this.state.dates[-1]}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div className="event-scroll">{
