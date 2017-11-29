@@ -21,8 +21,6 @@ export default class Itinerary extends React.Component {
       showAdd: false
     };
     this.handleAddButton = this.handleAddButton.bind(this);
-    this.unsubscribeEvents = null;
-    this.unsubscribeTrip = null;
   }
 
   // componentWillReceiveProps(nextProps){
@@ -30,10 +28,10 @@ export default class Itinerary extends React.Component {
   // }
 
   componentDidMount() {
-    this.unsubscribeEvents = this.props.room.orderBy('time').onSnapshot((snapshot) => {
+    this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
-    this.unsubscribeTrip = this.props.trip.onSnapshot(snapshot => {
+    this.props.trip.onSnapshot(snapshot => {
       const {startDate, endDate} = snapshot.data();
       if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
         this.setState({dates: tripDates(startDate, endDate)});
@@ -41,20 +39,6 @@ export default class Itinerary extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps){
-    this.unsubscribeEvents();
-    this.unsubscribeTrip();
-
-    this.unsubscribeEvents = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
-      this.setState({ events: snapshot.docs });
-    });
-    this.unsubscribeTrip = nextProps.trip.onSnapshot(snapshot => {
-      const { startDate, endDate } = snapshot.data();
-      if (startDate !== nextProps.startDate || endDate !== nextProps.endDate) {
-        this.setState({ dates: tripDates(startDate, endDate) });
-      }
-    });
-  }
 
   handleAddButton(){
     //evt.preventDefault();
@@ -84,7 +68,7 @@ export default class Itinerary extends React.Component {
                   const { itineraryStatus, time } = event.data();
                   const eventDate = time.toDateString && time.toDateString();
                   return itineraryStatus && (eventDate === date ) && (
-                    <Event key={idx} room={this.props.room} {...event.data() } eventId={event.id} userId={this.props.user.uid} />
+                    <Event key={idx} {...event.data() } />
                   );}
                 )}
               </div>

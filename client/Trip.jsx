@@ -23,7 +23,8 @@ export default class Trip extends Component {
         tripRef.get().then(doc => {
             if (doc.exists && doc.data().users[this.props.user.uid]) {
                 const { startDate, endDate, name, users } = doc.data();
-                this.setState( {isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users), tripId: doc.id});
+                // console.log("USERSSSSS", users)
+                this.setState({ isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
             } else {
                 console.log("No such document!");
             }
@@ -54,10 +55,10 @@ export default class Trip extends Component {
     }
 
     render(){
-        const tripRef = this.state.tripId ? db.collection('trips').doc(this.state.tripId) : null;
+        const tripRef = db.collection('trips').doc(this.props.match.params.tripId);        console.log('inside of trip')
         let isPartOfTrip = this.state.isPartOfTrip;
         return (
-            tripRef && (isPartOfTrip ?
+            (isPartOfTrip ?
             <div className="trip-whole-page">
                 <div className="trip-header">
                     <h1>{this.state.name}</h1>
