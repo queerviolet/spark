@@ -20,9 +20,9 @@ export default class Itinerary extends React.Component {
       events: [],
       startDate: props.startDate,
       endDate: props.endDate,
-      dates: props.startDate ?
-      tripDates(props.startDate, props.endDate):
-      [],
+      // dates: props.startDate ?
+      // tripDates(props.startDate, props.endDate):
+      // [],
       showAdd: false,
       room: this.props.room
     };
@@ -47,7 +47,8 @@ export default class Itinerary extends React.Component {
 
   async componentWillReceiveProps(nextProps){
     this.unsubscribe && this.unsubscribe();
-    await this.setState({room: nextProps.room, startDate: nextProps.startDate, endDate: nextProps.endDate});
+    if(this.props !== nextProps) {this.props = nextProps}
+    // await this.setState({room: nextProps.room, startDate: nextProps.startDate, endDate: nextProps.endDate});
     this.unsubscribe = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({ events: snapshot.docs });
     });
@@ -56,16 +57,16 @@ export default class Itinerary extends React.Component {
 
   handleAddButton(evt, name, time){
     //evt.preventDefault();
-    const trip = this.state.room.parent
+    const trip = this.props.room.parent
     this.setState({showAdd: !this.state.showAdd});
-    this.state.room.add({ name, time, itineraryStatus: true });
-    if (!this.state.startDate || time < this.state.startDate) { trip.set({ startDate: time }, { merge: true }) }
-    if (!this.state.endDate || time > this.state.endDate) { trip.set({ endDate: time }, { merge: true }) }
+    this.props.room.add({ name, time, itineraryStatus: true });
+    if (!this.props.startDate || time < this.props.startDate) { trip.set({ startDate: time }, { merge: true }) }
+    if (!this.props.endDate || time > this.props.endDate) { trip.set({ endDate: time }, { merge: true }) }
   }
 
   render() {
     const now = (new Date()).toDateString();
-    const dates = tripDates(this.state.startDate, this.state.endDate);
+    const dates = tripDates(this.props.startDate, this.props.endDate);
     return (
       <div className="col-md-6 panel">
         <div className="itin-header">
@@ -74,8 +75,8 @@ export default class Itinerary extends React.Component {
         </div>
         {this.state.showAdd &&
           <AddEvent
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div className="event-scroll">{
