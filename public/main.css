@@ -9,7 +9,8 @@
 
 .event-scroll {
     overflow-Y: scroll;
-    max-height: 45vw;
+    max-height: 70vh;
+    padding-bottom: 20px;
 }
 
 .chatTitle {
