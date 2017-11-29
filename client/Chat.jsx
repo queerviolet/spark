@@ -12,7 +12,7 @@ export default class Chat extends React.Component {
             messages: [],
             showChat: false,
             newMessage: '',
-            room: props.room
+           // room: props.room
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,7 +22,7 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.unsubscribe = this.state.room.orderBy('time').onSnapshot((snapshot) => {
+        this.unsubscribe = this.props.room.orderBy('time').onSnapshot((snapshot) => {
             this.setState({messages: snapshot.docs});
         });
         this.el && this.scrollToBottom();
@@ -30,8 +30,8 @@ export default class Chat extends React.Component {
 
     async componentWillReceiveProps(nextProps) {
         this.unsubscribe && this.unsubscribe();
-        await this.setState({room: nextProps.room})
-        this.unsubscribe = this.state.room.orderBy('time')
+        if(this.props !== nextProps) this.props = nextProps;
+        this.unsubscribe = nextProps.room.orderBy('time')
             .onSnapshot((snapshot) => {
                 this.setState({ messages: snapshot.docs });
             })
