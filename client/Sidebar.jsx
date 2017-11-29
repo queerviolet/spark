@@ -30,11 +30,9 @@ export class Sidebar extends Component {
                 console.log('Error getting documents', err);
             })
     }
-
+//
     render(){
     var trips = this.state.trips;
-    console.log('inside sidebar render with state: ', this.state);
-    // console.log('sidebar has props...', this.props);
     return (
         <div className="sidebar">
         <SideNav
@@ -42,7 +40,7 @@ export class Sidebar extends Component {
             options={{ closeOnClick: true }} >
                 {/* used onClick instead of nested Link because browser console complains about nested a tags */}
                 <SideNavItem onClick={() => {this.props.history.push('/')}} >My Account</SideNavItem>
-                <button onClick={() => {this.props.logout(); this.props.history.push('/')}}>Log Out</button>
+                <SideNavItem onClick={() => { this.props.logout(); this.props.history.push('/') }}>Log Out</SideNavItem>
                 <SideNavItem divider />
                 <SideNavItem subheader>My Trips</SideNavItem>
                 {
@@ -55,8 +53,8 @@ export class Sidebar extends Component {
                     })
                 }
                 <SideNavItem divider />
-                <SideNavItem href="/newTrip">+ Add Trip</SideNavItem>
-                <AddTrip />
+                <SideNavItem subheader>+ Add Trip</SideNavItem>
+                <AddTrip userid={this.props.userId} />
         </SideNav>
         </div>
         );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 /*  HELPERS FOR THE OPTIONS BELOW  */
 let days = [];
 ( () => {
@@ -13,13 +12,7 @@ let hours = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 let minutes = ['00', '15', '30', '45'];
 /*  END HELPER  */
 
-
 /*  START COMPONENT  */
-/* UNHANDLED ISSUES  -->
-    days should be options for valid days that month...
-    there ain't no February 31st
-*/
-
 export default class AddEvent extends Component{
   constructor(){
     super();
@@ -30,7 +23,9 @@ export default class AddEvent extends Component{
       year: '2017',
       hour: '12',
       minute: '00',
-      ampm: 'PM'
+      ampm: 'PM',
+      startDate: {},
+      endDate: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,18 +35,20 @@ export default class AddEvent extends Component{
     evt.preventDefault();
     const {month, day, year, hour, minute, ampm, name} = this.state;
     const time = new Date(month + ' ' + day + ' ' + year + ' ' + hour + ':' + minute + ' ' + ampm);
-    const trip = this.props.room.parent
+    //const trip = this.props.room.parent
 
     /*  ADD EVENT TO EVENTS COLLECTION  */
-    this.props.room.add({name, time, itineraryStatus: true});
+    // this.props.room.add({name, time, itineraryStatus: true});
 
-    /*  RESET START OR END DATE IF THE EVENT TIME IS OUTSIDE THE RANGE  */
-    if (time < this.props.startDate){ trip.set({startDate: time}, {merge: true}) }
-    if (time > this.props.endDate){ trip.set({endDate: time}, {merge: true}) }
+    // /*  RESET START OR END DATE IF THE EVENT TIME IS OUTSIDE THE RANGE  */
+    // console.log("START DATE: ", this.props.startDate, "END DATE: ", this.props.endDate)
+    // if (!this.props.startDate || time < this.props.startDate){ trip.set({startDate: time}, {merge: true}) }
+    // if (!this.props.endDate || time > this.props.endDate){ trip.set({endDate: time}, {merge: true}) }
 
-    this.props.closeForm();
+    this.props.closeForm(null, name, time);
     /*  does not include default empty values for other fields of event */
   }
+
 
   handleChange(evt){
     evt.preventDefault();
