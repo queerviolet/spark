@@ -16,12 +16,15 @@ export default class Itinerary extends React.Component {
   constructor(props) { //props is the events we tell the bot to pin?
     super(props);
     this.state = {
+      // room: props.room,
       events: [],
-      dates: props.startDate ?
-      tripDates(props.startDate, props.endDate):
-      [],
+      // startDate: props.startDate,
+      // endDate: props.endDate,
+      // dates: props.startDate ?
+      // tripDates(props.startDate, props.endDate):
+      // [],
       showAdd: false,
-      room: this.props.room
+      // room: this.props.room
     };
     this.handleAddButton = this.handleAddButton.bind(this);
   }
@@ -31,43 +34,55 @@ export default class Itinerary extends React.Component {
   // }
 
   componentDidMount() {
-    this.props.room.orderBy('time').onSnapshot((snapshot) => {
+    this.unsubscribe = this.props.room.orderBy('time').onSnapshot((snapshot) => {
       this.setState({events: snapshot.docs});
     });
-    this.props.trip.onSnapshot(snapshot => {
-      const {startDate, endDate} = snapshot.data();
-      if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
-        this.setState({dates: tripDates(startDate, endDate)});
-      }
+    // this.props.trip.onSnapshot(snapshot => {
+    //   const {startDate, endDate} = snapshot.data();
+    //   if ( startDate !== this.props.startDate || endDate !== this.props.endDate){
+    //     this.setState({dates: tripDates(startDate, endDate)});
+    //   }
+    // });
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.unsubscribe && this.unsubscribe();
+    if(this.props !== nextProps) {this.props = nextProps}
+    // await this.setState({room: nextProps.room, startDate: nextProps.startDate, endDate: nextProps.endDate});
+    this.unsubscribe = nextProps.room.orderBy('time').onSnapshot((snapshot) => {
+      this.setState({ events: snapshot.docs });
     });
   }
 
 
   handleAddButton(evt, name, time){
     //evt.preventDefault();
-    const trip = this.state.room.parent
+    const trip = this.props.room.parent
     this.setState({showAdd: !this.state.showAdd});
-    this.state.room.add({ name, time, itineraryStatus: true });
-    if (!this.state.dates[0] || time < this.state.dates[0]) { trip.set({ startDate: time }, { merge: true }) }
-    if (!this.state.dates[-1] || time > this.state.dates[-1]) { trip.set({ endDate: time }, { merge: true }) }
+    this.props.room.add({ name, time, itineraryStatus: true });
+    if (!this.props.startDate || time < this.props.startDate) {
+      trip.set({ startDate: time }, { merge: true }) }
+    if (!this.props.endDate || time > this.props.endDate) {
+      trip.set({ endDate: time }, { merge: true }) }
   }
 
   render() {
     const now = (new Date()).toDateString();
+    const dates = tripDates(this.props.startDate, this.props.endDate);
     return (
-      <div className="col-md-6 panel">
+      <div className="col-md-6">
         <div className="itin-header">
           <h3>Itinerary</h3>
           <i className="fa fa-plus-square" onClick={() => {this.setState({showAdd: !this.state.showAdd})}} />
         </div>
         {this.state.showAdd &&
           <AddEvent
-            startDate={this.state.dates[0]}
-            endDate={this.state.dates[-1]}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
             room={this.props.room}
             closeForm={this.handleAddButton} />}
         <div className="event-scroll">{
-          this.state.dates.map((date, index) => (
+          dates.map((date, index) => (
             <div className={`date-box ${date === now ? 'today' : ''}`} key={index}>
               <p className="date-text">{date}</p>
               <div>

@@ -24,8 +24,6 @@ export default class AddEvent extends Component{
       hour: '12',
       minute: '00',
       ampm: 'PM',
-      startDate: {},
-      endDate: {}
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

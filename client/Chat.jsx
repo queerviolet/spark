@@ -6,12 +6,13 @@ import {db} from '../fire'
 //props: room
 
 export default class Chat extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             messages: [],
             showChat: false,
-            newMessage: ''
+            newMessage: '',
+           // room: props.room
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,10 +22,25 @@ export default class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.room.orderBy('time').onSnapshot((snapshot) => {
+        this.unsubscribe = this.props.room.orderBy('time').onSnapshot((snapshot) => {
             this.setState({messages: snapshot.docs});
         });
         this.el && this.scrollToBottom();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.unsubscribe && this.unsubscribe();
+        if(this.props !== nextProps) this.props = nextProps;
+        this.unsubscribe = nextProps.room.orderBy('time')
+            .onSnapshot((snapshot) => {
+                this.setState({ messages: snapshot.docs });
+            })
+
+        this.el && this.scrollToBottom();
+    }
+
+    componentWillUnmount(){
+        this.unsubscribe && this.unsubscribe();
     }
 
     componentDidUpdate() {
@@ -75,7 +91,7 @@ export default class Chat extends React.Component {
                                 <i className="material-icons right">send</i>
                                 </button>
 
-                                <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat_button</i></a>
+                                <a className="toggleChat" onClick={this.handleClick}><i className="material-icons right">chat</i></a>
                             </div>
                             </form>
                         </div>

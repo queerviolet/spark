@@ -9,7 +9,8 @@
 
 .event-scroll {
     overflow-Y: scroll;
-    max-height: 45vw;
+    max-height: 70vh;
+    padding-bottom: 20px;
 }
 
 .chatTitle {
@@ -53,8 +54,11 @@
 }
 
 .trip-whole-page {
-    overflow: hidden;
-    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: 100vh;
     background-color: rgb(230, 230, 230);
 }
 
@@ -80,11 +84,19 @@
     flex-basis: 400px;
 }
 
+.toggleChat > * {
+    z-index: 2;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+}
+
 .toggleChat {
     z-index: 2;
     position: fixed;
-    top: 95vh;
-    left: 95vw;
+    bottom: 10px;
+    right: 10px;
 }
 
 input[type=text] {
@@ -106,7 +118,6 @@ input[type=text] {
 .date-box {
     display: flex;
     border: 1px solid #3B4A4D;
-    /*  use this blueish for when it is the date for highlighting? #3BC9E6 */
     background-color: #F7F8FA;
     border-radius: 2px;
     margin: 5px 8px;
@@ -121,7 +132,6 @@ input[type=text] {
 
 .pin-event {
     background-color: #3BC9E6;
-    /* #3B4A4D */
     color: #3B4A4D;
     margin: 5px 8px;
     padding: 5px 10px;
@@ -157,7 +167,8 @@ h3, h1 {
 }
 
 #sidebarButton{
-    position: absolute;
+    position: fixed;
+    z-index: 3;
     top: 30px;
     left: 80px;
 }
