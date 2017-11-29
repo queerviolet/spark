@@ -23,28 +23,42 @@ export default class Trip extends Component {
 
     // if we set the tripId on state as well and then render using that, we should be good.
     // MIGHT STILL NEED A COMPONENTWILLRECEIVEPROPS / COMPONENTSHOULDUPDATE THO
-    fetch (tripRef){
-        tripRef.get().then(doc => {
-            if (doc.exists && doc.data().users[this.props.user.uid]) {
-                const { startDate, endDate, name, users } = doc.data();
-                // console.log("USERSSSSS", users)
-                this.setState({ isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
-            } else {
-                console.log("No such document!");
-            }
-        }).catch(error => {
-            console.log("Error getting document: ", error);
-        })
-    }
+    // fetch (tripRef){
+    //     tripRef.get().then(doc => {
+    //         if (doc.exists && doc.data().users[this.props.user.uid]) {
+    //             const { startDate, endDate, name, users } = doc.data();
+    //             // console.log("USERSSSSS", users)
+    //             this.setState({ isPartOfTrip: true, startDate, endDate, name, numOfUsers: getTrue(users) });
+    //             console.log('got some new data incl dates: ', startDate, endDate)
+    //         } else {
+    //             console.log("No such document!");
+    //         }
+    //     }).catch(error => {
+    //         console.log("Error getting document: ", error);
+    //     })
+    // }
 
     componentDidMount(){
         this.setState({ tripId: this.props.match.params.tripId}) //ADDED
-        this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
+        this.unsubscribe = db.collection('trips').doc(this.props.match.params.tripId)
+            .onSnapshot((doc) => {
+                this.setState({...doc.data(), numOfUsers: getTrue(doc.data().users), isPartOfTrip: true})
+                console.log('inside of snapshot thing in trip now......', doc.data())
+            });
+
+        // this.fetch(db.collection('trips').doc(this.props.match.params.tripId))
     }
 
     componentWillReceiveProps(nextProps){
         this.setState({ tripId: nextProps.match.params.tripId }) //ADDED
-        this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
+        if(this.props !== nextProps) this.props = nextProps;
+        this.unsubscribe && this.unsubscribe();
+        this.unsubscribe = db.collection('trips').doc(nextProps.match.params.tripId)
+            .onSnapshot((doc) => {
+                this.setState({ ...doc.data(), numOfUsers: getTrue(doc.data().users), isPartOfTrip: true })
+                console.log('inside of snapshot thing in trip now......', doc.data())
+            });
+        // this.fetch(db.collection('trips').doc(nextProps.match.params.tripId))
     }
 
 

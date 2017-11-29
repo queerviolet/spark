@@ -28,7 +28,7 @@ export default class Pinned extends React.Component {
     componentWillReceiveProps(nextProps){
         this.unsubscribe && this.unsubscribe();
         if(this.props !== nextProps) this.props = nextProps;
-        // await this.setState({room: nextProps.room})
+        // await this.setState({room: nextProps})
         this.unsubscribe = nextProps.room
             .onSnapshot((snapshot) => {
                 this.setState({ events: snapshot.docs });
