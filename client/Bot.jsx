@@ -8,7 +8,7 @@ export const runBotFromMessageEvent = (always = false) => async event => {
   const trip = chat.parent
 
   if (!always) {
-    if ((await trip.get()).data().suppressBot) return //Ashi had us add .data() need to check that it works
+    if ((await trip.get()).data().suppressBot) return
   }
 
   if (msg.text && msg.text.startsWith('/')) {
@@ -24,7 +24,7 @@ export async function botReceiveMessage(msg, chat, trip){
 
   console.log('cmd=', cmd)
 
-  const {GeoPoint} = trip.firestore.constructor//unsure why this is on trip
+  const {GeoPoint} = trip.firestore.constructor
   let LAT, LNG;
 
   await trip.get().then(function (doc) {
@@ -43,7 +43,7 @@ export async function botReceiveMessage(msg, chat, trip){
 
   if (cmd.startsWith('set location to ')){
     var location = msg.substring(16)
-    rsp = 'Bot will set location to: ' + location;
+    rsp = '🤖 Bot will set location to: ' + location;
     const {lat, lng} = await getCoords(location);
     trip.set({coords: new GeoPoint(lat, lng)}, {merge: true})
     trip.set({ location }, { merge: true })
@@ -69,7 +69,7 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else if (cmd.startsWith('pin ')){
-    rsp = 'Bot added ' + msg.substring(4) + ' to pins board';
+    rsp = '🤖 Bot added ' + msg.substring(4) + ' to pins board';
 
     return chat.parent.collection('event')
       .add({
@@ -90,26 +90,20 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 
   else if (cmd.startsWith('add event ')) {
-    // 'add event ____ @ _____
+
     const [event, dateTime] = msg.substring(10).split(' @ ');
-    rsp = 'Bot added ' + event + ' to itinerary';
-    // const event = msg.substring(10);
-    // console.log('event issss =======>>>>>', event, 'lalala');
+    rsp = '🤖 Bot added ' + event + ' to itinerary';
 
     return chat.parent.collection('event')
       .where('name', '==', event)
       .get()
       .then(function (querySnapshot) {
-        // console.log('for querySnapshot with size', querySnapshot.docs.length)
         if(querySnapshot.size) {
           querySnapshot.forEach(doc => {
-            // console.log('got doc and hopefully an id', doc.id);
-            // console.log('is this a reference?', chat.parent.collection('event').doc(doc.id))
             chat.parent.collection('event').doc(doc.id).set({itineraryStatus: true, time: new Date(dateTime)}, {merge: true})
           })
         }
         else {
-          // console.log('querysnapshot size shouldve been zero so now were adding a new one')
           chat.parent.collection('event').add({
           name: event,
           likes: {},
@@ -118,15 +112,11 @@ export async function botReceiveMessage(msg, chat, trip){
           itineraryStatus: true,
           time: new Date(dateTime)
         })}
-        // querySnapshot.forEach(function (doc) {
-        //   console.log(doc.id, " => ", doc.data());
-        // });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       })
       .then(() => {
-        // console.log('inside the last then when we create a new message from the bot', rsp);
         return chat.add({
           time: new Date(),
           text: rsp,
@@ -139,13 +129,17 @@ export async function botReceiveMessage(msg, chat, trip){
   else if (cmd.startsWith('remove pin ')) {
     const pinned = msg.substring(11)
     console.log(pinned)
-    rsp = 'Bot removed ' + pinned + ' from pinned events';
+    rsp = '🤖 Bot removed ' + pinned + ' from pinned events';
 
     return chat.parent.collection('event')
     .where('name', '==', pinned)
-    .get().doc(doc.id).delete()
-    .catch(function (error) {
-      console.log("Error getting documents: ", error);
+    .get()
+    .then(function (querySnapshot) {
+      if(querySnapshot.size) {
+        querySnapshot.forEach(doc => {
+          chat.parent.collection('event').doc(doc.id).delete({merge: true})
+        })
+      }
     })
     .then(() => {
       return chat.add({
@@ -156,8 +150,18 @@ export async function botReceiveMessage(msg, chat, trip){
     })
   }
 
+  else if (cmd.startsWith('i love you bot')) {
+    rsp = '🤖 Bot loves you too';
+
+    return chat.add({
+      time: new Date(),
+      text: rsp,
+      from: 'Your buddy Bot'
+    });
+  }
+
   else {
-    rsp = "Sorry I don't understand that command yet. Here are some example commands you can use:     Set location to New York     Search for restaurants    Pin Central Park    Add event Central Park @ 11/12/13 1:23 PM";
+    rsp = "🤖 Sorry I don't understand that command yet. Here are some example commands you can use:     📍 Set location to New York     🍽 Search for restaurants    📌 Pin Central Park    📌 Remove pin Central Park    📆 Add event Central Park @ 11/12/13 1:23 PM";
     return chat.add({
       time: new Date(),
       text: rsp,
@@ -166,5 +170,3 @@ export async function botReceiveMessage(msg, chat, trip){
   }
 }
 
-  //add a response for replying to users saying 'I dont know' when the bot
-  //asks them a question
