@@ -26,6 +26,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "firebase-tools": "^3.14.0",
     "react-hot-loader": "^3.1.2",
+    "strip-ansi": "^4.0.0",
     "through2": "^2.0.3",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4",

@@ -8,11 +8,12 @@ const debug = require('debug')('dev')
     , {spawn: spawnChild} = require('child_process')
     , thru = require('through2')
     , chalk = require('chalk')
+    , strip = require('strip-ansi')
     , colors = [chalk.cyan, chalk.green, chalk.magenta, chalk.blue]
 let nextColorIdx = 0
     
 let resolveFirebaseUrl, hasStartedListening = false
-const firebaseUrl = new Promise(r => resolveFirebaseUrl = r)
+const firebaseUrl = new Promise(r => resolveFirebaseUrl = r).then(strip)
 
 // `firebase serve` prints a line that looks like this
 // when it starts listening:
