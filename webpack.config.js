@@ -1,5 +1,7 @@
 'use strict'
 const webpack = require('webpack')
+    , babel = require('./babel.config')
+    , {isHot, isProd} = require('./env.config')
 
 const config = env => ({
   entry: entries(env, './main.js'),
@@ -39,9 +41,6 @@ const config = env => ({
   plugins: plugins(env),
 })
 
-const isProd = ({NODE_ENV}) => NODE_ENV === 'production'
-const isHot = env => !isProd(env)
-
 const entries = (env, entry) =>
   isHot(env)
     ? ['react-hot-loader/patch', entry]
@@ -64,17 +63,5 @@ function devServer(env) {
     }
   }
 }
-
-const babel = env => ({
-  loader: 'babel-loader', 
-  options: {
-    presets: [
-      ['env', {modules: false}],
-      'stage-2',
-      'react',
-    ],
-    plugins: isHot(env) && ['react-hot-loader/babel']
-  }
-})
 
 module.exports = config(process.env)
