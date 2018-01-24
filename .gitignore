@@ -8,3 +8,5 @@ functions/node_modules
 public/bundle.js
 public/bundle.js.map
 functions/lib.js
+
+secrets.js
