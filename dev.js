@@ -3,6 +3,16 @@
  * firebase routes and function emulation alongside webpack-dev-server's
  * hot loading.
  */
+/**
+ * Run `firebase serve` and `webpack-dev-server` together, to get
+ * firebase routes and function emulation alongside webpack-dev-server's
+ * hot loading.
+ */
+/**
+ * Run `firebase serve` and `webpack-dev-server` together, to get
+ * firebase routes and function emulation alongside webpack-dev-server's
+ * hot loading.
+ */
 
 const debug = require('debug')('dev')
     , {spawn: spawnChild} = require('child_process')
